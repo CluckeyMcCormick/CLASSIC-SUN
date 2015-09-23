@@ -13,7 +13,7 @@ Model, View Controller pattern should be utilized in implementation.
 
 -------------------------------------------------------------------------------------------------------------------------
 Preliminary Requirement Documents
-The event creator has to fill out a form, consisting of {General Location, Specific Location 
+The event creator has to fill out a form, consisting of: {General Location, Specific Location 
 (both of which are just text), 
 when is event, X days before event to check whether, what specific kind of weather is good, where the location is for 
 whether checking, and small description}
@@ -26,5 +26,7 @@ The event creator can invite people from the site. The site send an invite email
 They can accept or deny the invitation 
 
 All emails are stored, if the event time is changed, everybody will be notified.
+
+After creating the event, the event creator will be able to manage the event; this includes such actions as changing the date and changing the event location.
 
 If they switch date, they must set a new reminder date.
