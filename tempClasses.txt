@@ -1,0 +1,52 @@
+Proposed class list:
+
+classes of users:
+
+Users as different classes or different methods of User class?
+
+User
+	-ID (String or int)
+	-String email?
+
+	createEvent()
+	editEvent()
+
+Invitee
+	-ID (String or int)
+	acceptEvent()
+	declineEvent()
+
+Event classes:
+
+Calendar (database manager)
+	-day
+	-month
+	-list (of days or events)
+
+	addEvent()
+	getEvent()
+	deleteEvent()
+	editEvent()?
+	checkWeather(String date?)
+		subclass Date
+		        String [12]months
+		        int month
+		        int day
+			equals()
+Event
+	-User creator
+	-UserList attendees
+	-date?
+	-int daysBeforeAlert
+	-String desiredWeather? (desired temp?)
+
+	getCreator()
+	getAttendees()
+	getEventWeather()
+
+Weather (look at api)
+	int temperature (fahrenheit)?
+	final String *weather types* (Rainy, sunny, windy, etc)
+
+	    getWeather(date?)
+
