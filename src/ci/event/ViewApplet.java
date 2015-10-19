@@ -54,6 +54,13 @@ public class ViewApplet extends javax.swing.JApplet {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        
+        //Create the connection manager
+        
+        //Create the Controller
+        
+        //Create the View
+        
     }
 
     /**

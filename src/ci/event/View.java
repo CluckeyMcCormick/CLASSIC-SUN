@@ -14,6 +14,13 @@ import java.util.ArrayList;
  */
 public class View {
     
+    //This is the object we use to get a conenction to the database
+    ConnectionManager conman;
+    
+    public View(ConnectionManager conman){
+        this.conman = conman;
+    }
+    
     /**
      * Retrieves the list of events the provided user has been invited to
      * 

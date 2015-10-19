@@ -8,8 +8,11 @@ import java.sql.Connection;
  */
 public class Controller {
    
-    public Controller() {
-        //empty constructor
+    //This is the object we use to get a conenction to the database
+    ConnectionManager conman;
+    
+    public Controller(ConnectionManager conman) {
+        this.conman = conman;
     }
 
     /**
@@ -117,18 +120,14 @@ public class Controller {
     }
     
     public ServerResponse removeInvite(Invite i) {
-
-        //If it does exist
-            //Attempt to remove i from said table
-            //If we succeed
-                //return a ServerResponse, with a message indicating the
-                //the removal was successful, and the boolean true
-            //else
-                //return a ServerResponse, with a message indicating the
-                //invite didn't exist, and the boolean false
+        //Attempt to remove i from said table
+        
+        //If we succeed
+            //return a ServerResponse, with a message indicating the
+            //the removal was successful, and the boolean true
         //else
             //return a ServerResponse, with a message indicating the
-            //target user doesn't have invites, and the boolean false
+            //invite didn't exist, and the boolean false
         System.out.println("In Controller's addInvite method - IMPLEMENT ME!");
         return null;
     }
