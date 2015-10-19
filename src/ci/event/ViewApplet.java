@@ -15,6 +15,10 @@ import javax.swing.*;
  */
 public class ViewApplet extends javax.swing.JApplet {
 
+    private Controller controller;
+    private View view;
+    private Weather weather;
+    
     /**
      * Initializes the applet MyApplet
      */
@@ -55,12 +59,14 @@ public class ViewApplet extends javax.swing.JApplet {
             ex.printStackTrace();
         }
         
-        //Create the connection manager
-        
+        //Create the Connection Manager
+        ConnectionManager conman = new ConnectionManager();
         //Create the Controller
-        
+        this.controller = new Controller(conman);
         //Create the View
-        
+        this.view = new View(conman);
+        //Create the Weather
+        this.weather = new Weather();
     }
 
     /**

@@ -29,12 +29,17 @@ public class Weather {
     //public static final int weatherNum=13;
     public String[] weatherForecast=new String[10];
     
+    public Weather(){
+        this.location = "";
+    }
+    
     public Weather(String place){
         place.replace(' ','_');
         location = place;
-        
-        //major todo check if file of the day has already downloaded else program can only be run 500 times in a day, 10 times a minute
-        
+    }
+    
+    public void makeForecast(){
+        //major todo check if file of the day has already downloaded else program can only be run 500 times in a day, 10 times a minute 
         get10Forecast();
         process10Forecast();
     }
@@ -103,5 +108,13 @@ public class Weather {
         return index;
     }
     
+    public static String getLocation() {
+        return location;
+    }
+
+    public static void setLocation(String location) {
+        location.replace(' ','_');
+        Weather.location = location;
+    }
     
 }
