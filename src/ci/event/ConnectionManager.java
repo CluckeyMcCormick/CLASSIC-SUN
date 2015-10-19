@@ -5,6 +5,8 @@
  */
 package ci.event;
 
+import java.sql.Connection;
+
 /**
  * Issues Connection objects for our database
  * 
