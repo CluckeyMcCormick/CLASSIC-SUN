@@ -29,7 +29,7 @@ public class Factory {
         System.out.println("In Factory's createEvents method - IMPLEMENT ME!");
         return null;
     }
-    
+
     public static String IntegerListToString(ArrayList<Integer> list) {
         StringBuilder builder;
         Integer current;

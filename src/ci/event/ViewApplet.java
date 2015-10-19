@@ -15,11 +15,6 @@ import javax.swing.*;
  */
 public class ViewApplet extends javax.swing.JApplet {
 
-    //These are the variable we care about - they're what we use for information
-    private Controller control;
-    private View view;
-    private WeatherManager wm;
-            
     /**
      * Initializes the applet MyApplet
      */
@@ -61,14 +56,10 @@ public class ViewApplet extends javax.swing.JApplet {
         }
         
         //Create the connection manager
-        ConnectionManager conman = new ConnectionManager();
+        
         //Create the Controller
-        this.control = new Controller(conman);
+        
         //Create the View
-        this.view = new View(conman);
-        //Create the WeatherManager
-        //Weather manager needs some slight changes
-        //this.wm = new WeatherManager();
         
     }
 

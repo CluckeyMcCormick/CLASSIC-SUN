@@ -5,29 +5,51 @@
  */
 package ci.event;
 
+import java.net.URISyntaxException;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * Issues Connection objects for our database
- * 
+ *
  * @author cluckeymccormick
  */
 public class ConnectionManager {
     //So I (Nick) am not sure what to do here
     //whoever is handling the database will have to handle this
-    
+
     //However, I think the link below may be helpful:
     //http://stackoverflow.com/questions/6567839/using-a-singleton-class-for-database-connection
-    
     //The answer's suggestion is pretty helpful.
-    
-    public ConnectionManager(){
+    public ConnectionManager() {
         //idk what goes here
+        try {
+            Connection StillBeyond = getConnection();
+            
+            System.out.println("Successful connect");
+
+        } catch (SQLException e) {
+            System.err.println("Connection get failed, sqlexception.");
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            System.err.println("Connection get failed, URISyntax.");
+            e.printStackTrace();
+        }
+        //catch(ClassNotFoundException e){
+        //   System.err.println("Connection get failed, URISyntax.");
+        //   e.printStackTrace();
+        //}
     }
-    
-    public Connection getConnection(){
-        //Should return a new Connection as per the above link
-        //But maybe not - I'm not implementing this!
-        return null;
+
+    private static Connection getConnection() throws URISyntaxException, SQLException {
+
+        String username = "cqdweicgxchvez";
+        String host = "ec2-54-204-7-145.compute-1.amazonaws.com";
+        int port = 5432;
+        String path = "/demgp20hpcaetd";
+        String dbUrl = "jdbc:postgresql://" + host + ':' + port + path + "?user=" + username + "&password=9AVseAwDl4RzCHDs3hS_-fz6Yl&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+
+        return DriverManager.getConnection(dbUrl);
     }
 }
