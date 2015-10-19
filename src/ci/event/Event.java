@@ -7,16 +7,16 @@ public class Event {
 
     private int id;
     private String name;
-    private User creator;
+    private String creator;
     private Calendar date;
     private String location;
     private int warningPeriod;
     private Weather badWeather;
     private String description;
-    private ArrayList<User> invited;
-    private ArrayList<User> accepted;
+    private ArrayList<String> invited;
+    private ArrayList<String> accepted;
 
-    public Event(String name, User create, Calendar date, String loc, int warn, Weather bad, String descri, ArrayList<User> invi, ArrayList<User> accept ) {
+    public Event(String name, String create, Calendar date, String loc, int warn, Weather bad, String descri, ArrayList<String> invi, ArrayList<String> accept ) {
         this.id = -1;
         this.name = name;
         this.creator = create;
@@ -28,7 +28,7 @@ public class Event {
         this.accepted = accept;
     }
     
-    public Event(String name, User create, Calendar date, String loc, int warn, Weather bad, String descri) {
+    public Event(String name, String create, Calendar date, String loc, int warn, Weather bad, String descri) {
         this.id = -1;
         this.name = name;
         this.creator = create;
@@ -36,8 +36,8 @@ public class Event {
         this.location = loc;
         this.badWeather = bad;
         this.description = descri;
-        this.invited = new ArrayList<User>();
-        this.accepted = new ArrayList<User>();
+        this.invited = new ArrayList<String>();
+        this.accepted = new ArrayList<String>();
     }
     
     public void setId(int id) {
@@ -48,7 +48,7 @@ public class Event {
         this.name = name;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(String creator) {
         this.creator = creator;
     }
 
@@ -72,11 +72,11 @@ public class Event {
         this.description = description;
     }
     
-    public void setInvited(ArrayList<User> invited) {
+    public void setInvited(ArrayList<String> invited) {
         this.invited = invited;
     }
 
-    public void setAccepted(ArrayList<User> accepted) {
+    public void setAccepted(ArrayList<String> accepted) {
         this.accepted = accepted;
     }
     
@@ -88,7 +88,7 @@ public class Event {
         return name;
     }
     
-    public User getCreator() {
+    public String getCreator() {
         return creator;
     }
     
@@ -112,11 +112,11 @@ public class Event {
         return description;
     }
     
-    public ArrayList<User> getInvited() {
+    public ArrayList<String> getInvited() {
         return invited;
     }
     
-    public ArrayList<User> getAccepted() {
+    public ArrayList<String> getAccepted() {
         return accepted;
     }
 }
