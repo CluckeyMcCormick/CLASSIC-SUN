@@ -9,7 +9,15 @@ import java.sql.Connection;
 public class Controller {
    
     //This is the object we use to get a conenction to the database
-    ConnectionManager conman;
+    private ConnectionManager conman;
+    //For info on how to use this, check out this:
+    // <editor-fold defaultstate="collapsed" desc="URL Link">
+    
+    //http://stackoverflow.com/questions/6567839/using-a-singleton-class-for-database-connection
+    //The useful part I'm talking about is the answer's second part - specifically,
+    //the part refering to how to use a connection object you get it
+    
+    // </editor-fold>
     
     public Controller(ConnectionManager conman) {
         this.conman = conman;

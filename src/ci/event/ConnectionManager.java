@@ -18,4 +18,14 @@ public class ConnectionManager {
     //http://stackoverflow.com/questions/6567839/using-a-singleton-class-for-database-connection
     
     //The answer's suggestion is pretty helpful.
+    
+    public ConnectionManager(){
+        //idk what goes here
+    }
+    
+    public Connection getConnection(){
+        //Should return a new Connection as per the above link
+        //But maybe not - I'm not implementing this!
+        return null;
+    }
 }
