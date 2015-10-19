@@ -11,12 +11,12 @@ public class Event {
     private Calendar date;
     private String location;
     private int warningPeriod;
-    private Weather badWeather;
+    private ArrayList<String> badWeather;
     private String description;
     private ArrayList<String> invited;
     private ArrayList<String> accepted;
 
-    public Event(String name, String create, Calendar date, String loc, int warn, Weather bad, String descri, ArrayList<String> invi, ArrayList<String> accept ) {
+    public Event(String name, String create, Calendar date, String loc, int warn, ArrayList<String> bad, String descri, ArrayList<String> invi, ArrayList<String> accept ) {
         this.id = -1;
         this.name = name;
         this.creator = create;
@@ -28,7 +28,7 @@ public class Event {
         this.accepted = accept;
     }
     
-    public Event(String name, String create, Calendar date, String loc, int warn, Weather bad, String descri) {
+    public Event(String name, String create, Calendar date, String loc, int warn, ArrayList<String> bad, String descri) {
         this.id = -1;
         this.name = name;
         this.creator = create;
@@ -64,7 +64,7 @@ public class Event {
         this.warningPeriod = warningPeriod;
     }
     
-    public void setBadWeather(Weather badWeather) {
+    public void setBadWeather(ArrayList<String> badWeather) {
         this.badWeather = badWeather;
     }
 
@@ -104,7 +104,7 @@ public class Event {
         return warningPeriod;
     }
     
-    public Weather getBadWeather() {
+    public ArrayList<String> getBadWeather() {
         return badWeather;
     }
     
