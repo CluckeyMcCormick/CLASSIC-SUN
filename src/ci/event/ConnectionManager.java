@@ -13,7 +13,7 @@ import java.sql.SQLException;
 /**
  * Issues Connection objects for our database
  *
- * @author cluckeymccormick
+ * @author cluckeymccormick&TimothyHolcombe
  */
 public class ConnectionManager {
     //So I (Nick) am not sure what to do here
@@ -22,12 +22,13 @@ public class ConnectionManager {
     //However, I think the link below may be helpful:
     //http://stackoverflow.com/questions/6567839/using-a-singleton-class-for-database-connection
     //The answer's suggestion is pretty helpful.
+    
+    private static Connection connect; //Heroku postgres database still-beyond-3432 :: database
+    
     public ConnectionManager() {
         //idk what goes here
         try {
-            Connection StillBeyond = getConnection();
-            
-            System.out.println("Successful connect");
+            this.connect = makeConnection();
 
         } catch (SQLException e) {
             System.err.println("Connection get failed, sqlexception.");
@@ -42,14 +43,33 @@ public class ConnectionManager {
         //}
     }
 
-    private static Connection getConnection() throws URISyntaxException, SQLException {
-
+    private Connection makeConnection() throws URISyntaxException, SQLException {
+        //Link to current using database Heroku postgres database still-beyond-3432 :: database, changeable
         String username = "cqdweicgxchvez";
         String host = "ec2-54-204-7-145.compute-1.amazonaws.com";
         int port = 5432;
+        String password="9AVseAwDl4RzCHDs3hS_-fz6Yl";
         String path = "/demgp20hpcaetd";
-        String dbUrl = "jdbc:postgresql://" + host + ':' + port + path + "?user=" + username + "&password=9AVseAwDl4RzCHDs3hS_-fz6Yl&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+        
+        
+        String dbUrl = "jdbc:postgresql://" + host + ':' + port + path + "?user=" + username + "&password="+password+"&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 
         return DriverManager.getConnection(dbUrl);
     }
+    
+    public Connection makeConnection(String username,String host,int port,String password,String path) throws URISyntaxException, SQLException {
+        //Dynamic link to  database
+        String dbUrl = "jdbc:postgresql://" + host + ':' + port + path + "?user=" + username + "&password="+password+"&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+
+        return DriverManager.getConnection(dbUrl);
+    }
+    
+    public void setConnection(Connection con){
+        this.connect=con;
+    }
+    
+    public Connection getConnection(){
+        return this.connect;
+    }
+    
 }
