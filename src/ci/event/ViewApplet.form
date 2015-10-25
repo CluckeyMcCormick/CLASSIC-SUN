@@ -43,11 +43,117 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
       <SubComponents>
+        <Container class="javax.swing.JPanel" name="loginPanel">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Login"/>
+              </Border>
+            </Property>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+              <CardConstraints cardName="login"/>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="loginScrollPane" pref="546" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="loginUserLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="loginButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="loginUserField" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="loginServLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="loginUserLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="loginUserField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="loginButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="loginServLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="loginScrollPane" pref="339" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="loginUserLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="User Name:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="loginUserField">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="default"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginUserFieldActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="loginButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Login"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="loginServLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Server Message"/>
+              </Properties>
+            </Component>
+            <Container class="javax.swing.JScrollPane" name="loginScrollPane">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTextArea" name="loginServText">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="columns" type="int" value="20"/>
+                    <Property name="lineWrap" type="boolean" value="true"/>
+                    <Property name="rows" type="int" value="5"/>
+                    <Property name="tabSize" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="This box provides feedback information - like &quot;username doesn&apos;t exist&quot; or &quot;incorrect password&quot;. I doubt we even need passwords. Of course, this brings up the question of how we make new users - perhaps we could have a &quot;Create User&quot; button next to the login button."/>
+                    <Property name="toolTipText" type="java.lang.String" value=""/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+          </SubComponents>
+        </Container>
         <Container class="javax.swing.JPanel" name="mainMenuPanel">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ca" green="ec" red="ef" type="rgb"/>
-            </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Main Menu"/>
@@ -66,9 +172,9 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="mainScrollPane" alignment="1" pref="566" max="32767" attributes="0"/>
+                          <Component id="mainScrollPane" alignment="1" pref="546" max="32767" attributes="0"/>
                           <Component id="mainCrtEvtButton" alignment="1" max="32767" attributes="0"/>
-                          <Component id="mainMssgButton" alignment="1" max="32767" attributes="0"/>
+                          <Component id="mainInviteButton" alignment="1" max="32767" attributes="0"/>
                           <Component id="mainMngEvtButton" alignment="0" max="32767" attributes="0"/>
                           <Component id="mainAdminButton" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
@@ -85,7 +191,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="mainMssgButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="mainInviteButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="mainCrtEvtButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -97,19 +203,19 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="mainServLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="mainScrollPane" pref="195" max="32767" attributes="0"/>
+                      <Component id="mainScrollPane" pref="241" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="mainMssgButton">
+            <Component class="javax.swing.JButton" name="mainInviteButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Messages &amp; Invites"/>
+                <Property name="text" type="java.lang.String" value="Invites"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mainMssgButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mainInviteButtonActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="mainCrtEvtButton">
@@ -166,20 +272,17 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="messagePanel">
+        <Container class="javax.swing.JPanel" name="invitePanel">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ca" green="ec" red="ef" type="rgb"/>
-            </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Messages &amp; Invites"/>
+                <TitledBorder title="Invites"/>
               </Border>
             </Property>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="message"/>
+              <CardConstraints cardName="invite"/>
             </Constraint>
           </Constraints>
 
@@ -189,36 +292,37 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="messageContentScroll" max="32767" attributes="0"/>
+                          <Component id="inviteDescriptionScroll" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="messageAcceptButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="inviteAcceptButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="messageRejectButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="messageDeleteButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="53" max="32767" attributes="0"/>
-                              <Component id="messageMainButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="inviteRejectButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="inviteMainButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="messageSubjectScroll" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
-                                  <Component id="messageSubjectLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="messageContentLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="inviteEvNameScroll" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
+                                  <Component id="inviteEvNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="messageSenderField" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="messageTypeField" alignment="0" pref="320" max="32767" attributes="0"/>
-                                  <Component id="messageSubjectSepField" max="32767" attributes="0"/>
+                                  <Component id="inviteDateField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="inviteSenderField" alignment="0" pref="318" max="32767" attributes="0"/>
+                                  <Component id="inviteLocationField" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="messageTypeLabel" min="-2" max="-2" attributes="0"/>
-                                          <Component id="messageSenderLabel" min="-2" max="-2" attributes="0"/>
-                                          <Component id="messageSubjectSepLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="inviteSenderLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="inviteDateLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="inviteLocationLabel" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="inviteDescriptionLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -230,41 +334,33 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="messageSubjectLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="messageTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="inviteEvNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="inviteSenderLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="messageTypeField" min="-2" max="-2" attributes="0"/>
+                              <Component id="inviteSenderField" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="messageSenderLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="inviteDateLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="messageSenderField" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="messageSubjectSepLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="inviteDateField" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Component id="inviteLocationLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="inviteLocationField" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="messageSubjectScroll" min="-2" pref="122" max="-2" attributes="0"/>
+                          <Component id="inviteEvNameScroll" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="messageSubjectSepField" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="messageContentLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Component id="messageContentScroll" min="-2" pref="166" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="inviteDescriptionLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="inviteDescriptionScroll" pref="199" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="messageAcceptButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="messageRejectButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="messageDeleteButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="messageMainButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="inviteAcceptButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="inviteRejectButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="inviteMainButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -272,14 +368,14 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="messageSubjectScroll">
+            <Container class="javax.swing.JScrollPane" name="inviteEvNameScroll">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JList" name="messageSubjectList">
+                <Component class="javax.swing.JList" name="inviteEvNameList">
                   <Properties>
                     <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
                       <StringArray count="5">
@@ -295,34 +391,29 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="messageSubjectLabel">
+            <Component class="javax.swing.JLabel" name="inviteEvNameLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Message Subjects"/>
+                <Property name="text" type="java.lang.String" value="Event Names"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="messageAcceptButton">
+            <Component class="javax.swing.JButton" name="inviteAcceptButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Accept Invite"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="messageRejectButton">
+            <Component class="javax.swing.JButton" name="inviteRejectButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reject Invite"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="messageDeleteButton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Delete Message"/>
-              </Properties>
-            </Component>
-            <Container class="javax.swing.JScrollPane" name="messageContentScroll">
+            <Container class="javax.swing.JScrollPane" name="inviteDescriptionScroll">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="messageContentText">
+                <Component class="javax.swing.JTextArea" name="inviteDescriptionText">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="columns" type="int" value="20"/>
@@ -333,62 +424,59 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JTextField" name="messageSenderField">
+            <Component class="javax.swing.JTextField" name="inviteDateField">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="Example Text"/>
+                <Property name="text" type="java.lang.String" value="Event Date"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="messageSenderFieldActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inviteDateFieldActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="messageSenderLabel">
+            <Component class="javax.swing.JLabel" name="inviteDateLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Sender "/>
+                <Property name="text" type="java.lang.String" value="Event Date"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="messageSubjectSepLabel">
+            <Component class="javax.swing.JLabel" name="inviteLocationLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Subject"/>
+                <Property name="text" type="java.lang.String" value="Event Location"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="messageSubjectSepField">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="Example Subject"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="messageContentLabel">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Message Contents"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="messageTypeField">
+            <Component class="javax.swing.JTextField" name="inviteLocationField">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="Invite/Message - one of the two."/>
+                <Property name="text" type="java.lang.String" value="Event Location"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="messageTypeLabel">
+            <Component class="javax.swing.JLabel" name="inviteDescriptionLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Message Type"/>
+                <Property name="text" type="java.lang.String" value="Event Description"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="messageMainButton">
+            <Component class="javax.swing.JTextField" name="inviteSenderField">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="text" type="java.lang.String" value="Name of Event Creator"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="inviteSenderLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Event Creator"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="inviteMainButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Main Menu"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="messageMainButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inviteMainButtonActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="createEvPanel">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ca" green="ec" red="ef" type="rgb"/>
-            </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Create Event"/>
@@ -407,49 +495,56 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="createServerScroll" min="-2" pref="442" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="createMainButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="createServerLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="441" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="createServerLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="createWeatherPanel" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="createDescriptionPane" max="32767" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="createLocationLabel" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Group type="102" attributes="0">
+                                                              <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                                              <Component id="createDescriptionLabel" min="-2" max="-2" attributes="0"/>
+                                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                          </Group>
+                                                          <Component id="createLocationCombo" max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="createCreateButton" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="createServerScroll" min="-2" pref="442" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="createMainButton" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="createNameLabel" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="createNameField" min="-2" pref="201" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="createNameField" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Component id="createDateLabel" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="createDateField" min="-2" pref="135" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="createWeatherPanel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="createEvLocScroll" alignment="0" max="32767" attributes="0"/>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="createLocationLabel" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="createCreateButton" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                  </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -462,30 +557,34 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="createNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="createNameField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="createDateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="createDateField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="createDateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="createLocationLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="createEvLocScroll" min="-2" pref="132" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="createLocationLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="createLocationCombo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="createDescriptionLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="createDescriptionPane" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="createCreateButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="createWeatherPanel" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="createServerLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="createServerLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="createServerScroll" pref="144" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="createMainButton" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="createServerScroll" pref="93" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -515,9 +614,6 @@
             </Component>
             <Container class="javax.swing.JPanel" name="createWeatherPanel">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ca" green="ec" red="ef" type="rgb"/>
-                </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder title="Weather Options"/>
@@ -531,13 +627,24 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="weatherRainRadio" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="weatherCloudRadio" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="weatherWarningLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="weatherWarningField" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="weatherSunRadio" alignment="0" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="cWeatherScatteredRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherClearRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherPartlyRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherMostlyRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherOvercastRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherChanceRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherWarningField" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
+                              <Component id="cWeatherWarningLabel" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="cWeatherStormRadio" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherHailRadio" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherSnowRadio" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherDrizzleRadio" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherRainRadio" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherFogRadio" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherMistRadio" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -547,84 +654,138 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="weatherRainRadio" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cWeatherClearRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherDrizzleRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="weatherCloudRadio" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cWeatherScatteredRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherRainRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="weatherSunRadio" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cWeatherPartlyRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherFogRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="weatherWarningLabel" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cWeatherMostlyRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherMistRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="weatherWarningField" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cWeatherOvercastRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherSnowRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cWeatherChanceRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherHailRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="cWeatherStormRadio" min="-2" max="-2" attributes="0"/>
+                              <Component id="cWeatherWarningLabel" min="-2" pref="18" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cWeatherWarningField" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JRadioButton" name="weatherRainRadio">
+                <Component class="javax.swing.JRadioButton" name="cWeatherPartlyRadio">
                   <Properties>
                     <Property name="selected" type="boolean" value="true"/>
-                    <Property name="text" type="java.lang.String" value="Rain Allowed?"/>
+                    <Property name="text" type="java.lang.String" value="Partly Cloudy"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="weatherCloudRadio">
+                <Component class="javax.swing.JRadioButton" name="cWeatherClearRadio">
                   <Properties>
                     <Property name="selected" type="boolean" value="true"/>
-                    <Property name="text" type="java.lang.String" value="Clouds Allowed?"/>
+                    <Property name="text" type="java.lang.String" value="Clear"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="weatherSunRadio">
+                <Component class="javax.swing.JRadioButton" name="cWeatherScatteredRadio">
                   <Properties>
                     <Property name="selected" type="boolean" value="true"/>
-                    <Property name="text" type="java.lang.String" value="Sun Allowed?"/>
+                    <Property name="text" type="java.lang.String" value="Scattered Clouds"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="weatherWarningLabel">
+                <Component class="javax.swing.JRadioButton" name="cWeatherMostlyRadio">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Warning Period"/>
+                    <Property name="selected" type="boolean" value="true"/>
+                    <Property name="text" type="java.lang.String" value="Mostly Cloudy"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="weatherWarningField">
+                <Component class="javax.swing.JRadioButton" name="cWeatherOvercastRadio">
+                  <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
+                    <Property name="text" type="java.lang.String" value="Overcast"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="cWeatherChanceRadio">
+                  <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
+                    <Property name="text" type="java.lang.String" value="Chance of Rain"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="cWeatherWarningField">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="X Days"/>
                   </Properties>
                 </Component>
-              </SubComponents>
-            </Container>
-            <Component class="javax.swing.JLabel" name="createLocationLabel">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Event Location"/>
-              </Properties>
-            </Component>
-            <Container class="javax.swing.JScrollPane" name="createEvLocScroll">
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JList" name="createEvLocList">
+                <Component class="javax.swing.JRadioButton" name="cWeatherRainRadio">
                   <Properties>
-                    <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                      <StringArray count="3">
-                        <StringItem index="0" value="CI Main Campus"/>
-                        <StringItem index="1" value="CI Thousand Oaks Campus"/>
-                        <StringItem index="2" value="Santa Rosa Island Research Station"/>
-                      </StringArray>
-                    </Property>
+                    <Property name="selected" type="boolean" value="true"/>
+                    <Property name="text" type="java.lang.String" value="Rain"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="cWeatherDrizzleRadio">
+                  <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
+                    <Property name="text" type="java.lang.String" value="Drizzle"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="cWeatherFogRadio">
+                  <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
+                    <Property name="text" type="java.lang.String" value="Fog"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="cWeatherMistRadio">
+                  <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
+                    <Property name="text" type="java.lang.String" value="Mist"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="cWeatherSnowRadio">
+                  <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
+                    <Property name="text" type="java.lang.String" value="Snow"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="cWeatherHailRadio">
+                  <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
+                    <Property name="text" type="java.lang.String" value="Hail"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="cWeatherStormRadio">
+                  <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
+                    <Property name="text" type="java.lang.String" value="Storm"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="cWeatherWarningLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Warning Period"/>
                   </Properties>
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="createCreateButton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Create Event"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createCreateButtonActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JLabel" name="createServerLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Server Messages"/>
@@ -653,13 +814,55 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createMainButtonActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JLabel" name="createLocationLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Location"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="createLocationCombo">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="4">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="createDescriptionLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Event Description"/>
+              </Properties>
+            </Component>
+            <Container class="javax.swing.JScrollPane" name="createDescriptionPane">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTextArea" name="createDescriptionText">
+                  <Properties>
+                    <Property name="columns" type="int" value="20"/>
+                    <Property name="rows" type="int" value="5"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JButton" name="createCreateButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Create Event"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createCreateButtonActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="chooseEvPanel">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ca" green="ec" red="ef" type="rgb"/>
-            </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Choose Event"/>
@@ -709,7 +912,7 @@
                       <Component id="chooseScroll" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="chooseChooseButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="166" max="32767" attributes="0"/>
+                      <EmptySpace pref="129" max="32767" attributes="0"/>
                       <Component id="chooseMainButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -762,136 +965,30 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="manageEvPanel">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ca" green="ec" red="ef" type="rgb"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Manage Event"/>
-              </Border>
-            </Property>
-          </Properties>
+        <Container class="javax.swing.JTabbedPane" name="manageEvTab">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="manage&#xa;"/>
+              <CardConstraints cardName="manage"/>
             </Constraint>
           </Constraints>
 
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="manageNameLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="manageNameField" min="-2" pref="201" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                                      <Component id="manageDateLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="manageDateField" min="-2" pref="135" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="manageWeatherPanel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="manageInviteButton" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="manageInviteField" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="manageLocLabel" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="manageLocCombo" min="-2" max="-2" attributes="0"/>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="manageUpdateButton" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                      <Component id="manageDeleteButton" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="manageServerLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="manageServerScroll" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="manageMainButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="manageNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="manageNameField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="manageDateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="manageDateField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="manageLocLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="manageLocCombo" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="manageInviteButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="manageInviteField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="manageUpdateButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="manageDeleteButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="manageWeatherPanel" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="manageServerLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="manageMainButton" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="manageServerScroll" pref="142" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="manageWeatherPanel">
+            <Container class="javax.swing.JPanel" name="manageCreatePanel">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ca" green="ec" red="ef" type="rgb"/>
-                </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Weather Options"/>
+                    <TitledBorder title="Manage Event"/>
                   </Border>
                 </Property>
               </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Manage Event">
+                    <Property name="tabTitle" type="java.lang.String" value="Manage Event"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -899,15 +996,59 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="manageRainRadio" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="manageCloudsRadio" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="manageWarningLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="manageWarningField" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="manageSunRadio" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="manageEvWeatherPanel" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="manageEvDescriptionScroll" alignment="0" pref="259" max="32767" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="manageEvLocationLabel" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                                          <Component id="manageEvDescriptionLabel" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                      </Group>
+                                                      <Component id="manageEvLocationCombo" alignment="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="manageEvUpdateButton" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="manageEvNameLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="manageEvNameField" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="manageEvDateLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="manageEvDateField" min="-2" pref="135" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="manageEvServerLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="manageEvServerScroll" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="manageEvMainButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="manageEvChooseButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -915,264 +1056,533 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="manageRainRadio" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="manageEvNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="manageEvNameField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="manageEvDateField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="manageEvDateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="manageCloudsRadio" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="manageEvWeatherPanel" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="manageEvLocationLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="manageEvLocationCombo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="manageEvDescriptionLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="manageEvDescriptionScroll" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="manageEvUpdateButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="manageSunRadio" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="manageEvServerLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="manageEvServerScroll" min="-2" pref="46" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="manageEvChooseButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="manageEvMainButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="manageWarningLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="manageWarningField" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JRadioButton" name="manageRainRadio">
+                <Component class="javax.swing.JLabel" name="manageEvNameLabel">
                   <Properties>
-                    <Property name="selected" type="boolean" value="true"/>
-                    <Property name="text" type="java.lang.String" value="Rain Allowed?"/>
+                    <Property name="text" type="java.lang.String" value="Event Name"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="manageCloudsRadio">
+                <Component class="javax.swing.JTextField" name="manageEvNameField">
                   <Properties>
-                    <Property name="selected" type="boolean" value="true"/>
-                    <Property name="text" type="java.lang.String" value="Clouds Allowed?"/>
+                    <Property name="text" type="java.lang.String" value="jTextField4"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="manageSunRadio">
+                <Component class="javax.swing.JLabel" name="manageEvDateLabel">
                   <Properties>
-                    <Property name="selected" type="boolean" value="true"/>
-                    <Property name="text" type="java.lang.String" value="Sun Allowed?"/>
+                    <Property name="text" type="java.lang.String" value="Event Date"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="manageWarningLabel">
+                <Component class="javax.swing.JTextField" name="manageEvDateField">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Warning Period"/>
+                    <Property name="text" type="java.lang.String" value="mm/dd/yyyy"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="manageWarningField">
+                <Container class="javax.swing.JPanel" name="manageEvWeatherPanel">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="X Days"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder title="Weather Options"/>
+                      </Border>
+                    </Property>
                   </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="mWeatherScatteredRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherClearRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherPartlyRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherMostlyRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherOvercastRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherChanceRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherWarningField" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
+                                  <Component id="mWeatherWarningLabel" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="mWeatherStormRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherHailRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherSnowRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherDrizzleRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherRainRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherFogRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherMistRadio" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="mWeatherClearRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherDrizzleRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="mWeatherScatteredRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherRainRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="mWeatherPartlyRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherFogRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="mWeatherMostlyRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherMistRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="mWeatherOvercastRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherSnowRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="mWeatherChanceRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherHailRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="mWeatherStormRadio" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mWeatherWarningLabel" alignment="1" min="-2" pref="18" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="mWeatherWarningField" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="21" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JRadioButton" name="mWeatherPartlyRadio">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" value="Partly Cloudy"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JRadioButton" name="mWeatherClearRadio">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" value="Clear"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JRadioButton" name="mWeatherScatteredRadio">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" value="Scattered Clouds"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JRadioButton" name="mWeatherMostlyRadio">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" value="Mostly Cloudy"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JRadioButton" name="mWeatherOvercastRadio">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" value="Overcast"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JRadioButton" name="mWeatherChanceRadio">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" value="Chance of Rain"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="mWeatherWarningField">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="X Days"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JRadioButton" name="mWeatherRainRadio">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" value="Rain"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JRadioButton" name="mWeatherDrizzleRadio">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" value="Drizzle"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JRadioButton" name="mWeatherFogRadio">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" value="Fog"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JRadioButton" name="mWeatherMistRadio">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" value="Mist"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JRadioButton" name="mWeatherSnowRadio">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" value="Snow"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JRadioButton" name="mWeatherHailRadio">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" value="Hail"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JRadioButton" name="mWeatherStormRadio">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" value="Storm"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mWeatherStormRadioActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="mWeatherWarningLabel">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Warning Period"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JLabel" name="manageEvServerLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Server Messages"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="manageEvServerScroll">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextArea" name="manageEvServerText">
+                      <Properties>
+                        <Property name="columns" type="int" value="20"/>
+                        <Property name="rows" type="int" value="5"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JButton" name="manageEvMainButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Main Menu"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageEvMainButtonActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="manageEvLocationLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Location"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="manageEvLocationCombo">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="4">
+                        <StringItem index="0" value="Item 1"/>
+                        <StringItem index="1" value="Item 2"/>
+                        <StringItem index="2" value="Item 3"/>
+                        <StringItem index="3" value="Item 4"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="manageEvDescriptionLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Event Description"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="manageEvDescriptionScroll">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextArea" name="manageEvDescriptionText">
+                      <Properties>
+                        <Property name="columns" type="int" value="20"/>
+                        <Property name="rows" type="int" value="5"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JButton" name="manageEvUpdateButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Update Event"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="manageEvChooseButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Choose Event"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageEvChooseButtonActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="manageUpdateButton">
+            <Container class="javax.swing.JPanel" name="manageInvitePanel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Update Event"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="manageDateField">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="mm/dd/yyyy"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="manageDateLabel">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Event Date"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="manageLocLabel">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Event Location"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="manageNameField">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField4"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="manageNameLabel">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Event Name"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="manageLocCombo">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
-                  </StringArray>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                    <TitledBorder title="Invitees &amp; Attendees"/>
+                  </Border>
                 </Property>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="manageInviteButton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Invite User"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="manageInviteField">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField10"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="manageDeleteButton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Delete Event"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="manageMainButton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Main Menu"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageMainButtonActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="manageServerLabel">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Server Messages"/>
-              </Properties>
-            </Component>
-            <Container class="javax.swing.JScrollPane" name="manageServerScroll">
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Invitees &amp; Attendees">
+                    <Property name="tabTitle" type="java.lang.String" value="Invitees &amp; Attendees"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="manageInvInvitedScroll" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
+                                  <Component id="manageInvInvitedLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="manageInvAttendScroll" min="-2" pref="265" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="manageInvAttendingLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="126" max="-2" attributes="0"/>
+                                          <Component id="manageInvInviteButton" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="manageInvInviteField" min="-2" pref="285" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="manageInvServerLabel" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="0" pref="84" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="manageInvServerScroll" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="manageInvMainButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="manageInvChooseButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="manageInvAttendingLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="manageInvInvitedLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="manageInvAttendScroll" pref="150" max="32767" attributes="0"/>
+                              <Component id="manageInvInvitedScroll" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="manageInvInviteButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="manageInvInviteField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="manageInvServerLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="manageInvChooseButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="manageInvMainButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="manageInvServerScroll" pref="164" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="manageServerText">
+                <Component class="javax.swing.JLabel" name="manageInvInvitedLabel">
                   <Properties>
-                    <Property name="columns" type="int" value="20"/>
-                    <Property name="rows" type="int" value="5"/>
+                    <Property name="text" type="java.lang.String" value="Invited"/>
                   </Properties>
                 </Component>
-              </SubComponents>
-            </Container>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="loginPanel">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ca" green="ec" red="ef" type="rgb"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Login"/>
-              </Border>
-            </Property>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="login"/>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="loginScrollPane" pref="548" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="loginPassLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="loginUserLabel" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="loginButton" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="loginPassField" max="32767" attributes="0"/>
-                                  <Component id="loginUserField" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="loginServLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="loginUserLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="loginUserField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="loginPassLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="loginPassField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="loginButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                      <Component id="loginServLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="loginScrollPane" pref="226" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="loginUserLabel">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="User Name:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="loginUserField">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="default"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginUserFieldActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="loginPassLabel">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Password:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JPasswordField" name="loginPassField">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="default"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="loginButton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Login"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginButtonActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="loginServLabel">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Server Message"/>
-              </Properties>
-            </Component>
-            <Container class="javax.swing.JScrollPane" name="loginScrollPane">
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JTextArea" name="loginServText">
+                <Component class="javax.swing.JLabel" name="manageInvAttendingLabel">
                   <Properties>
-                    <Property name="editable" type="boolean" value="false"/>
-                    <Property name="columns" type="int" value="20"/>
-                    <Property name="lineWrap" type="boolean" value="true"/>
-                    <Property name="rows" type="int" value="5"/>
-                    <Property name="tabSize" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="This box provides feedback information - like &quot;username doesn&apos;t exist&quot; or &quot;incorrect password&quot;. I doubt we even need passwords. Of course, this brings up the question of how we make new users - perhaps we could have a &quot;Create User&quot; button next to the login button."/>
-                    <Property name="toolTipText" type="java.lang.String" value=""/>
+                    <Property name="text" type="java.lang.String" value="Attending"/>
                   </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="manageInvInvitedScroll">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JList" name="manageInvInvitedList">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                          <StringArray count="5">
+                            <StringItem index="0" value="Item 1"/>
+                            <StringItem index="1" value="Item 2"/>
+                            <StringItem index="2" value="Item 3"/>
+                            <StringItem index="3" value="Item 4"/>
+                            <StringItem index="4" value="Item 5"/>
+                          </StringArray>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JScrollPane" name="manageInvAttendScroll">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JList" name="manageInvAttendList">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                          <StringArray count="5">
+                            <StringItem index="0" value="Item 1"/>
+                            <StringItem index="1" value="Item 2"/>
+                            <StringItem index="2" value="Item 3"/>
+                            <StringItem index="3" value="Item 4"/>
+                            <StringItem index="4" value="Item 5"/>
+                          </StringArray>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JButton" name="manageInvInviteButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Invite"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="manageInvInviteField">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="jTextField1"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="manageInvServerLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Server Messages"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="manageInvServerScroll">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextArea" name="manageInvServerText">
+                      <Properties>
+                        <Property name="columns" type="int" value="20"/>
+                        <Property name="rows" type="int" value="5"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JButton" name="manageInvMainButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Main Menu"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageInvMainButtonActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="manageInvChooseButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Choose Event"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageInvChooseButtonActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
