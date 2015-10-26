@@ -101,10 +101,10 @@ public class QueryGenerator {
      * @param user The user to insert - this should be the INSERTED version
      * @return A SQL command in the form of a string
      */
-    public static String insertQueryEvent(Event e){
-        return "selectQueryUser";
+    public static String insertQueryEvent(Event e){ //getDate needs a string conversion**************
+        return "INSERT INTO EVENTS (ID,EVENTNAME,EVENTCREATOR,DATE,WARNING,LOCATION,BADWEATHERS,DESCRIPTION,INVITED)"+
+               "VALUES ("+e.getId()+", '"+e.getName()+"', '"+e.getCreator()+"', '"+e.getDate()+"', "+e.getWarningPeriod()+", '"+e.getLocation()+"', '"+Factory.StringListToString(e.getBadWeather())+"', '"+e.getDescription()+"', '"+Factory.StringListToString(e.getInvited())+"');";
     }
-    
     /**
      * Generates a query that inserts the entry of the provided user
      * 
@@ -112,7 +112,8 @@ public class QueryGenerator {
      * @return A SQL command in the form of a string
      */
     public static String insertQueryUser(User user){
-        return "selectQueryUser";
+        return "INSERT INTO USERS (ID,EMAIL,INBOX)"+
+               "VALUES ("+user.getID()+", '"+user.getEmail()+"', '"+Factory.IntegerListToString(user.getInvites())+"');";
     }
 
 }
