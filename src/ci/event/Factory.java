@@ -10,6 +10,9 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.lang.StringBuilder;
 import java.sql.ResultSet;
+import java.util.Scanner;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -102,5 +105,31 @@ public class Factory {
         }
 
         return retList;
+    }
+    
+    public static Calendar stringToCalendar(String in){
+        Calendar cal;
+        Scanner read;
+        
+        cal = new GregorianCalendar();
+        read = new Scanner(in);
+        read.useDelimiter("/");
+        
+        cal.set(Calendar.MONTH, read.nextInt());
+        cal.set(Calendar.DAY_OF_MONTH, read.nextInt());
+        cal.set(Calendar.YEAR, read.nextInt());
+        
+        return cal;
+    }
+    
+    public static String calendarToString(Calendar cal){
+        StringBuilder string;
+        
+        string = new StringBuilder();
+        string.append(cal.get(Calendar.MONTH));
+        string.append(cal.get(Calendar.DAY_OF_MONTH));
+        string.append(cal.get(Calendar.YEAR));
+        
+        return string.toString();
     }
 }

@@ -8,6 +8,7 @@ package ci.event;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,9 +16,15 @@ import javax.swing.*;
  */
 public class ViewApplet extends javax.swing.JApplet {
 
+    //Objects for database interaction
     private Controller controller;
     private View view;
     private Weather weather;
+    
+    //Objects for containing our current data
+    private ArrayList<Event> createdEvents;
+    private User currentUser;
+    private Event currentEvent;
     
     /**
      * Initializes the applet MyApplet
@@ -205,11 +212,6 @@ public class ViewApplet extends javax.swing.JApplet {
         loginUserLabel.setText("User Name:");
 
         loginUserField.setText("default");
-        loginUserField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginUserFieldActionPerformed(evt);
-            }
-        });
 
         loginButton.setText("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
@@ -374,11 +376,6 @@ public class ViewApplet extends javax.swing.JApplet {
 
         inviteDateField.setEditable(false);
         inviteDateField.setText("Event Date");
-        inviteDateField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inviteDateFieldActionPerformed(evt);
-            }
-        });
 
         inviteDateLabel.setText("Event Date");
 
@@ -625,7 +622,7 @@ public class ViewApplet extends javax.swing.JApplet {
                 .addGroup(createEvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createEvPanelLayout.createSequentialGroup()
                         .addComponent(createServerLabel)
-                        .addGap(0, 441, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(createEvPanelLayout.createSequentialGroup()
                         .addGroup(createEvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(createEvPanelLayout.createSequentialGroup()
@@ -811,11 +808,6 @@ public class ViewApplet extends javax.swing.JApplet {
 
         mWeatherStormRadio.setSelected(true);
         mWeatherStormRadio.setText("Storm");
-        mWeatherStormRadio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mWeatherStormRadioActionPerformed(evt);
-            }
-        });
 
         mWeatherWarningLabel.setText("Warning Period");
 
@@ -878,7 +870,7 @@ public class ViewApplet extends javax.swing.JApplet {
                     .addComponent(mWeatherWarningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mWeatherWarningField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         manageEvServerLabel.setText("Server Messages");
@@ -922,24 +914,22 @@ public class ViewApplet extends javax.swing.JApplet {
                 .addGroup(manageCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(manageCreatePanelLayout.createSequentialGroup()
                         .addComponent(manageEvWeatherPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(manageCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(manageEvDescriptionScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
                             .addGroup(manageCreatePanelLayout.createSequentialGroup()
+                                .addComponent(manageEvLocationLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(manageCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(manageEvDescriptionScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
-                                    .addGroup(manageCreatePanelLayout.createSequentialGroup()
-                                        .addComponent(manageEvLocationLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(manageCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(manageCreatePanelLayout.createSequentialGroup()
-                                                .addGap(12, 12, 12)
-                                                .addComponent(manageEvDescriptionLabel)
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                            .addComponent(manageEvLocationCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(manageEvLocationCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manageCreatePanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(manageEvUpdateButton)
-                                .addGap(78, 78, 78))))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(manageCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manageCreatePanelLayout.createSequentialGroup()
+                                        .addComponent(manageEvUpdateButton)
+                                        .addGap(78, 78, 78))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manageCreatePanelLayout.createSequentialGroup()
+                                        .addComponent(manageEvDescriptionLabel)
+                                        .addGap(103, 103, 103))))))
                     .addGroup(manageCreatePanelLayout.createSequentialGroup()
                         .addComponent(manageEvNameLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1134,20 +1124,15 @@ public class ViewApplet extends javax.swing.JApplet {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void loginUserFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginUserFieldActionPerformed
-
-    }//GEN-LAST:event_loginUserFieldActionPerformed
-
     private void mainInviteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainInviteButtonActionPerformed
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "invite");
     }//GEN-LAST:event_mainInviteButtonActionPerformed
 
-    private void inviteDateFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviteDateFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inviteDateFieldActionPerformed
-
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        //Get input, create user, set current user
+        //Add the user to the database
+        //Switch to main menu
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_loginButtonActionPerformed
@@ -1163,6 +1148,7 @@ public class ViewApplet extends javax.swing.JApplet {
     }//GEN-LAST:event_mainMngEvtButtonActionPerformed
 
     private void mainLogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainLogoutButtonActionPerformed
+        currentUser = null;
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "login");
     }//GEN-LAST:event_mainLogoutButtonActionPerformed
@@ -1173,6 +1159,9 @@ public class ViewApplet extends javax.swing.JApplet {
     }//GEN-LAST:event_createMainButtonActionPerformed
 
     private void chooseChooseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseChooseButtonActionPerformed
+        //Get the user's selection, set
+        //Set all the fields using the event data
+        //switch screens
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "manage");
     }//GEN-LAST:event_chooseChooseButtonActionPerformed
@@ -1183,35 +1172,46 @@ public class ViewApplet extends javax.swing.JApplet {
     }//GEN-LAST:event_chooseMainButtonActionPerformed
 
     private void inviteMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviteMainButtonActionPerformed
+        currentEvent = null;
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_inviteMainButtonActionPerformed
 
     private void manageEvMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEvMainButtonActionPerformed
+        currentEvent = null;
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_manageEvMainButtonActionPerformed
 
-    private void mWeatherStormRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mWeatherStormRadioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mWeatherStormRadioActionPerformed
-
     private void createCreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createCreateButtonActionPerformed
-        CardLayout cl = (CardLayout)(cardContainer.getLayout());
-        cl.show(cardContainer, "manage");
+        //Get and parse each individual piece of data
+        
+        //If it's all valid
+            //Create event object as currentEvent
+            //Add to database
+            //Get list of user's created events from database
+            //Set the fields of update to match currentEvent
+            //Switch cards    
+            CardLayout cl = (CardLayout)(cardContainer.getLayout());
+            cl.show(cardContainer, "manage");
+        //else
+            //Tell the user what went wrong
     }//GEN-LAST:event_createCreateButtonActionPerformed
 
     private void manageEvChooseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEvChooseButtonActionPerformed
+        currentEvent = null;
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "choose");
     }//GEN-LAST:event_manageEvChooseButtonActionPerformed
 
     private void manageInvChooseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageInvChooseButtonActionPerformed
+        currentEvent = null;
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "choose");
     }//GEN-LAST:event_manageInvChooseButtonActionPerformed
 
     private void manageInvMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageInvMainButtonActionPerformed
+        currentEvent = null;
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_manageInvMainButtonActionPerformed
