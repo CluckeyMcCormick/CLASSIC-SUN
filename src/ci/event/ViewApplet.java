@@ -8,7 +8,8 @@ package ci.event;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.util.ArrayList;
+import java.util.*;
+
 
 /**
  *
@@ -16,6 +17,13 @@ import java.util.ArrayList;
  */
 public class ViewApplet extends javax.swing.JApplet {
 
+    private final String[] LOCATIONS = {
+        "CSU Channel Islands Main Campus",
+        "CSU Channel Islands Thousand Oaks Campus",
+        "CSU Channel Islands Santa Barbara Campus",
+        "Santa Rosa Island Research Station"
+    };
+    
     //Objects for database interaction
     private Controller controller;
     private View view;
@@ -53,8 +61,8 @@ public class ViewApplet extends javax.swing.JApplet {
             java.util.logging.Logger.getLogger(ViewApplet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-
+        //</editor-fold> 
+        
         /* Create and display the applet */
         try {
             java.awt.EventQueue.invokeAndWait(new Runnable() {
@@ -74,6 +82,13 @@ public class ViewApplet extends javax.swing.JApplet {
         this.view = new View(conman);
         //Create the Weather
         this.weather = new Weather();
+        
+        //Create the model for our combo boxes
+        ComboBoxModel<String> model = new DefaultComboBoxModel(this.LOCATIONS);
+        
+        //set the models
+        this.createLocationCombo.setModel(model);
+        this.manageEvLocationCombo.setModel(model);
     }
 
     /**
@@ -203,7 +218,7 @@ public class ViewApplet extends javax.swing.JApplet {
         manageInvMainButton = new javax.swing.JButton();
         manageInvChooseButton = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(600, 440));
+        setPreferredSize(new java.awt.Dimension(600, 475));
 
         cardContainer.setLayout(new java.awt.CardLayout());
 
@@ -238,7 +253,7 @@ public class ViewApplet extends javax.swing.JApplet {
             .addGroup(loginPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(loginScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+                    .addComponent(loginScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
                     .addGroup(loginPanelLayout.createSequentialGroup()
                         .addComponent(loginUserLabel)
                         .addGap(18, 18, 18)
@@ -318,7 +333,7 @@ public class ViewApplet extends javax.swing.JApplet {
             .addGroup(mainMenuPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(mainMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(mainScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+                    .addComponent(mainScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
                     .addComponent(mainCrtEvtButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(mainInviteButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(mainMngEvtButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -419,7 +434,7 @@ public class ViewApplet extends javax.swing.JApplet {
                         .addGap(18, 18, 18)
                         .addGroup(invitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(inviteDateField)
-                            .addComponent(inviteSenderField, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                            .addComponent(inviteSenderField, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
                             .addComponent(inviteLocationField)
                             .addGroup(invitePanelLayout.createSequentialGroup()
                                 .addGroup(invitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -598,8 +613,6 @@ public class ViewApplet extends javax.swing.JApplet {
 
         createLocationLabel.setText("Location");
 
-        createLocationCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         createDescriptionLabel.setText("Event Description");
 
         createDescriptionText.setColumns(20);
@@ -627,24 +640,22 @@ public class ViewApplet extends javax.swing.JApplet {
                         .addGroup(createEvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(createEvPanelLayout.createSequentialGroup()
                                 .addComponent(createWeatherPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(createEvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(createDescriptionPane)
                                     .addGroup(createEvPanelLayout.createSequentialGroup()
+                                        .addComponent(createLocationLabel)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(createEvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(createDescriptionPane)
-                                            .addGroup(createEvPanelLayout.createSequentialGroup()
-                                                .addComponent(createLocationLabel)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(createEvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(createEvPanelLayout.createSequentialGroup()
-                                                        .addGap(12, 12, 12)
-                                                        .addComponent(createDescriptionLabel)
-                                                        .addGap(0, 0, Short.MAX_VALUE))
-                                                    .addComponent(createLocationCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                        .addComponent(createLocationCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createEvPanelLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(createCreateButton)
-                                        .addGap(77, 77, 77))))
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(createEvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createEvPanelLayout.createSequentialGroup()
+                                                .addComponent(createCreateButton)
+                                                .addGap(77, 77, 77))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createEvPanelLayout.createSequentialGroup()
+                                                .addComponent(createDescriptionLabel)
+                                                .addGap(100, 100, 100))))))
                             .addGroup(createEvPanelLayout.createSequentialGroup()
                                 .addComponent(createServerScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -688,7 +699,7 @@ public class ViewApplet extends javax.swing.JApplet {
                     .addGroup(createEvPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(createMainButton))
-                    .addComponent(createServerScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
+                    .addComponent(createServerScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -724,7 +735,7 @@ public class ViewApplet extends javax.swing.JApplet {
         chooseEvPanelLayout.setHorizontalGroup(
             chooseEvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(chooseEvPanelLayout.createSequentialGroup()
-                .addContainerGap(141, Short.MAX_VALUE)
+                .addContainerGap(139, Short.MAX_VALUE)
                 .addGroup(chooseEvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chooseEvPanelLayout.createSequentialGroup()
                         .addGroup(chooseEvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -916,7 +927,7 @@ public class ViewApplet extends javax.swing.JApplet {
                         .addComponent(manageEvWeatherPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(manageCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(manageEvDescriptionScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                            .addComponent(manageEvDescriptionScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
                             .addGroup(manageCreatePanelLayout.createSequentialGroup()
                                 .addComponent(manageEvLocationLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1064,7 +1075,7 @@ public class ViewApplet extends javax.swing.JApplet {
                             .addGroup(manageInvitePanelLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(manageInvServerLabel)))
-                        .addGap(0, 84, Short.MAX_VALUE))
+                        .addGap(0, 47, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manageInvitePanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(manageInvServerScroll)
@@ -1112,14 +1123,14 @@ public class ViewApplet extends javax.swing.JApplet {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cardContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
+                .addComponent(cardContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 582, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cardContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cardContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -1184,7 +1195,84 @@ public class ViewApplet extends javax.swing.JApplet {
     }//GEN-LAST:event_manageEvMainButtonActionPerformed
 
     private void createCreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createCreateButtonActionPerformed
-        //Get and parse each individual piece of data
+        //The acceptable weather for this event
+        ArrayList<String> goodWeather;
+        //The name of the event
+        String evName;
+        //The date of the event
+        Calendar date;
+        //Today's date
+        Calendar today;
+        //The warning period for changing weather
+        int warning;
+        //The date, "warning period" days before 
+        Calendar warnDate;
+        //The event's decription
+        String description;
+        //The server's response - everyhting that went wrong.
+        StringBuilder response;
+        
+        //Disable the buttons - we don't want users messing things up
+        this.disableCreatePanel();
+        
+        //Tell the user we're processing
+        
+        //Initialize the crap
+        goodWeather = new ArrayList();
+        
+        //Get weather radio buttons
+        if(this.cWeatherClearRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_CLEAR]);
+        }
+        if(this.cWeatherScatteredRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_SCATTERED]);
+        }
+        if(this.cWeatherPartlyRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_PARTLY]);
+        }
+        if(this.cWeatherMostlyRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_MOSTLY]);
+        }
+        if(this.cWeatherOvercastRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_OVERCAST]);
+        }
+        if(this.cWeatherChanceRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_CHANCE]);
+        }
+        if(this.cWeatherDrizzleRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_DRIZZLE]);
+        }
+        if(this.cWeatherRainRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_RAIN]);
+        }
+        if(this.cWeatherFogRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_FOG]);
+        }
+        if(this.cWeatherMistRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_MIST]);
+        }
+        if(this.cWeatherSnowRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_SNOW]);
+        }
+        if(this.cWeatherHailRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_HAIL]);
+        }
+        if(this.cWeatherStormRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_STORM]);
+        }
         
         //If it's all valid
             //Create event object as currentEvent
@@ -1194,8 +1282,13 @@ public class ViewApplet extends javax.swing.JApplet {
             //Switch cards    
             CardLayout cl = (CardLayout)(cardContainer.getLayout());
             cl.show(cardContainer, "manage");
+            //Reset the create screen
+            this.resetCreatePanel();
         //else
             //Tell the user what went wrong
+            
+            //Re-enable everything
+            this.reEnableCreatePanel();
     }//GEN-LAST:event_createCreateButtonActionPerformed
 
     private void manageEvChooseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEvChooseButtonActionPerformed
@@ -1216,6 +1309,66 @@ public class ViewApplet extends javax.swing.JApplet {
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_manageInvMainButtonActionPerformed
 
+    /**
+     * Method that disables all the interactive elements in the create panel,
+     * so the user doesn't touch things and mess them up while we're getting data
+     */
+    private void disableCreatePanel()
+    {
+        System.out.println("In disableCreatePanel");
+    }
+    
+    /**
+     * Method that disables all the interactive elements in the manageEv panel,
+     * so the user doesn't touch things and mess them up while we're getting data
+     */
+    private void disableManageEvPanel()
+    {
+        System.out.println("In disableManageEvPanel");
+    }
+    
+    /**
+     * Method that disables all the interactive elements in the ManageInv panel,
+     * so the user doesn't touch things and mess them up while we're getting data
+     */
+    private void disableManageInvPanel()
+    {
+        System.out.println("In disableManageInvPanel");
+    }
+    
+    /**
+     * Method that enables all the interactive elements of the create panel,
+     * and defaults the values
+     */
+    private void resetCreatePanel()
+    {
+        this.reEnableCreatePanel();
+        System.out.println("In resetCreatePanel");
+    }
+    
+    /**
+     * Method that enables all the interactive elements of the create panel
+     */
+    private void reEnableCreatePanel()
+    {
+        System.out.println("In reEnableCreatePanel");
+    }
+    
+    /**
+     * Method that enables all the interactive elements in the manageEv panel
+     */
+    private void reEnableManageEvPanel()
+    {
+        System.out.println("In reEnableManageEvPanel");
+    }
+    
+    /**
+     * Method that enables all the interactive elements in the manageInv panel
+     */
+    private void reEnableManageInvPanel()
+    {
+        System.out.println("In reEnableManageInvPanel");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton cWeatherChanceRadio;

@@ -25,9 +25,26 @@ public class Weather {
     public static final String tenDayForecast="/forecast10day/q/CA/";
     public static String location="";//spaces must b replaced with underscores
     public static final int day=2; //data file is stored in periods. 2 periods a day. Even is day, odd is night
-    //public static final String[] usualWeathers= {"Clear","Scattered Clouds","Partly Cloudy","Mostly Cloudy","Overcast","Chance of Rain","Drizzle","Rain","Fog","Mist","Snow","Hail","Storm"};
-    //public static final int weatherNum=13;
-    public String[] weatherForecast=new String[10];
+    
+    public static final String[] WEATHER_STRINGS = 
+        { "Clear","Scattered Clouds","Partly Cloudy","Mostly Cloudy","Overcast",
+        "Chance of Rain","Drizzle","Rain","Fog","Mist","Snow","Hail","Storm" };
+
+    public static final int W_INDEX_CLEAR =     0;
+    public static final int W_INDEX_SCATTERED = 1;
+    public static final int W_INDEX_PARTLY =    2;
+    public static final int W_INDEX_MOSTLY =    3;
+    public static final int W_INDEX_OVERCAST =  4;
+    public static final int W_INDEX_CHANCE =    5;
+    public static final int W_INDEX_DRIZZLE =   6;
+    public static final int W_INDEX_RAIN =      7;
+    public static final int W_INDEX_FOG =       8;
+    public static final int W_INDEX_MIST =      9;
+    public static final int W_INDEX_SNOW =     10;
+    public static final int W_INDEX_HAIL =     11;
+    public static final int W_INDEX_STORM =    12;
+    
+    public String[] weatherForecast = new String[10];
     
     public Weather(){
         this.location = "";

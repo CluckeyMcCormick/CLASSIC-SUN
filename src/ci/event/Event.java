@@ -11,30 +11,30 @@ public class Event {
     private Calendar date;
     private String location;
     private int warningPeriod;
-    private ArrayList<String> badWeather;
+    private ArrayList<String> goodWeather;
     private String description;
     private ArrayList<String> invited;
     private ArrayList<String> accepted;
 
-    public Event(String name, String create, Calendar date, String loc, int warn, ArrayList<String> bad, String descri, ArrayList<String> invi, ArrayList<String> accept ) {
+    public Event(String name, String create, Calendar date, String loc, int warn, ArrayList<String> good, String descri, ArrayList<String> invi, ArrayList<String> accept ) {
         this.id = -1;
         this.name = name;
         this.creator = create;
         this.date = date;
         this.location = loc;
-        this.badWeather = bad;
+        this.goodWeather = good;
         this.description = descri;
         this.invited = invi;
         this.accepted = accept;
     }
     
-    public Event(String name, String create, Calendar date, String loc, int warn, ArrayList<String> bad, String descri) {
+    public Event(String name, String create, Calendar date, String loc, int warn, ArrayList<String> good, String descri) {
         this.id = -1;
         this.name = name;
         this.creator = create;
         this.date = date;
         this.location = loc;
-        this.badWeather = bad;
+        this.goodWeather = good;
         this.description = descri;
         this.invited = new ArrayList<String>();
         this.accepted = new ArrayList<String>();
@@ -64,8 +64,8 @@ public class Event {
         this.warningPeriod = warningPeriod;
     }
     
-    public void setBadWeather(ArrayList<String> badWeather) {
-        this.badWeather = badWeather;
+    public void setGoodWeather(ArrayList<String> badWeather) {
+        this.goodWeather = badWeather;
     }
 
     public void setDescription(String description) {
@@ -104,8 +104,8 @@ public class Event {
         return warningPeriod;
     }
     
-    public ArrayList<String> getBadWeather() {
-        return badWeather;
+    public ArrayList<String> getGoodWeather() {
+        return goodWeather;
     }
     
     public String getDescription() {

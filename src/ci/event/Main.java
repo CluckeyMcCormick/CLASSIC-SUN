@@ -22,7 +22,7 @@ public class Main {
         frame = new JFrame();
         app = new ViewApplet();
 
-        frame.setSize(600, 440);
+        frame.setSize(600, 475);
 
         frame.getContentPane().add(app);
         frame.addWindowListener(new WindowAdapter() {

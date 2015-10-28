@@ -3,7 +3,7 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JAppletFormInfo">
   <Properties>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[600, 440]"/>
+      <Dimension value="[600, 475]"/>
     </Property>
   </Properties>
   <AuxValues>
@@ -32,7 +32,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="cardContainer" max="32767" attributes="0"/>
+              <Component id="cardContainer" pref="457" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -63,7 +63,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="loginScrollPane" pref="546" max="32767" attributes="0"/>
+                          <Component id="loginScrollPane" pref="558" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="loginUserLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -169,7 +169,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="mainScrollPane" alignment="1" pref="546" max="32767" attributes="0"/>
+                          <Component id="mainScrollPane" alignment="1" pref="558" max="32767" attributes="0"/>
                           <Component id="mainCrtEvtButton" alignment="1" max="32767" attributes="0"/>
                           <Component id="mainInviteButton" alignment="1" max="32767" attributes="0"/>
                           <Component id="mainMngEvtButton" alignment="0" max="32767" attributes="0"/>
@@ -305,7 +305,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="inviteDateField" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="inviteSenderField" alignment="0" pref="318" max="32767" attributes="0"/>
+                                  <Component id="inviteSenderField" alignment="0" pref="330" max="32767" attributes="0"/>
                                   <Component id="inviteLocationField" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -497,29 +497,26 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="createWeatherPanel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
+                                          <Component id="createDescriptionPane" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="createLocationLabel" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="createDescriptionPane" max="32767" attributes="0"/>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="createLocationLabel" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Group type="102" attributes="0">
-                                                              <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                                                              <Component id="createDescriptionLabel" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                                          </Group>
-                                                          <Component id="createLocationCombo" max="32767" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                              </Group>
+                                              <Component id="createLocationCombo" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="1" attributes="0">
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="createCreateButton" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="createCreateButton" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="createDescriptionLabel" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -578,7 +575,7 @@
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="createMainButton" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="createServerScroll" pref="93" max="32767" attributes="0"/>
+                          <Component id="createServerScroll" pref="92" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -814,16 +811,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="createLocationCombo">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
-                  </StringArray>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="createDescriptionLabel">
               <Properties>
@@ -873,7 +860,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace pref="141" max="32767" attributes="0"/>
+                      <EmptySpace pref="139" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -994,7 +981,7 @@
                                   <Component id="manageEvWeatherPanel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="manageEvDescriptionScroll" alignment="0" pref="324" max="32767" attributes="0"/>
+                                      <Component id="manageEvDescriptionScroll" alignment="0" pref="287" max="32767" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="manageEvLocationLabel" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -1420,7 +1407,7 @@
                                           <Component id="manageInvServerLabel" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="84" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="47" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>

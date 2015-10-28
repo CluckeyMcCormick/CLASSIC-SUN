@@ -78,7 +78,7 @@ public class QueryGenerator {
      */
     public static String updateQueryEvent(Event e){//check all event .gets return strings or good values
         String toReturn= "UPDATE EVENTS SET ";
-        toReturn+=eventColumns[1]+" = "+e.getName()+", "+eventColumns[2]+" = "+e.getCreator()+", "+eventColumns[3]+" = "+e.getDate()+", "+eventColumns[4]+" = "+e.getWarningPeriod()+", "+eventColumns[5]+" = "+e.getLocation()+", "+eventColumns[6]+" = "+e.getBadWeather()+", "+eventColumns[7]+" = "+e.getDescription()+", "+eventColumns[8]+" = "+e.getInvited()+", "+eventColumns[9]+" = "+e.getAccepted();
+        toReturn+=eventColumns[1]+" = "+e.getName()+", "+eventColumns[2]+" = "+e.getCreator()+", "+eventColumns[3]+" = "+e.getDate()+", "+eventColumns[4]+" = "+e.getWarningPeriod()+", "+eventColumns[5]+" = "+e.getLocation()+", "+eventColumns[6]+" = "+e.getGoodWeather()+", "+eventColumns[7]+" = "+e.getDescription()+", "+eventColumns[8]+" = "+e.getInvited()+", "+eventColumns[9]+" = "+e.getAccepted();
         toReturn+="WHERE ID = "+e.getId();
         return toReturn;
     }
@@ -103,7 +103,7 @@ public class QueryGenerator {
      */
     public static String insertQueryEvent(Event e){ //getDate needs a string conversion**************
         return "INSERT INTO EVENTS (ID,EVENTNAME,EVENTCREATOR,DATE,WARNING,LOCATION,BADWEATHERS,DESCRIPTION,INVITED)"+
-               "VALUES ("+e.getId()+", '"+e.getName()+"', '"+e.getCreator()+"', '"+e.getDate()+"', "+e.getWarningPeriod()+", '"+e.getLocation()+"', '"+Factory.StringListToString(e.getBadWeather())+"', '"+e.getDescription()+"', '"+Factory.StringListToString(e.getInvited())+"');";
+               "VALUES ("+e.getId()+", '"+e.getName()+"', '"+e.getCreator()+"', '"+e.getDate()+"', "+e.getWarningPeriod()+", '"+e.getLocation()+"', '"+Factory.StringListToString(e.getGoodWeather())+"', '"+e.getDescription()+"', '"+Factory.StringListToString(e.getInvited())+"');";
     }
     /**
      * Generates a query that inserts the entry of the provided user
