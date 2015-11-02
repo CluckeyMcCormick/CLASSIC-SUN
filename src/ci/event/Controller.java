@@ -1,6 +1,8 @@
 package ci.event;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 /**
  * Class used to store, update, and remove information in the database.
  * 
@@ -10,6 +12,7 @@ public class Controller {
    
     //This is the object we use to get a conenction to the database
     private ConnectionManager conman;
+    private Connection con;
     //For info on how to use this, check out this:
     // <editor-fold defaultstate="collapsed" desc="URL Link">
     
@@ -21,6 +24,7 @@ public class Controller {
     
     public Controller(ConnectionManager conman) {
         this.conman = conman;
+        this.con=conman.getConnection();
     }
 
     /**
@@ -31,7 +35,24 @@ public class Controller {
      */
     public ServerResponse addUser(User u) {
         //Query the database to see if this user exists already
-
+        try{
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(QueryGenerator.selectQueryUser(u));
+        if(rs.next()){ //A user has been returned and it has a previous existence
+            ServerResponse failedInsert= new ServerResponse("User already exists!", false);
+            return failedInsert;
+            
+        }else{//No user returned, no existing user with that name/email. add user to database
+            stmt.executeQuery(QueryGenerator.insertQueryUser(u));
+            ServerResponse successfulInsert= new ServerResponse("User added to database!", true);
+            return successfulInsert;
+        }
+        
+        
+        } catch ( Exception e ) {
+         System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+         System.exit(0);
+       }
         //If they do exist
             //return a ServerResponse, with a message indicating the
             //username already exists, and the boolean false
@@ -39,8 +60,8 @@ public class Controller {
             //Add the user to the "user" table
             //return a ServerResponse, with a message indicating the
             //username has been created, and the boolean true
-        System.out.println("In Controller's addUser method - IMPLEMENT ME!");
-        return null;
+        ServerResponse defaultResponse= new ServerResponse("Failure in querying for user insert.", false);
+            return defaultResponse;
     }
 
     /**
@@ -51,6 +72,7 @@ public class Controller {
      */
     public ServerResponse addEvent(Event e) {
         //get a new id for this event from the "event" table
+        //check if is equal to another event in table
         //the id should probably be the count from the eventTable
         
         //set the event's (e) id using the setId method
