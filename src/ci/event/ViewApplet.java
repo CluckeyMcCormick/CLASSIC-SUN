@@ -1204,21 +1204,168 @@ public class ViewApplet extends javax.swing.JApplet {
         //Today's date
         Calendar today;
         //The warning period for changing weather
-        int warning;
+        Integer warning;
         //The date, "warning period" days before 
         Calendar warnDate;
         //The event's decription
         String description;
-        //The server's response - everyhting that went wrong.
+        //The event's location
+        String location;
+        //The server's response - everything that went wrong.
         StringBuilder response;
-        
-        //Disable the buttons - we don't want users messing things up
-        this.disableCreatePanel();
+        //Is this a valid event?
+        boolean valid;
         
         //Tell the user we're processing
+        this.createServerText.setText("Processing request...");
+        //Disable the buttons - we don't want users messing things up
+        this.setEnabledCreatePanel(false);
         
+        //intialize!
+        valid = true;
+        response = new StringBuilder();
+        //get weather things
+        goodWeather = getCreateWeather();
+        //get event name
+        evName = this.createNameField.getText();
+        //Get today's date
+        today = Calendar.getInstance();
+        
+        //parse the user's date entry
+        try{
+            date = Factory.stringToCalendar(this.createDateField.getText());
+        }
+        catch(Exception e)
+        {
+            valid = false;
+            date = null;
+            response.append("Event Rejected:\n");
+            response.append("Could not parse provided event date!\n");
+        }
+        
+        //parse the user's warning period entry
+        try{
+            warning = Integer.parseInt(this.cWeatherWarningField.getText());
+        }
+        catch(Exception e){
+            if(valid)
+            {
+                valid = false;
+                response.append("Event Rejected:");
+            }  
+            response.append("Could not parse warning period.\n");    
+            warning = null;
+        }
+        
+        if(warning != null && date != null)
+        {
+            //calculate the warning date
+            warnDate = (Calendar) date.clone();
+            warnDate.add(Calendar.DAY_OF_MONTH, -warning);
+        }
+        else
+        {
+            warnDate = null;
+        }
+        
+        //get the description
+        description = this.createDescriptionText.getText();
+        //get the location
+        location = this.LOCATIONS[this.createLocationCombo.getSelectedIndex()];
+        
+        if(evName.equals(""))
+        {
+            if(valid)
+            {
+                valid = false;
+                response.append("Event Rejected:\n");
+            }  
+            response.append("Event name was an empty string!\n");
+        }
+        
+        if(date != null && date.before(today))
+        {
+            if(valid)
+            {
+                valid = false;
+                response.append("Event Rejected:\n");
+            }           
+            response.append("The event date, ");
+            response.append(Factory.calendarToString(date));
+            response.append(" has already passed!\n");
+        }
+        
+        if(warnDate != null && today.after(warnDate))
+        {
+            if(valid)
+            {
+                valid = false;
+                response.append("Event Rejected:\n");
+            }       
+            response.append("The warning date, ");
+            response.append(Factory.calendarToString(warnDate));
+            response.append(" has already passed!\n");
+        }
+        
+        if(warning != null && warning < 0)
+        {
+            if(valid)
+            {
+                valid = false;
+                response.append("Event Rejected:\n");
+            }           
+            response.append("The warning period was negative!\n");
+        }
+        
+        //If it's all valid
+        if(valid)
+        {
+            //Create event object as currentEvent
+            this.currentEvent = 
+            new Event(evName, currentUser.getEmail(), date, location, warning, goodWeather, description);
+            //Add to database
+            this.controller.addEvent(this.currentEvent);
+            //Get list of user's created events from database
+            this.createdEvents = this.view.getEventsCreated(currentUser);
+            //Set the fields of update to match currentEvent
+            
+            //Switch cards    
+            CardLayout cl = (CardLayout)(cardContainer.getLayout());
+            cl.show(cardContainer, "manage");
+            //Reset the create screen
+            this.resetCreatePanel();
+        }
+        else
+        {
+            //Tell the user what went wrong
+            this.createServerText.setText(response.toString());
+            //Re-enable everything
+            this.setEnabledCreatePanel(true);
+        }
+    }//GEN-LAST:event_createCreateButtonActionPerformed
+
+    private void manageEvChooseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEvChooseButtonActionPerformed
+        currentEvent = null;
+        CardLayout cl = (CardLayout)(cardContainer.getLayout());
+        cl.show(cardContainer, "choose");
+    }//GEN-LAST:event_manageEvChooseButtonActionPerformed
+
+    private void manageInvChooseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageInvChooseButtonActionPerformed
+        currentEvent = null;
+        CardLayout cl = (CardLayout)(cardContainer.getLayout());
+        cl.show(cardContainer, "choose");
+    }//GEN-LAST:event_manageInvChooseButtonActionPerformed
+
+    private void manageInvMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageInvMainButtonActionPerformed
+        currentEvent = null;
+        CardLayout cl = (CardLayout)(cardContainer.getLayout());
+        cl.show(cardContainer, "main");
+    }//GEN-LAST:event_manageInvMainButtonActionPerformed
+
+    private ArrayList<String> getCreateWeather()
+    {
         //Initialize the crap
-        goodWeather = new ArrayList();
+        ArrayList<String> goodWeather = new ArrayList();
         
         //Get weather radio buttons
         if(this.cWeatherClearRadio.isSelected())
@@ -1274,48 +1421,41 @@ public class ViewApplet extends javax.swing.JApplet {
             goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_STORM]);
         }
         
-        //If it's all valid
-            //Create event object as currentEvent
-            //Add to database
-            //Get list of user's created events from database
-            //Set the fields of update to match currentEvent
-            //Switch cards    
-            CardLayout cl = (CardLayout)(cardContainer.getLayout());
-            cl.show(cardContainer, "manage");
-            //Reset the create screen
-            this.resetCreatePanel();
-        //else
-            //Tell the user what went wrong
-            
-            //Re-enable everything
-            this.reEnableCreatePanel();
-    }//GEN-LAST:event_createCreateButtonActionPerformed
-
-    private void manageEvChooseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEvChooseButtonActionPerformed
-        currentEvent = null;
-        CardLayout cl = (CardLayout)(cardContainer.getLayout());
-        cl.show(cardContainer, "choose");
-    }//GEN-LAST:event_manageEvChooseButtonActionPerformed
-
-    private void manageInvChooseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageInvChooseButtonActionPerformed
-        currentEvent = null;
-        CardLayout cl = (CardLayout)(cardContainer.getLayout());
-        cl.show(cardContainer, "choose");
-    }//GEN-LAST:event_manageInvChooseButtonActionPerformed
-
-    private void manageInvMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageInvMainButtonActionPerformed
-        currentEvent = null;
-        CardLayout cl = (CardLayout)(cardContainer.getLayout());
-        cl.show(cardContainer, "main");
-    }//GEN-LAST:event_manageInvMainButtonActionPerformed
-
+        return goodWeather;
+    }
+    
     /**
      * Method that disables all the interactive elements in the create panel,
      * so the user doesn't touch things and mess them up while we're getting data
      */
-    private void disableCreatePanel()
+    private void setEnabledCreatePanel(boolean toSet)
     {
-        System.out.println("In disableCreatePanel");
+        this.cWeatherChanceRadio.setEnabled(toSet);
+        this.cWeatherClearRadio.setEnabled(toSet);
+        this.cWeatherDrizzleRadio.setEnabled(toSet);
+        this.cWeatherFogRadio.setEnabled(toSet);
+        this.cWeatherHailRadio.setEnabled(toSet);
+        this.cWeatherMistRadio.setEnabled(toSet);
+        this.cWeatherMostlyRadio.setEnabled(toSet);
+        this.cWeatherOvercastRadio.setEnabled(toSet);
+        this.cWeatherPartlyRadio.setEnabled(toSet);
+        this.cWeatherRainRadio.setEnabled(toSet);
+        this.cWeatherScatteredRadio.setEnabled(toSet);
+        this.cWeatherSnowRadio.setEnabled(toSet);
+        this.cWeatherStormRadio.setEnabled(toSet);
+        this.cWeatherWarningField.setEnabled(toSet);
+        
+        this.createCreateButton.setEnabled(toSet);
+        this.createDateField.setEnabled(toSet);
+        this.createDescriptionText.setEnabled(toSet);
+        this.createLocationCombo.setEnabled(toSet);
+        this.createMainButton.setEnabled(toSet);
+        this.createNameField.setEnabled(toSet);
+    }
+    
+    private void setManageFields()
+    {
+        System.out.println("In setManageFields.");
     }
     
     /**
@@ -1342,32 +1482,8 @@ public class ViewApplet extends javax.swing.JApplet {
      */
     private void resetCreatePanel()
     {
-        this.reEnableCreatePanel();
+        this.setEnabledCreatePanel(true);
         System.out.println("In resetCreatePanel");
-    }
-    
-    /**
-     * Method that enables all the interactive elements of the create panel
-     */
-    private void reEnableCreatePanel()
-    {
-        System.out.println("In reEnableCreatePanel");
-    }
-    
-    /**
-     * Method that enables all the interactive elements in the manageEv panel
-     */
-    private void reEnableManageEvPanel()
-    {
-        System.out.println("In reEnableManageEvPanel");
-    }
-    
-    /**
-     * Method that enables all the interactive elements in the manageInv panel
-     */
-    private void reEnableManageInvPanel()
-    {
-        System.out.println("In reEnableManageInvPanel");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

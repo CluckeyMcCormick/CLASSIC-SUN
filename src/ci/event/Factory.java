@@ -115,7 +115,7 @@ public class Factory {
         read = new Scanner(in);
         read.useDelimiter("/");
         
-        cal.set(Calendar.MONTH, read.nextInt());
+        cal.set(Calendar.MONTH, read.nextInt() - 1);
         cal.set(Calendar.DAY_OF_MONTH, read.nextInt());
         cal.set(Calendar.YEAR, read.nextInt());
         
@@ -126,8 +126,10 @@ public class Factory {
         StringBuilder string;
         
         string = new StringBuilder();
-        string.append(cal.get(Calendar.MONTH));
+        string.append(cal.get(Calendar.MONTH) + 1);
+        string.append('/');
         string.append(cal.get(Calendar.DAY_OF_MONTH));
+        string.append('/');
         string.append(cal.get(Calendar.YEAR));
         
         return string.toString();
