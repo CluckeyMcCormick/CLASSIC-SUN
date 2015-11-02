@@ -101,9 +101,9 @@ public class QueryGenerator {
      * @param user The user to insert - this should be the INSERTED version
      * @return A SQL command in the form of a string
      */
-    public static String insertQueryEvent(Event e){ //getDate needs a string conversion**************
+    public static String insertQueryEvent(Event e){ //getDate needs a string conversion************** done!
         return "INSERT INTO EVENTS (ID,EVENTNAME,EVENTCREATOR,DATE,WARNING,LOCATION,BADWEATHERS,DESCRIPTION,INVITED)"+
-               "VALUES ("+e.getId()+", '"+e.getName()+"', '"+e.getCreator()+"', '"+e.getDate()+"', "+e.getWarningPeriod()+", '"+e.getLocation()+"', '"+Factory.StringListToString(e.getGoodWeather())+"', '"+e.getDescription()+"', '"+Factory.StringListToString(e.getInvited())+"');";
+               "VALUES ("+e.getId()+", '"+e.getName()+"', '"+e.getCreator()+"', '"+Factory.calendarToString(e.getDate())+"', "+e.getWarningPeriod()+", '"+e.getLocation()+"', '"+Factory.StringListToString(e.getGoodWeather())+"', '"+e.getDescription()+"', '"+Factory.StringListToString(e.getInvited())+"');";
     }
     /**
      * Generates a query that inserts the entry of the provided user
