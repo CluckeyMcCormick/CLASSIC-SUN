@@ -89,6 +89,8 @@ public class ViewApplet extends javax.swing.JApplet {
         //set the models
         this.createLocationCombo.setModel(model);
         this.manageEvLocationCombo.setModel(model);
+        //Set the create panel to the default
+        this.resetCreatePanel();
     }
 
     /**
@@ -1141,11 +1143,30 @@ public class ViewApplet extends javax.swing.JApplet {
     }//GEN-LAST:event_mainInviteButtonActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        ServerResponse serRes;
+        
+        //Tell the user we're processing, disable
+        this.loginServText.setText("Processing request...");
+        this.setEnabledLoginPanel(false);
+        
         //Get input, create user, set current user
-        //Add the user to the database
-        //Switch to main menu
-        CardLayout cl = (CardLayout)(cardContainer.getLayout());
-        cl.show(cardContainer, "main");
+        this.currentUser = new User(this.loginUserField.getText());
+        //If this user is in the database
+        serRes = this.controller.checkForUser(currentUser);
+        if(serRes.getSuccess())
+        {
+            //Switch to main menu
+            CardLayout cl = (CardLayout)(cardContainer.getLayout());
+            cl.show(cardContainer, "main");
+            
+            this.loginServText.setText("");
+        }
+        else
+        {
+            this.loginServText.setText(serRes.getMessage());
+        }
+        
+        this.setEnabledLoginPanel(true);
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void mainCrtEvtButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainCrtEvtButtonActionPerformed
@@ -1270,8 +1291,21 @@ public class ViewApplet extends javax.swing.JApplet {
         
         //get the description
         description = this.createDescriptionText.getText();
-        //get the location
-        location = this.LOCATIONS[this.createLocationCombo.getSelectedIndex()];
+        if(this.createLocationCombo.getSelectedIndex() == -1)
+        {
+            if(valid)
+            {
+                valid = false;
+                response.append("Event Rejected:\n");
+            }  
+            response.append("No location was selected!\n");
+            location = null;
+        }
+        else
+        {
+            //get the location
+            location = this.LOCATIONS[this.createLocationCombo.getSelectedIndex()];
+        }
         
         if(evName.equals(""))
         {
@@ -1328,7 +1362,7 @@ public class ViewApplet extends javax.swing.JApplet {
             //Get list of user's created events from database
             this.createdEvents = this.view.getEventsCreated(currentUser);
             //Set the fields of update to match currentEvent
-            
+            this.setManageFields();
             //Switch cards    
             CardLayout cl = (CardLayout)(cardContainer.getLayout());
             cl.show(cardContainer, "manage");
@@ -1424,6 +1458,112 @@ public class ViewApplet extends javax.swing.JApplet {
         return goodWeather;
     }
     
+    private ArrayList<String> getManageWeather()
+    {
+        //Initialize the crap
+        ArrayList<String> goodWeather = new ArrayList();
+        
+        //Get weather radio buttons
+        if(this.mWeatherChanceRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_CLEAR]);
+        }
+        if(this.mWeatherScatteredRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_SCATTERED]);
+        }
+        if(this.mWeatherPartlyRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_PARTLY]);
+        }
+        if(this.mWeatherMostlyRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_MOSTLY]);
+        }
+        if(this.mWeatherOvercastRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_OVERCAST]);
+        }
+        if(this.mWeatherChanceRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_CHANCE]);
+        }
+        if(this.mWeatherDrizzleRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_DRIZZLE]);
+        }
+        if(this.mWeatherRainRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_RAIN]);
+        }
+        if(this.mWeatherFogRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_FOG]);
+        }
+        if(this.mWeatherMistRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_MIST]);
+        }
+        if(this.mWeatherSnowRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_SNOW]);
+        }
+        if(this.mWeatherHailRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_HAIL]);
+        }
+        if(this.mWeatherStormRadio.isSelected())
+        {
+            goodWeather.add(Weather.WEATHER_STRINGS[Weather.W_INDEX_STORM]);
+        }
+        
+        return goodWeather;
+    }
+    
+    private void setManageWeather(ArrayList<String> weather)
+    {
+        boolean val;
+
+        val = weather.contains(Weather.WEATHER_STRINGS[Weather.W_INDEX_CHANCE]);
+        this.mWeatherChanceRadio.setSelected(val);
+        
+        val = weather.contains(Weather.WEATHER_STRINGS[Weather.W_INDEX_CLEAR]);
+        this.mWeatherClearRadio.setSelected(val);
+        
+        val = weather.contains(Weather.WEATHER_STRINGS[Weather.W_INDEX_DRIZZLE]);
+        this.mWeatherDrizzleRadio.setSelected(val);
+        
+        val = weather.contains(Weather.WEATHER_STRINGS[Weather.W_INDEX_FOG]);
+        this.mWeatherFogRadio.setSelected(val);
+        
+        val = weather.contains(Weather.WEATHER_STRINGS[Weather.W_INDEX_HAIL]);
+        this.mWeatherHailRadio.setSelected(val);
+        
+        val = weather.contains(Weather.WEATHER_STRINGS[Weather.W_INDEX_MIST]);
+        this.mWeatherMistRadio.setSelected(val);
+        
+        val = weather.contains(Weather.WEATHER_STRINGS[Weather.W_INDEX_MOSTLY]);
+        this.mWeatherMostlyRadio.setSelected(val);
+        
+        val = weather.contains(Weather.WEATHER_STRINGS[Weather.W_INDEX_OVERCAST]);
+        this.mWeatherOvercastRadio.setSelected(val);
+
+        val = weather.contains(Weather.WEATHER_STRINGS[Weather.W_INDEX_PARTLY]);
+        this.mWeatherPartlyRadio.setSelected(val);
+        
+        val = weather.contains(Weather.WEATHER_STRINGS[Weather.W_INDEX_RAIN]);
+        this.mWeatherRainRadio.setSelected(val);
+        
+        val = weather.contains(Weather.WEATHER_STRINGS[Weather.W_INDEX_SCATTERED]);
+        this.mWeatherScatteredRadio.setSelected(val);
+        
+        val = weather.contains(Weather.WEATHER_STRINGS[Weather.W_INDEX_SNOW]);
+        this.mWeatherSnowRadio.setSelected(val);
+
+        val = weather.contains(Weather.WEATHER_STRINGS[Weather.W_INDEX_STORM]);
+        this.mWeatherStormRadio.setSelected(val);
+    }
+    
     /**
      * Method that disables all the interactive elements in the create panel,
      * so the user doesn't touch things and mess them up while we're getting data
@@ -1453,27 +1593,63 @@ public class ViewApplet extends javax.swing.JApplet {
         this.createNameField.setEnabled(toSet);
     }
     
-    private void setManageFields()
-    {
-        System.out.println("In setManageFields.");
-    }
-    
     /**
      * Method that disables all the interactive elements in the manageEv panel,
      * so the user doesn't touch things and mess them up while we're getting data
      */
-    private void disableManageEvPanel()
+    private void setEnabledManagePanel(boolean toSet)
     {
-        System.out.println("In disableManageEvPanel");
+        this.manageEvTab.setEnabled(toSet);
+        this.manageEvChooseButton.setEnabled(toSet);
+        this.manageEvDateField.setEnabled(toSet);
+        this.manageEvDescriptionText.setEnabled(toSet);
+        this.manageEvLocationCombo.setEnabled(toSet);
+        this.manageEvMainButton.setEnabled(toSet);
+        this.manageEvNameField.setEnabled(toSet);
+        this.manageEvServerText.setEnabled(toSet);
+        this.manageEvUpdateButton.setEnabled(toSet);
+        
+        this.manageInvChooseButton.setEnabled(toSet);
+        this.manageInvInviteButton.setEnabled(toSet);
+        this.manageInvInviteField.setEnabled(toSet);
+        this.manageInvMainButton.setEnabled(toSet);
+    }
+    
+    private void setEnabledLoginPanel(boolean toSet)
+    {
+        this.loginButton.setEnabled(toSet);
+        this.loginUserField.setEnabled(toSet);
     }
     
     /**
-     * Method that disables all the interactive elements in the ManageInv panel,
-     * so the user doesn't touch things and mess them up while we're getting data
+     * Method that sets all the fields in the "manage event" panel, using the 
+     * this.currentEvent variable
      */
-    private void disableManageInvPanel()
+    private void setManageFields()
     {
-        System.out.println("In disableManageInvPanel");
+        int index;
+        
+        this.setManageWeather(this.currentEvent.getGoodWeather());
+        
+        this.manageEvDateField.setText(Factory.calendarToString(this.currentEvent.getDate()));
+        this.manageEvNameField.setText(this.currentEvent.getName());
+        this.manageEvDescriptionText.setText(this.currentEvent.getDescription());
+        this.manageEvServerText.setText("");
+        this.mWeatherWarningField.setText(this.currentEvent.getWarningPeriod() + "");
+
+        index = -1;
+        for(int i = 0; index == -1 && i < this.LOCATIONS.length; ++i)
+        {
+            if(this.LOCATIONS[i].equals(this.currentEvent.getLocation()))
+            {
+                index = i;
+            }
+        }
+        
+        this.manageEvLocationCombo.setSelectedIndex(index);
+        
+        this.manageInvAttendList.setListData(this.currentEvent.getAccepted().toArray());
+        this.manageInvInvitedList.setListData(this.currentEvent.getInvited().toArray());
     }
     
     /**
@@ -1483,7 +1659,35 @@ public class ViewApplet extends javax.swing.JApplet {
     private void resetCreatePanel()
     {
         this.setEnabledCreatePanel(true);
-        System.out.println("In resetCreatePanel");
+        
+        final boolean RADIO_DEFAULT = true;
+        final String WARNING_DEFAULT = "X Days";
+        final String DATE_DEFAULT = "mm/dd/yyyy";
+        final String NAME_DEFAULT = "Event Name";
+        final String DESCRIPTION_DEFAULT = "Enter your description here!";
+        final int COMBO_DEFAULT = -1;
+        
+        this.cWeatherChanceRadio.setSelected(RADIO_DEFAULT);
+        this.cWeatherClearRadio.setSelected(RADIO_DEFAULT);
+        this.cWeatherDrizzleRadio.setSelected(RADIO_DEFAULT);
+        this.cWeatherFogRadio.setSelected(RADIO_DEFAULT);
+        this.cWeatherHailRadio.setSelected(RADIO_DEFAULT);
+        this.cWeatherMistRadio.setSelected(RADIO_DEFAULT);
+        this.cWeatherMostlyRadio.setSelected(RADIO_DEFAULT);
+        this.cWeatherOvercastRadio.setSelected(RADIO_DEFAULT);
+        this.cWeatherPartlyRadio.setSelected(RADIO_DEFAULT);
+        this.cWeatherRainRadio.setSelected(RADIO_DEFAULT);
+        this.cWeatherScatteredRadio.setSelected(RADIO_DEFAULT);
+        this.cWeatherSnowRadio.setSelected(RADIO_DEFAULT);
+        this.cWeatherStormRadio.setSelected(RADIO_DEFAULT);
+        
+        this.cWeatherWarningField.setText(WARNING_DEFAULT);
+        this.createDateField.setText(DATE_DEFAULT);
+        this.createNameField.setText(NAME_DEFAULT);
+        this.createLocationCombo.setSelectedIndex(COMBO_DEFAULT);
+        this.createDescriptionText.setText(DESCRIPTION_DEFAULT);
+        
+        this.createServerText.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

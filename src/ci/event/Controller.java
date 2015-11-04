@@ -53,15 +53,18 @@ public class Controller {
          System.err.println( e.getClass().getName()+": "+ e.getMessage() );
          System.exit(0);
        }
-        //If they do exist
-            //return a ServerResponse, with a message indicating the
-            //username already exists, and the boolean false
-        //If they don't exist
-            //Add the user to the "user" table
-            //return a ServerResponse, with a message indicating the
-            //username has been created, and the boolean true
         ServerResponse defaultResponse= new ServerResponse("Failure in querying for user insert.", false);
             return defaultResponse;
+    }
+    
+    /**
+     * Checks to see if the provided user already exists in the database
+     *
+     * @param u The user we are checking for in our database.
+     * @return The server's response, with a message and a success boolean
+     */
+    public ServerResponse checkForUser(User u){
+        return new ServerResponse("", true);
     }
 
     /**
