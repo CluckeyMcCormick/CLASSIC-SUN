@@ -39,22 +39,22 @@ public class Controller {
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(QueryGenerator.selectQueryUser(u));
         if(rs.next()){ //A user has been returned and it has a previous existence
-            ServerResponse failedInsert= new ServerResponse("User already exists!", false);
+            ServerResponse failedInsert= new ServerResponse("User already exists.", false);
             return failedInsert;
             
         }else{//No user returned, no existing user with that name/email. add user to database
             stmt.executeQuery(QueryGenerator.insertQueryUser(u));
-            ServerResponse successfulInsert= new ServerResponse("User added to database!", true);
+            ServerResponse successfulInsert= new ServerResponse("User added to database.", true);
             return successfulInsert;
         }
         
         
         } catch ( Exception e ) {
-         System.err.println( e.getClass().getName()+": "+ e.getMessage() );
-         System.exit(0);
+            System.err.println( "Exception occured in Controller.addUser" );
+            System.err.println( e.getClass().getName()+": "+ e.getMessage() );
        }
-        ServerResponse defaultResponse= new ServerResponse("Failure in querying for user insert.", false);
-            return defaultResponse;
+        
+            return null;
     }
     
     /**
@@ -64,7 +64,27 @@ public class Controller {
      * @return The server's response, with a message and a success boolean
      */
     public ServerResponse checkForUser(User u){
-        return new ServerResponse("", true);
+        try{
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(QueryGenerator.selectQueryUser(u));
+        if(rs.next()){ //A user has been returned and it has a previous existence
+            ServerResponse affirmative= new ServerResponse("User exists.", true);
+            return affirmative;
+            
+        }else{//No user returned, no existing user with that name/email. add user to database
+            
+            ServerResponse negative= new ServerResponse("User does not exist in database.", false);
+            return negative;
+        }
+        
+        
+        } catch ( Exception e ) {
+            System.err.println( "Exception occured in Controller.checkUser" );
+            System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+       }
+        
+
+        return null;
     }
 
     /**
@@ -75,18 +95,29 @@ public class Controller {
      */
     public ServerResponse addEvent(Event e) {
         //get a new id for this event from the "event" table
-        //check if is equal to another event in table
+        try{
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(QueryGenerator.sizeQueryEvent());
         //the id should probably be the count from the eventTable
-        
+        int id=0;
+        if(rs.next()){
+            id=rs.getInt("COUNT(*)");//sets id = to number of rows in Events table, 
+        }
+        e.setId(id);
         //set the event's (e) id using the setId method
         //Add the event to the "event" table
-        
+        stmt.executeQuery(QueryGenerator.insertQueryEvent(e));
         //return a ServerResponse, with a message indicating the
         //event has been created, and the boolean true
-        System.out.println("In Controller's addEvent method - IMPLEMENT ME!");
+        ServerResponse successfulInsert= new ServerResponse("Event added to database.", true);
+        return successfulInsert;
+        } catch ( Exception ex ) {
+            System.err.println( "Exception occured in Controller.addEvent" );
+            System.err.println( ex.getClass().getName()+": "+ ex.getMessage() );
+        }
+        
         return null;
     }
-    
     /**
      * Attempts to remove the provided event from the database.
      *
@@ -95,14 +126,18 @@ public class Controller {
      */
     public ServerResponse removeEvent(Event e) {
         //Attempt to remove e from the event table
-        
+        try{
         //If we didn't do it
             //return a ServerResponse, with a message indicating the event
             //doesn't exist, and the boolean false
         //else
             //return a ServerResponse, with a message indicating the
             //event was removed, and the boolean true
-        System.out.println("In Controller's addEvent method - IMPLEMENT ME!");
+        } catch ( Exception ex ) {
+            System.err.println( "Exception occured in Controller.addEvent" );
+            System.err.println( ex.getClass().getName()+": "+ ex.getMessage() );
+        }
+        
         return null;
     }
     
@@ -152,7 +187,7 @@ public class Controller {
         return null;
     }
     
-    public ServerResponse removeInvite(Invite i) {
+    public ServerResponse removeInvite(User u,Invite i) {
         //Attempt to remove i from said table
         
         //If we succeed

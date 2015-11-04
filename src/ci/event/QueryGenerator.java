@@ -25,7 +25,7 @@ public class QueryGenerator {
      * @return A SQL command in the form of a string
      */
     public static String sizeQueryUser() throws SQLException{
-        return "SELECT COUNT(*) FROM USERS";
+        return "SELECT COUNT(*) FROM USERS;";
     }
     
     /**
@@ -35,7 +35,7 @@ public class QueryGenerator {
      */
     public static String sizeQueryEvent(){
         
-        return "SELECT COUNT(*) FROM EVENTS";
+        return "SELECT COUNT(*) FROM EVENTS;";
     }
     
     /**
@@ -46,7 +46,7 @@ public class QueryGenerator {
      * @return A SQL command in the form of a string
      */
     public static String selectQueryEvent(int eventId){
-        return "SELECT * FROM EVENTS WHERE ID = "+eventId;
+        return "SELECT * FROM EVENTS WHERE ID = '"+eventId+"';";
     }
     
     /**
@@ -57,7 +57,7 @@ public class QueryGenerator {
      * @return A SQL command in the form of a string
      */
     public static String selectQueryEvent(User creator){
-        return "SELECT * FROM EVENTS WHERE EVENTCREATOR = "+creator.getEmail();
+        return "SELECT * FROM EVENTS WHERE EVENTCREATOR = '"+creator.getEmail()+"';";
     }
     
     /**
@@ -67,7 +67,7 @@ public class QueryGenerator {
      * @return A SQL command in the form of a string
      */
     public static String selectQueryUser(User user){
-        return "SELECT * FROM USERS WHERE EMAIL = "+user.getEmail();
+        return "SELECT * FROM USERS WHERE EMAIL = '"+user.getEmail()+"';";
     }
     
     /**
@@ -78,8 +78,8 @@ public class QueryGenerator {
      */
     public static String updateQueryEvent(Event e){//check all event .gets return strings or good values
         String toReturn= "UPDATE EVENTS SET ";
-        toReturn+=eventColumns[1]+" = "+e.getName()+", "+eventColumns[2]+" = "+e.getCreator()+", "+eventColumns[3]+" = "+e.getDate()+", "+eventColumns[4]+" = "+e.getWarningPeriod()+", "+eventColumns[5]+" = "+e.getLocation()+", "+eventColumns[6]+" = "+e.getGoodWeather()+", "+eventColumns[7]+" = "+e.getDescription()+", "+eventColumns[8]+" = "+e.getInvited()+", "+eventColumns[9]+" = "+e.getAccepted();
-        toReturn+="WHERE ID = "+e.getId();
+        toReturn+=eventColumns[1]+" = '"+e.getName()+"', "+eventColumns[2]+" = '"+e.getCreator()+"', "+eventColumns[3]+" = '"+e.getDate()+"', "+eventColumns[4]+" = "+e.getWarningPeriod()+", "+eventColumns[5]+" = '"+e.getLocation()+"', "+eventColumns[6]+" = '"+e.getGoodWeather()+"', "+eventColumns[7]+" = '"+e.getDescription()+"', "+eventColumns[8]+" = '"+e.getInvited()+"', "+eventColumns[9]+" = '"+e.getAccepted()+"' ";
+        toReturn+="WHERE ID = "+e.getId()+";";
         return toReturn;
     }
     
@@ -92,7 +92,7 @@ public class QueryGenerator {
      */
     public static String updateQueryUserInbox(User user){
         String inbox=Factory.IntegerListToString(user.getInvites());
-        return "UPDATE USERS SET INBOX = "+inbox+" WHERE EMAIL = "+user.getEmail();
+        return "UPDATE USERS SET INBOX = "+inbox+" WHERE EMAIL = '"+user.getEmail()+"';";
     }
     
     /**
@@ -115,5 +115,35 @@ public class QueryGenerator {
         return "INSERT INTO USERS (ID,EMAIL,INBOX)"+
                "VALUES ("+user.getID()+", '"+user.getEmail()+"', '"+Factory.IntegerListToString(user.getInvites())+"');";
     }
-
+    /**
+     * Generates a query that deletes an entry in the event table 
+     * with the matching id - so, basically one entry.
+     * 
+     * @param eventId The id for the event we are trying to retrieve
+     * @return A SQL command in the form of a string
+     */
+    public static String deleteQueryEvent(int eventId){
+        return "DELETE FROM EVENTS WHERE ID = "+eventId+" RETURNING *;";
+    }
+    
+    /**
+     * Generates a query that deletes an entry in the event table 
+     * with the matching creator.
+     * 
+     * @param creator The creator-user whose events we're retrieving
+     * @return A SQL command in the form of a string
+     */
+    public static String deleteQueryEvent(User creator){
+        return "DELETE FROM EVENTS WHERE EVENTCREATOR = "+creator.getEmail()+" RETURNING *;";
+    }
+    
+    /**
+     * Generates a query that deletes the entry of the provided user
+     * 
+     * @param user The user whose info we're retrieving
+     * @return A SQL command in the form of a string
+     */
+    public static String deleteQueryUser(User user){
+        return "DELETE FROM USERS WHERE EMAIL = "+user.getEmail()+"RETURNING *;";
+    }
 }
