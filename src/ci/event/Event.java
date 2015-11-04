@@ -22,6 +22,7 @@ public class Event {
         this.creator = create;
         this.date = date;
         this.location = loc;
+        this.warningPeriod = warn;
         this.goodWeather = good;
         this.description = descri;
         this.invited = invi;
@@ -34,10 +35,25 @@ public class Event {
         this.creator = create;
         this.date = date;
         this.location = loc;
+        this.warningPeriod = warn;
         this.goodWeather = good;
         this.description = descri;
         this.invited = new ArrayList<String>();
         this.accepted = new ArrayList<String>();
+    }
+    
+    public void addInvitee(String email)
+    {
+        this.invited.add(email);
+    }
+    
+    public void inviteeAccept(String email)
+    {
+        if(this.invited.contains(email))
+        {
+            this.invited.remove(email);
+            this.accepted.add(email);
+        }
     }
     
     public void setId(int id) {

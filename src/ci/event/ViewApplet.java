@@ -205,6 +205,7 @@ public class ViewApplet extends javax.swing.JApplet {
         manageEvDescriptionText = new javax.swing.JTextArea();
         manageEvUpdateButton = new javax.swing.JButton();
         manageEvChooseButton = new javax.swing.JButton();
+        manageEvResetButton = new javax.swing.JButton();
         manageInvitePanel = new javax.swing.JPanel();
         manageInvInvitedLabel = new javax.swing.JLabel();
         manageInvAttendingLabel = new javax.swing.JLabel();
@@ -910,11 +911,23 @@ public class ViewApplet extends javax.swing.JApplet {
         manageEvDescriptionScroll.setViewportView(manageEvDescriptionText);
 
         manageEvUpdateButton.setText("Update Event");
+        manageEvUpdateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageEvUpdateButtonActionPerformed(evt);
+            }
+        });
 
         manageEvChooseButton.setText("Choose Event");
         manageEvChooseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageEvChooseButtonActionPerformed(evt);
+            }
+        });
+
+        manageEvResetButton.setText("Reset To Event");
+        manageEvResetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageEvResetButtonActionPerformed(evt);
             }
         });
 
@@ -929,20 +942,19 @@ public class ViewApplet extends javax.swing.JApplet {
                         .addComponent(manageEvWeatherPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(manageCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(manageEvDescriptionScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                            .addComponent(manageEvDescriptionScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                             .addGroup(manageCreatePanelLayout.createSequentialGroup()
                                 .addComponent(manageEvLocationLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(manageEvLocationCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manageCreatePanelLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(manageCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manageCreatePanelLayout.createSequentialGroup()
-                                        .addComponent(manageEvUpdateButton)
-                                        .addGap(78, 78, 78))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manageCreatePanelLayout.createSequentialGroup()
-                                        .addComponent(manageEvDescriptionLabel)
-                                        .addGap(103, 103, 103))))))
+                                .addComponent(manageEvDescriptionLabel)
+                                .addGap(103, 103, 103))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manageCreatePanelLayout.createSequentialGroup()
+                                .addComponent(manageEvUpdateButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(manageEvResetButton))))
                     .addGroup(manageCreatePanelLayout.createSequentialGroup()
                         .addComponent(manageEvNameLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -984,7 +996,9 @@ public class ViewApplet extends javax.swing.JApplet {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(manageEvDescriptionScroll)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(manageEvUpdateButton)))
+                        .addGroup(manageCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(manageEvUpdateButton)
+                            .addComponent(manageEvResetButton))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(manageCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(manageCreatePanelLayout.createSequentialGroup()
@@ -1021,6 +1035,11 @@ public class ViewApplet extends javax.swing.JApplet {
         manageInvAttendScroll.setViewportView(manageInvAttendList);
 
         manageInvInviteButton.setText("Invite");
+        manageInvInviteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageInvInviteButtonActionPerformed(evt);
+            }
+        });
 
         manageInvInviteField.setText("jTextField1");
 
@@ -1125,7 +1144,7 @@ public class ViewApplet extends javax.swing.JApplet {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cardContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 582, Short.MAX_VALUE)
+                .addComponent(cardContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1150,7 +1169,7 @@ public class ViewApplet extends javax.swing.JApplet {
         this.setEnabledLoginPanel(false);
         
         //Get input, create user, set current user
-        this.currentUser = new User(this.loginUserField.getText());
+        this.currentUser = new User(this.loginUserField.getText());  
         //If this user is in the database
         serRes = this.controller.checkForUser(currentUser);
         if(serRes.getSuccess())
@@ -1194,8 +1213,8 @@ public class ViewApplet extends javax.swing.JApplet {
         //Get the user's selection, set
         //Set all the fields using the event data
         //switch screens
-        CardLayout cl = (CardLayout)(cardContainer.getLayout());
-        cl.show(cardContainer, "manage");
+        //CardLayout cl = (CardLayout)(cardContainer.getLayout());
+        //cl.show(cardContainer, "manage");
     }//GEN-LAST:event_chooseChooseButtonActionPerformed
 
     private void chooseMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseMainButtonActionPerformed
@@ -1361,11 +1380,11 @@ public class ViewApplet extends javax.swing.JApplet {
             this.controller.addEvent(this.currentEvent);
             //Get list of user's created events from database
             this.createdEvents = this.view.getEventsCreated(currentUser);
-            //Set the fields of update to match currentEvent
-            this.setManageFields();
             //Switch cards    
             CardLayout cl = (CardLayout)(cardContainer.getLayout());
             cl.show(cardContainer, "manage");
+            //Set the fields of update to match currentEvent
+            this.setManageFields();
             //Reset the create screen
             this.resetCreatePanel();
         }
@@ -1395,6 +1414,180 @@ public class ViewApplet extends javax.swing.JApplet {
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_manageInvMainButtonActionPerformed
+
+    private void manageEvResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEvResetButtonActionPerformed
+        this.setManageFields();
+    }//GEN-LAST:event_manageEvResetButtonActionPerformed
+
+    private void manageEvUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEvUpdateButtonActionPerformed
+        //The acceptable weather for this event
+        ArrayList<String> goodWeather;
+        //The name of the event
+        String evName;
+        //The date of the event
+        Calendar date;
+        //Today's date
+        Calendar today;
+        //The warning period for changing weather
+        Integer warning;
+        //The date, "warning period" days before 
+        Calendar warnDate;
+        //The event's decription
+        String description;
+        //The event's location
+        String location;
+        //The server's response - everything that went wrong.
+        StringBuilder response;
+        //Is this a valid event?
+        boolean valid;
+        
+        //Tell the user we're processing
+        this.manageEvServerText.setText("Processing request...");
+        //Disable the buttons - we don't want users messing things up
+        this.setEnabledManagePanel(false);
+        
+        //intialize!
+        valid = true;
+        response = new StringBuilder();
+        //get weather things
+        goodWeather = this.getManageWeather();
+        //get event name
+        evName = this.manageEvNameField.getText();
+        //Get today's date
+        today = Calendar.getInstance();
+        
+        //parse the user's date entry
+        try{
+            date = Factory.stringToCalendar(this.manageEvDateField.getText());
+        }
+        catch(Exception e)
+        {
+            valid = false;
+            date = null;
+            response.append("Event Rejected:\n");
+            response.append("Could not parse provided event date!\n");
+        }
+        
+        //parse the user's warning period entry
+        try{
+            warning = Integer.parseInt(this.mWeatherWarningField.getText());
+        }
+        catch(Exception e){
+            if(valid)
+            {
+                valid = false;
+                response.append("Event Rejected:");
+            }  
+            response.append("Could not parse warning period.\n");    
+            warning = null;
+        }
+        
+        if(warning != null && date != null)
+        {
+            //calculate the warning date
+            warnDate = (Calendar) date.clone();
+            warnDate.add(Calendar.DAY_OF_MONTH, -warning);
+        }
+        else
+        {
+            warnDate = null;
+        }
+        
+        //get the description
+        description = this.manageEvDescriptionText.getText();
+        if(this.manageEvLocationCombo.getSelectedIndex() == -1)
+        {
+            if(valid)
+            {
+                valid = false;
+                response.append("Event Rejected:\n");
+            }  
+            response.append("No location was selected!\n");
+            location = null;
+        }
+        else
+        {
+            //get the location
+            location = this.LOCATIONS[this.manageEvLocationCombo.getSelectedIndex()];
+        }
+        
+        if(evName.equals(""))
+        {
+            if(valid)
+            {
+                valid = false;
+                response.append("Event Rejected:\n");
+            }  
+            response.append("Event name was an empty string!\n");
+        }
+        
+        if(date != null && date.before(today))
+        {
+            if(valid)
+            {
+                valid = false;
+                response.append("Event Rejected:\n");
+            }           
+            response.append("The event date, ");
+            response.append(Factory.calendarToString(date));
+            response.append(" has already passed!\n");
+        }
+        
+        if(warnDate != null && today.after(warnDate))
+        {
+            if(valid)
+            {
+                valid = false;
+                response.append("Event Rejected:\n");
+            }       
+            response.append("The warning date, ");
+            response.append(Factory.calendarToString(warnDate));
+            response.append(" has already passed!\n");
+        }
+        
+        if(warning != null && warning < 0)
+        {
+            if(valid)
+            {
+                valid = false;
+                response.append("Event Rejected:\n");
+            }           
+            response.append("The warning period was negative!\n");
+        }
+        
+        //If it's all valid
+        if(valid)
+        {
+            //Create event object
+            Event e = 
+            new Event(evName, currentUser.getEmail(), date, location, warning, goodWeather, description);
+            //set the id
+            e.setId(this.currentEvent.getId());
+            //set to current event
+            this.currentEvent = e;
+            //Add to database
+            this.controller.updateEvent(this.currentEvent);
+            //Get list of user's created events from database
+            this.createdEvents = this.view.getEventsCreated(currentUser);
+            //Set the fields of update to match currentEvent
+            this.setManageFields();
+        }
+        else
+        {
+            //Tell the user what went wrong
+            this.manageEvServerText.setText(response.toString());
+        }
+        
+        this.setEnabledManagePanel(true);
+    }//GEN-LAST:event_manageEvUpdateButtonActionPerformed
+
+    private void manageInvInviteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageInvInviteButtonActionPerformed
+        String invitee;
+        
+        this.manageInvServerText.setText("Processing request...");
+        
+        invitee = this.manageInvInviteField.getText();
+    }//GEN-LAST:event_manageInvInviteButtonActionPerformed
 
     private ArrayList<String> getCreateWeather()
     {
@@ -1599,6 +1792,21 @@ public class ViewApplet extends javax.swing.JApplet {
      */
     private void setEnabledManagePanel(boolean toSet)
     {
+        this.mWeatherChanceRadio.setEnabled(toSet);
+        this.mWeatherClearRadio.setEnabled(toSet);
+        this.mWeatherDrizzleRadio.setEnabled(toSet);
+        this.mWeatherFogRadio.setEnabled(toSet);
+        this.mWeatherHailRadio.setEnabled(toSet);
+        this.mWeatherMistRadio.setEnabled(toSet);
+        this.mWeatherMostlyRadio.setEnabled(toSet);
+        this.mWeatherOvercastRadio.setEnabled(toSet);
+        this.mWeatherPartlyRadio.setEnabled(toSet);
+        this.mWeatherRainRadio.setEnabled(toSet);
+        this.mWeatherScatteredRadio.setEnabled(toSet);
+        this.mWeatherSnowRadio.setEnabled(toSet);
+        this.mWeatherStormRadio.setEnabled(toSet);
+        this.mWeatherWarningField.setEnabled(toSet);
+        
         this.manageEvTab.setEnabled(toSet);
         this.manageEvChooseButton.setEnabled(toSet);
         this.manageEvDateField.setEnabled(toSet);
@@ -1626,27 +1834,19 @@ public class ViewApplet extends javax.swing.JApplet {
      * this.currentEvent variable
      */
     private void setManageFields()
-    {
-        int index;
-        
+    {       
         this.setManageWeather(this.currentEvent.getGoodWeather());
+        
+        System.out.println(this.currentEvent.getWarningPeriod());
+        System.out.println(this.currentEvent.getLocation());
         
         this.manageEvDateField.setText(Factory.calendarToString(this.currentEvent.getDate()));
         this.manageEvNameField.setText(this.currentEvent.getName());
         this.manageEvDescriptionText.setText(this.currentEvent.getDescription());
         this.manageEvServerText.setText("");
         this.mWeatherWarningField.setText(this.currentEvent.getWarningPeriod() + "");
-
-        index = -1;
-        for(int i = 0; index == -1 && i < this.LOCATIONS.length; ++i)
-        {
-            if(this.LOCATIONS[i].equals(this.currentEvent.getLocation()))
-            {
-                index = i;
-            }
-        }
         
-        this.manageEvLocationCombo.setSelectedIndex(index);
+        this.manageEvLocationCombo.setSelectedItem(this.currentEvent.getLocation());
         
         this.manageInvAttendList.setListData(this.currentEvent.getAccepted().toArray());
         this.manageInvInvitedList.setListData(this.currentEvent.getInvited().toArray());
@@ -1688,6 +1888,15 @@ public class ViewApplet extends javax.swing.JApplet {
         this.createDescriptionText.setText(DESCRIPTION_DEFAULT);
         
         this.createServerText.setText("");
+    }
+    
+    public void appWideMessage(String message)
+    {
+        this.loginServText.setText(message);
+        this.createServerText.setText(message);
+        this.mainServText.setText(message);
+        this.manageEvServerText.setText(message);
+        this.manageInvServerText.setText(message);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1788,6 +1997,7 @@ public class ViewApplet extends javax.swing.JApplet {
     private javax.swing.JButton manageEvMainButton;
     private javax.swing.JTextField manageEvNameField;
     private javax.swing.JLabel manageEvNameLabel;
+    private javax.swing.JButton manageEvResetButton;
     private javax.swing.JLabel manageEvServerLabel;
     private javax.swing.JScrollPane manageEvServerScroll;
     private javax.swing.JTextArea manageEvServerText;

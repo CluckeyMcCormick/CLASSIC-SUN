@@ -37,6 +37,12 @@ public class Main {
         System.out.println("We're off the ground!");
         frame.setVisible(true);
         app.init();
-        app.start();
+        try {
+            app.start();
+        }
+        catch (Exception E)
+        {
+            app.appWideMessage("Encountered unexpected error: " + E.getMessage());
+        }
     }
 }
