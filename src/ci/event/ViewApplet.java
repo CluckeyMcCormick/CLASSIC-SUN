@@ -30,7 +30,7 @@ public class ViewApplet extends javax.swing.JApplet {
     private Weather weather;
     
     //Objects for containing our current data
-    private ArrayList<Event> createdEvents;
+    private ArrayList<Event> relevantEvents;
     private User currentUser;
     private Event currentEvent;
     
@@ -377,6 +377,11 @@ public class ViewApplet extends javax.swing.JApplet {
             public Object getElementAt(int i) { return strings[i]; }
         });
         inviteEvNameList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        inviteEvNameList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                inviteEvNameListValueChanged(evt);
+            }
+        });
         inviteEvNameScroll.setViewportView(inviteEvNameList);
 
         inviteEvNameLabel.setText("Event Names");
@@ -1194,6 +1199,7 @@ public class ViewApplet extends javax.swing.JApplet {
     }//GEN-LAST:event_mainCrtEvtButtonActionPerformed
 
     private void mainMngEvtButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainMngEvtButtonActionPerformed
+        this.setChooseFields();
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "choose");
     }//GEN-LAST:event_mainMngEvtButtonActionPerformed
@@ -1210,26 +1216,40 @@ public class ViewApplet extends javax.swing.JApplet {
     }//GEN-LAST:event_createMainButtonActionPerformed
 
     private void chooseChooseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseChooseButtonActionPerformed
-        //Get the user's selection, set
-        //Set all the fields using the event data
-        //switch screens
-        //CardLayout cl = (CardLayout)(cardContainer.getLayout());
-        //cl.show(cardContainer, "manage");
+        int index;
+        
+        //Get the user's selection
+        index = this.chooseEvList.getSelectedIndex();
+        
+        if(index > -1)
+        {
+            //set
+            this.currentEvent = this.relevantEvents.get(index);
+            
+            //Set all the fields using the event data
+            this.setManageFields();
+            
+            //switch screens
+            CardLayout cl = (CardLayout)(cardContainer.getLayout());
+            cl.show(cardContainer, "manage");
+        }
     }//GEN-LAST:event_chooseChooseButtonActionPerformed
 
     private void chooseMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseMainButtonActionPerformed
+        this.relevantEvents = null; 
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_chooseMainButtonActionPerformed
 
     private void inviteMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviteMainButtonActionPerformed
-        currentEvent = null;
+        this.currentEvent = null;
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_inviteMainButtonActionPerformed
 
     private void manageEvMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEvMainButtonActionPerformed
-        currentEvent = null;
+        this.currentEvent = null;
+        this.relevantEvents = null; 
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_manageEvMainButtonActionPerformed
@@ -1379,7 +1399,7 @@ public class ViewApplet extends javax.swing.JApplet {
             //Add to database
             this.controller.addEvent(this.currentEvent);
             //Get list of user's created events from database
-            this.createdEvents = this.view.getEventsCreated(currentUser);
+            this.relevantEvents = this.view.getEventsCreated(currentUser);
             //Switch cards    
             CardLayout cl = (CardLayout)(cardContainer.getLayout());
             cl.show(cardContainer, "manage");
@@ -1398,19 +1418,22 @@ public class ViewApplet extends javax.swing.JApplet {
     }//GEN-LAST:event_createCreateButtonActionPerformed
 
     private void manageEvChooseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEvChooseButtonActionPerformed
-        currentEvent = null;
+        this.currentEvent = null;
+        this.setChooseFields();
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "choose");
     }//GEN-LAST:event_manageEvChooseButtonActionPerformed
 
     private void manageInvChooseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageInvChooseButtonActionPerformed
-        currentEvent = null;
+        this.currentEvent = null;
+        this.setChooseFields();
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "choose");
     }//GEN-LAST:event_manageInvChooseButtonActionPerformed
 
     private void manageInvMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageInvMainButtonActionPerformed
-        currentEvent = null;
+        this.currentEvent = null;
+        this.relevantEvents = null; 
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_manageInvMainButtonActionPerformed
@@ -1567,8 +1590,6 @@ public class ViewApplet extends javax.swing.JApplet {
             this.currentEvent = e;
             //Add to database
             this.controller.updateEvent(this.currentEvent);
-            //Get list of user's created events from database
-            this.createdEvents = this.view.getEventsCreated(currentUser);
             //Set the fields of update to match currentEvent
             this.setManageFields();
         }
@@ -1602,8 +1623,6 @@ public class ViewApplet extends javax.swing.JApplet {
                 this.controller.updateUser(u);              
                 this.controller.updateEvent(this.currentEvent);
                 
-                this.createdEvents = this.view.getEventsCreated(this.currentUser);
-                
                 this.setManageFields();
                 
                 this.manageInvServerText.setText("Request has been sent to " + invitee);
@@ -1621,6 +1640,11 @@ public class ViewApplet extends javax.swing.JApplet {
         
         this.setEnabledManagePanel(true);
     }//GEN-LAST:event_manageInvInviteButtonActionPerformed
+
+    private void inviteEvNameListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_inviteEvNameListValueChanged
+        this.currentEvent = this.relevantEvents.get( this.inviteEvNameList.getSelectedIndex() );
+        this.setInviteFieldSelectState();
+    }//GEN-LAST:event_inviteEvNameListValueChanged
 
     private ArrayList<String> getCreateWeather()
     {
@@ -1883,6 +1907,43 @@ public class ViewApplet extends javax.swing.JApplet {
         
         this.manageInvAttendList.setListData(this.currentEvent.getAccepted().toArray());
         this.manageInvInvitedList.setListData(this.currentEvent.getInvited().toArray());
+    }
+    
+    private void setChooseFields()
+    {
+        //get the events created by the current user
+        this.relevantEvents = this.view.getEventsCreated(this.currentUser);
+        //set the list of events we can choose 
+        this.chooseEvList.setListData(this.relevantEvents.toArray());
+    }
+    
+    private void setInviteFieldBlankState()
+    {
+        ArrayList<String> evNames;
+        this.relevantEvents = this.view.getEventsInvited(currentUser);
+        
+        evNames = new ArrayList<String>();
+        
+        for(Event e : this.relevantEvents)
+        {
+            evNames.add(e.getName());
+        }
+        
+        this.inviteEvNameList.setListData(evNames.toArray());
+        this.inviteEvNameList.setSelectedIndex(-1);
+        
+        this.inviteDateField.setText("");
+        this.inviteDescriptionText.setText("");
+        this.inviteLocationField.setText("");
+        this.inviteSenderField.setText("");
+    }
+    
+    private void setInviteFieldSelectState()
+    {
+        this.inviteDateField.setText(Factory.calendarToString(this.currentEvent.getDate()));
+        this.inviteDescriptionText.setText(this.currentEvent.getDescription());
+        this.inviteLocationField.setText(this.currentEvent.getLocation());
+        this.inviteSenderField.setText(this.currentEvent.getCreator());
     }
     
     /**
