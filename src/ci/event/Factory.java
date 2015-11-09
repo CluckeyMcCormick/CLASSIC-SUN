@@ -134,4 +134,12 @@ public class Factory {
         
         return string.toString();
     }
+    
+    public static String createInviteMessage(Event e){
+        return e.getCreator()+" has invited you to "+e.getName()+" on "+calendarToString(e.getDate())+". Head to the CI.Events SUN app now to rsvp.";
+    }
+    
+    public static String createTitle(Event e){
+        return e.getCreator()+" has invited you to an event!";
+    }
 }
