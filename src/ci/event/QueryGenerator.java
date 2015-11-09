@@ -16,8 +16,8 @@ public class QueryGenerator {
     
     private static final String EVENT_TABLE_NAME = "EVENTS";
     private static final String USER_TABLE_NAME = "USERS";   
-    private static String[] eventColumns={"ID","EVENTNAME","EVENTCREATOR","DATE","WARNING","LOCATION","BADWEATHERS","DESCRIPTION","INVITED","ACCEPTED"};
-    private static String[] userColumns={"ID","EMAIL","INBOX"};
+    public static final String[] eventColumns={"ID","EVENTNAME","EVENTCREATOR","DATE","WARNING","LOCATION","BADWEATHERS","DESCRIPTION","INVITED","ACCEPTED"};
+    public static final String[] userColumns={"ID","EMAIL","INBOX"};
     
     /**
      * Generates a query that gets the number of entries in the user table
