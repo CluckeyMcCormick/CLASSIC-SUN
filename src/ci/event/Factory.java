@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.lang.StringBuilder;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -22,13 +23,39 @@ public class Factory {
 
     public static ArrayList<Event> createEvents(ResultSet rs) {
         //https://docs.oracle.com/javase/tutorial/jdbc/basics/retrieving.html
-
-        System.out.println("In Factory's createEvents method - IMPLEMENT ME!");
-        return null;
+        ArrayList<Event> events=new ArrayList<Event>();
+        try{
+            while (rs.next()) {
+                events.add(Factory.createEvent(rs));
+            }
+        }catch ( Exception e ) {
+            System.err.println( "Exception occured in Factory.createEvents" );
+            System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+        }
+        return events;
+    }
+    
+    public static Event createEvent(ResultSet rs) throws SQLException{ //only to be used in createEvents()
+        Event toReturn=new Event(rs.getString(QueryGenerator.eventColumns[1]),rs.getString(QueryGenerator.eventColumns[2]), Factory.stringToCalendar(rs.getString(QueryGenerator.eventColumns[3])), rs.getString(QueryGenerator.eventColumns[5]), rs.getInt(QueryGenerator.eventColumns[4]), Factory.stringToStringList(rs.getString(QueryGenerator.eventColumns[6])), rs.getString(QueryGenerator.eventColumns[7]), Factory.stringToStringList(rs.getString(QueryGenerator.eventColumns[8])), Factory.stringToStringList(rs.getString(QueryGenerator.eventColumns[9])) );
+        toReturn.setId(rs.getInt(QueryGenerator.eventColumns[0]));
+        return toReturn;
     }
 
     public static ArrayList<User> createUsers(ResultSet rs) {
-
+        ArrayList<User> users=new ArrayList<User>();
+        try{
+            User tempUser;
+            while (rs.next()) {
+                tempUser = new User(rs.getString(QueryGenerator.userColumns[1]));
+                tempUser.setID(rs.getInt(0));
+                tempUser.setInvites(Factory.stringToIntegerList(rs.getString(QueryGenerator.userColumns[2])));
+                users.add(tempUser);
+                
+            }
+        }catch ( Exception e ) {
+            System.err.println( "Exception occured in Factory.createEvents" );
+            System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+        }
         System.out.println("In Factory's createEvents method - IMPLEMENT ME!");
         return null;
     }
