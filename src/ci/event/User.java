@@ -23,12 +23,31 @@ public class User{
         this.idCount++;
     }
 
+    public void addInvite(int inv)
+    {
+        this.invites.add(inv);
+    }
+    
+    public void removeInvite(int inv)
+    {
+        this.invites.remove(inv);
+    }
+    
+    public boolean checkForInvite(int inv)
+    {
+        return this.invites.contains(inv);
+    }
+    
     public void setInvites(ArrayList<Integer> invites) {
         this.invites = invites;
     }
     
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public void setID(int id) {
+        this.ID = id;
     }
     
     public ArrayList<Integer> getInvites() {

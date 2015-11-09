@@ -1582,11 +1582,44 @@ public class ViewApplet extends javax.swing.JApplet {
     }//GEN-LAST:event_manageEvUpdateButtonActionPerformed
 
     private void manageInvInviteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageInvInviteButtonActionPerformed
+        ServerResponse resp;
         String invitee;
+        User u;
         
+        this.setEnabledManagePanel(false);
         this.manageInvServerText.setText("Processing request...");
         
         invitee = this.manageInvInviteField.getText();
+        resp = this.controller.checkForUser(new User(invitee));
+        
+        if(resp.getSuccess())
+        {
+            u = this.view.getUser(invitee);
+            if(!u.checkForInvite(this.currentEvent.getId()))
+            {             
+                u.addInvite(this.currentEvent.getId());
+                this.currentEvent.addInvitee(invitee);
+                this.controller.updateUser(u);              
+                this.controller.updateEvent(this.currentEvent);
+                
+                this.createdEvents = this.view.getEventsCreated(this.currentUser);
+                
+                this.setManageFields();
+                
+                this.manageInvServerText.setText("Request has been sent to " + invitee);
+                
+            }
+            else
+            {
+                this.manageInvServerText.setText(invitee + " has already been invited to this event!");
+            }
+        }
+        else
+        {
+            this.manageInvServerText.setText(resp.getMessage());
+        }
+        
+        this.setEnabledManagePanel(true);
     }//GEN-LAST:event_manageInvInviteButtonActionPerformed
 
     private ArrayList<String> getCreateWeather()

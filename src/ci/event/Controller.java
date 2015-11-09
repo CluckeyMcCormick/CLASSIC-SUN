@@ -46,8 +46,7 @@ public class Controller {
             stmt.executeQuery(QueryGenerator.insertQueryUser(u));
             ServerResponse successfulInsert= new ServerResponse("User added to database.", true);
             return successfulInsert;
-        }
-        
+        }     
         
         } catch ( Exception e ) {
             System.err.println( "Exception occured in Controller.addUser" );
@@ -55,6 +54,17 @@ public class Controller {
        }
         
             return null;
+    }
+    
+    /**
+     * Attempts to update the provided user in the database.
+     *
+     * @param u The user we are attempting to update in our database
+     * @return The server's response, with a message and a success boolean
+     */
+    public ServerResponse updateUser(User u)
+    {
+        return null;
     }
     
     /**
@@ -158,47 +168,4 @@ public class Controller {
         System.out.println("In Controller's updateEvent method - IMPLEMENT ME!");
         return null;
     }
-
-    /**
-     * Attempts to add the provided invite to the database.
-     *
-     * @param i The invite we are attempting to add
-     * @return The server's response, with a response and a success boolean
-     */
-    public ServerResponse addInvite(Invite i) {
-        //Check if the invitee exists
-
-        //If they do exist
-            //Get a list of their invites - I suggest the View.getInvites method
-        
-            //If they don't already have this invite
-                //remove their invites from the table
-                //add this invite to the invite list
-                //Add the invite list to the user's invite column
-                    //return a ServerResponse, with a message indicating the
-                    //invite was sent, and the boolean true
-            //else
-                //return a ServerResponse, with a message indicating the
-                //user has already been invited, and the boolean false
-        //else
-            //return a ServerResponse, with a message indicating the
-            //target user doesn't exist, and the boolean false
-        System.out.println("In Controller's addInvite method - IMPLEMENT ME!");
-        return null;
-    }
-    
-    public ServerResponse removeInvite(User u,Invite i) {
-        //Attempt to remove i from said table
-        
-        //If we succeed
-            //return a ServerResponse, with a message indicating the
-            //the removal was successful, and the boolean true
-        //else
-            //return a ServerResponse, with a message indicating the
-            //invite didn't exist, and the boolean false
-        System.out.println("In Controller's addInvite method - IMPLEMENT ME!");
-        return null;
-    }
-    
-
 }
