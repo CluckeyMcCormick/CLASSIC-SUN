@@ -400,11 +400,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Accept Invite"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inviteAcceptButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="inviteRejectButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reject Invite"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inviteRejectButtonActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="inviteDescriptionScroll">
               <AuxValues>

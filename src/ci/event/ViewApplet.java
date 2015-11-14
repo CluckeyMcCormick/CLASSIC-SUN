@@ -387,8 +387,18 @@ public class ViewApplet extends javax.swing.JApplet {
         inviteEvNameLabel.setText("Event Names");
 
         inviteAcceptButton.setText("Accept Invite");
+        inviteAcceptButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inviteAcceptButtonActionPerformed(evt);
+            }
+        });
 
         inviteRejectButton.setText("Reject Invite");
+        inviteRejectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inviteRejectButtonActionPerformed(evt);
+            }
+        });
 
         inviteDescriptionText.setEditable(false);
         inviteDescriptionText.setColumns(20);
@@ -1156,7 +1166,7 @@ public class ViewApplet extends javax.swing.JApplet {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cardContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+                .addComponent(cardContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 457, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -1243,6 +1253,8 @@ public class ViewApplet extends javax.swing.JApplet {
 
     private void inviteMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviteMainButtonActionPerformed
         this.currentEvent = null;
+        this.setInviteFieldBlankState();
+        this.relevantEvents = null;
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_inviteMainButtonActionPerformed
@@ -1642,10 +1654,45 @@ public class ViewApplet extends javax.swing.JApplet {
     }//GEN-LAST:event_manageInvInviteButtonActionPerformed
 
     private void inviteEvNameListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_inviteEvNameListValueChanged
-        this.currentEvent = this.relevantEvents.get( this.inviteEvNameList.getSelectedIndex() );
-        this.setInviteFieldSelectState();
+        if(this.inviteEvNameList.getSelectedIndex() != -1)
+        {
+            this.currentEvent = this.relevantEvents.get( this.inviteEvNameList.getSelectedIndex() );
+            this.setInviteFieldSelectState();
+        }
     }//GEN-LAST:event_inviteEvNameListValueChanged
 
+    private void inviteAcceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviteAcceptButtonActionPerformed
+        if(this.currentEvent != null)
+        {
+            this.currentUser.removeInvite(this.currentEvent.getId());
+            this.currentEvent.inviteeAccept(this.currentUser.getEmail()); 
+            
+            //update the info
+            this.controller.updateUser(this.currentUser);
+            this.controller.updateEvent(this.currentEvent);
+            
+            //reset
+            this.currentEvent = null;
+            this.setInviteFieldBlankState();
+        }
+    }//GEN-LAST:event_inviteAcceptButtonActionPerformed
+
+    private void inviteRejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviteRejectButtonActionPerformed
+        if(this.currentEvent != null)
+        {
+            this.currentUser.removeInvite(this.currentEvent.getId());
+            this.currentEvent.inviteeReject(this.currentUser.getEmail()); 
+            
+            //update the info
+            this.controller.updateUser(this.currentUser);
+            this.controller.updateEvent(this.currentEvent);
+            
+            //reset
+            this.currentEvent = null;
+            this.setInviteFieldBlankState();
+        }
+    }//GEN-LAST:event_inviteRejectButtonActionPerformed
+   
     private ArrayList<String> getCreateWeather()
     {
         //Initialize the crap

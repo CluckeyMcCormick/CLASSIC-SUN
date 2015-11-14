@@ -56,6 +56,14 @@ public class Event {
         }
     }
     
+    public void inviteeReject(String email)
+    {
+        if(this.invited.contains(email))
+        {
+            this.invited.remove(email);
+        }
+    }
+    
     public void setId(int id) {
         this.id = id;
     }
