@@ -57,7 +57,7 @@ public class View {
      * @param username The username of the user object we want to retrieve
      * @return The user object we've retrieved
      */
-    public User getUser(String username)
+    public User getUser(String email)
     {
         return null;
     }

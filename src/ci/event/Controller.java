@@ -3,6 +3,8 @@ package ci.event;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import org.postgresql.util.PSQLException;
 /**
  * Class used to store, update, and remove information in the database.
  * 
@@ -35,25 +37,28 @@ public class Controller {
      */
     public ServerResponse addUser(User u) {
         //Query the database to see if this user exists already
-        try{
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(QueryGenerator.selectQueryUser(u));
-        if(rs.next()){ //A user has been returned and it has a previous existence
-            ServerResponse failedInsert= new ServerResponse("User already exists.", false);
-            return failedInsert;
+        ServerResponse resp;
+        Statement stmt;
+        
+        resp = this.checkForUser(u);
+        //If the user isn't in here
+        if( !resp.getSuccess() )
+        {
+            u.setID(this.findFreeID(true));
             
-        }else{//No user returned, no existing user with that name/email. add user to database
-            stmt.executeQuery(QueryGenerator.insertQueryUser(u));
-            ServerResponse successfulInsert= new ServerResponse("User added to database.", true);
-            return successfulInsert;
-        }     
+            try {
+                stmt = con.createStatement();
+                stmt.executeQuery(QueryGenerator.insertQueryUser(u));
+            } catch( Exception e ) {
+                String message;
+                message = "Uncountered unknown error when adding user:\n" 
+                    + e.getMessage() + "\nPlease try again.";
+
+                resp = new ServerResponse(message, false);
+            }         
+        }
         
-        } catch ( Exception e ) {
-            System.err.println( "Exception occured in Controller.addUser" );
-            System.err.println( e.getClass().getName()+": "+ e.getMessage() );
-       }
-        
-            return null;
+        return resp;
     }
     
     /**
@@ -74,27 +79,33 @@ public class Controller {
      * @return The server's response, with a message and a success boolean
      */
     public ServerResponse checkForUser(User u){
-        try{
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(QueryGenerator.selectQueryUser(u));
-        if(rs.next()){ //A user has been returned and it has a previous existence
-            ServerResponse affirmative= new ServerResponse("User exists.", true);
-            return affirmative;
-            
-        }else{//No user returned, no existing user with that name/email. add user to database
-            
-            ServerResponse negative= new ServerResponse("User does not exist in database.", false);
-            return negative;
+        //Query the database to see if this user exists already
+        ServerResponse resp;
+        Statement stmt;
+        ResultSet rs;
+        
+        try{         
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(QueryGenerator.selectQueryUser(u));       
+            if(rs.next())
+            {
+                //An exception is thrown for returning an empty ResultSet
+                //So, if we reach this line, we know the user is in the datatbase
+                resp = new ServerResponse("User already exists.", true); 
+            } 
+            else
+            {                
+                resp = new ServerResponse("User doesn't exist.", false);
+            }
+        } catch (Exception e){
+            String message;
+            message = "Uncountered unknown error when checking for user:\n" 
+                    + e.getMessage() + "\nPlease try again.";
+
+            resp = new ServerResponse(message, false);
         }
         
-        
-        } catch ( Exception e ) {
-            System.err.println( "Exception occured in Controller.checkUser" );
-            System.err.println( e.getClass().getName()+": "+ e.getMessage() );
-       }
-        
-
-        return null;
+        return resp;
     }
 
     /**
@@ -109,11 +120,7 @@ public class Controller {
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(QueryGenerator.sizeQueryEvent());
         //the id should probably be the count from the eventTable
-        int id=0;
-        if(rs.next()){
-            id=rs.getInt("COUNT(*)");//sets id = to number of rows in Events table, 
-        }
-        e.setId(id);
+        e.setId(this.findFreeID(false));
         //set the event's (e) id using the setId method
         //Add the event to the "event" table
         stmt.executeQuery(QueryGenerator.insertQueryEvent(e));
@@ -167,5 +174,42 @@ public class Controller {
             //event was updated, and the boolean true
         System.out.println("In Controller's updateEvent method - IMPLEMENT ME!");
         return null;
+    }
+    
+    private int findFreeID(boolean userTable){
+        //Query the database to see if this user exists already
+        Statement stmt;
+        ResultSet rs;
+        
+        int freeID;
+        
+        try{
+            ArrayList<Integer> IDS;
+            stmt = con.createStatement();
+            if(userTable)
+            {
+                rs = stmt.executeQuery(QueryGenerator.idQueryUser());
+            }
+            else
+            {
+                rs = stmt.executeQuery(QueryGenerator.idQueryEvent());
+            }
+              
+            IDS = new ArrayList<>();
+            
+            while(rs.next())
+            {
+                IDS.add(rs.getInt(1));
+            }
+            
+            for(freeID = 0; IDS.contains(freeID); freeID++);
+            
+        } catch ( Exception ex ) {
+            System.err.println( "Exception occured in Controller.addEvent" );
+            System.err.println( ex.getClass().getName()+": "+ ex.getMessage() );
+            freeID = -1;
+        }
+        
+        return freeID;
     }
 }

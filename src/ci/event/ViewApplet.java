@@ -91,6 +91,11 @@ public class ViewApplet extends javax.swing.JApplet {
         this.manageEvLocationCombo.setModel(model);
         //Set the create panel to the default
         this.resetCreatePanel();
+        
+        if(this.controller == null )
+        {
+            this.appWideMessage("Error intializing application - please restart!");
+        }
     }
 
     /**
@@ -110,6 +115,7 @@ public class ViewApplet extends javax.swing.JApplet {
         loginServLabel = new javax.swing.JLabel();
         loginScrollPane = new javax.swing.JScrollPane();
         loginServText = new javax.swing.JTextArea();
+        loginCreateButton = new javax.swing.JButton();
         mainMenuPanel = new javax.swing.JPanel();
         mainInviteButton = new javax.swing.JButton();
         mainCrtEvtButton = new javax.swing.JButton();
@@ -249,6 +255,13 @@ public class ViewApplet extends javax.swing.JApplet {
         loginServText.setToolTipText("");
         loginScrollPane.setViewportView(loginServText);
 
+        loginCreateButton.setText("Create User");
+        loginCreateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginCreateButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
         loginPanelLayout.setHorizontalGroup(
@@ -256,13 +269,15 @@ public class ViewApplet extends javax.swing.JApplet {
             .addGroup(loginPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(loginScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+                    .addComponent(loginScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
                     .addGroup(loginPanelLayout.createSequentialGroup()
                         .addComponent(loginUserLabel)
                         .addGap(18, 18, 18)
                         .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(loginPanelLayout.createSequentialGroup()
                                 .addComponent(loginButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(loginCreateButton)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(loginUserField)))
                     .addGroup(loginPanelLayout.createSequentialGroup()
@@ -278,11 +293,13 @@ public class ViewApplet extends javax.swing.JApplet {
                     .addComponent(loginUserLabel)
                     .addComponent(loginUserField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loginButton)
+                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loginButton)
+                    .addComponent(loginCreateButton))
                 .addGap(18, 18, 18)
                 .addComponent(loginServLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loginScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                .addComponent(loginScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -488,7 +505,7 @@ public class ViewApplet extends javax.swing.JApplet {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inviteDescriptionLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(inviteDescriptionScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                .addComponent(inviteDescriptionScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(invitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inviteAcceptButton)
@@ -1183,17 +1200,17 @@ public class ViewApplet extends javax.swing.JApplet {
         this.loginServText.setText("Processing request...");
         this.setEnabledLoginPanel(false);
         
-        //Get input, create user, set current user
-        this.currentUser = new User(this.loginUserField.getText());  
         //If this user is in the database
-        serRes = this.controller.checkForUser(currentUser);
+        serRes = this.controller.checkForUser(new User(this.loginUserField.getText()));
         if(serRes.getSuccess())
         {
+            this.currentUser = this.view.getUser(this.loginUserField.getText());
+            this.resetMainPanel();
             //Switch to main menu
             CardLayout cl = (CardLayout)(cardContainer.getLayout());
             cl.show(cardContainer, "main");
             
-            this.loginServText.setText("");
+            this.resetLoginPanel();
         }
         else
         {
@@ -1221,6 +1238,7 @@ public class ViewApplet extends javax.swing.JApplet {
     }//GEN-LAST:event_mainLogoutButtonActionPerformed
 
     private void createMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createMainButtonActionPerformed
+        this.resetMainPanel();
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_createMainButtonActionPerformed
@@ -1247,6 +1265,7 @@ public class ViewApplet extends javax.swing.JApplet {
 
     private void chooseMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseMainButtonActionPerformed
         this.relevantEvents = null; 
+        this.resetMainPanel();
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_chooseMainButtonActionPerformed
@@ -1255,6 +1274,7 @@ public class ViewApplet extends javax.swing.JApplet {
         this.currentEvent = null;
         this.setInviteFieldBlankState();
         this.relevantEvents = null;
+        this.resetMainPanel();
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_inviteMainButtonActionPerformed
@@ -1446,6 +1466,7 @@ public class ViewApplet extends javax.swing.JApplet {
     private void manageInvMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageInvMainButtonActionPerformed
         this.currentEvent = null;
         this.relevantEvents = null; 
+        this.resetMainPanel();
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_manageInvMainButtonActionPerformed
@@ -1692,6 +1713,27 @@ public class ViewApplet extends javax.swing.JApplet {
             this.setInviteFieldBlankState();
         }
     }//GEN-LAST:event_inviteRejectButtonActionPerformed
+
+    private void loginCreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginCreateButtonActionPerformed
+        String email;
+        ServerResponse resp;
+        //Tell the user we're processing, disable
+        this.loginServText.setText("Processing request...");
+        this.setEnabledLoginPanel(false);
+        email = this.loginUserField.getText();
+        
+        if(this.controller != null)
+        {
+            resp = this.controller.addUser(new User(email));
+            this.loginServText.setText(resp.getMessage());
+        }
+        else
+        {
+            this.loginServText.setText("Encountered an unexpected error - please try again!");
+        }
+        
+        this.setEnabledLoginPanel(true);
+    }//GEN-LAST:event_loginCreateButtonActionPerformed
    
     private ArrayList<String> getCreateWeather()
     {
@@ -1931,6 +1973,7 @@ public class ViewApplet extends javax.swing.JApplet {
     {
         this.loginButton.setEnabled(toSet);
         this.loginUserField.setEnabled(toSet);
+        this.loginCreateButton.setEnabled(toSet);
     }
     
     /**
@@ -2031,6 +2074,36 @@ public class ViewApplet extends javax.swing.JApplet {
         this.createServerText.setText("");
     }
     
+    public void resetMainPanel()
+    {
+        if(this.currentUser == null)
+        {
+            this.mainServText.setText("CURRENT USER IS NULL");
+        }
+        else
+        {
+            int length = this.currentUser.getInvites().size();
+            
+            switch(length) {
+                case 0:
+                    this.mainServText.setText("You have no pending invites.");
+                    break;
+                case 1:
+                    this.mainServText.setText("You have 1 pending invite.");
+                    break;
+                default:
+                    this.mainServText.setText("You have " + length + " pending invites.");
+                    break;                
+            }
+        }
+    }
+    
+    public void resetLoginPanel()
+    {
+        this.loginServText.setText("");
+        this.loginServText.setText("");
+    }    
+            
     public void appWideMessage(String message)
     {
         this.loginServText.setText(message);
@@ -2096,6 +2169,7 @@ public class ViewApplet extends javax.swing.JApplet {
     private javax.swing.JTextField inviteSenderField;
     private javax.swing.JLabel inviteSenderLabel;
     private javax.swing.JButton loginButton;
+    private javax.swing.JButton loginCreateButton;
     private javax.swing.JPanel loginPanel;
     private javax.swing.JScrollPane loginScrollPane;
     private javax.swing.JLabel loginServLabel;

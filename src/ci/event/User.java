@@ -6,21 +6,16 @@ public class User{
 
     private ArrayList<Integer> invites;
     private String email;
-    private static int idCount=0;
     private int ID;
 
     public User(ArrayList<Integer> invites, String email) {
         this.invites = invites;
         this.email = email;
-        this.ID=idCount;
-        this.idCount++;
     }
 
     public User(String email) {
         this.invites = new ArrayList<>();
         this.email = email;
-        this.ID=idCount;
-        this.idCount++;
     }
 
     public void addInvite(int inv)

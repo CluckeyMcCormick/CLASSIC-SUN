@@ -38,6 +38,14 @@ public class QueryGenerator {
         return "SELECT COUNT(*) FROM EVENTS;";
     }
     
+    public static String idQueryUser(){
+        return "SELECT ID FROM USERS;";
+    }
+    
+    public static String idQueryEvent(){
+        return "SELECT ID FROM EVENTS;";
+    }
+    
     /**
      * Generates a query that selects all entries in the event table 
      * with the matching id - so, basically one entry.

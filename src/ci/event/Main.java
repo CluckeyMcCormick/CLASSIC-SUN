@@ -33,16 +33,16 @@ public class Main {
                 System.exit(0);
             }
         });
-
-        System.out.println("We're off the ground!");
-        frame.setVisible(true);
-        app.init();
+        
         try {
+            frame.setVisible(true);
+            app.init();
             app.start();
+            System.out.println("We're off the ground!");
         }
         catch (Exception E)
         {
-            app.appWideMessage("Encountered unexpected error: " + E.getMessage());
+            app.appWideMessage("Encountered unexpected error:\n" + E.getMessage());
         }
     }
 }
