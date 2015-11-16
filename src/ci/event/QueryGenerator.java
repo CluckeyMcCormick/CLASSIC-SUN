@@ -85,10 +85,55 @@ public class QueryGenerator {
      * @return A SQL command in the form of a string
      */
     public static String updateQueryEvent(Event e){//check all event .gets return strings or good values
-        String toReturn= "UPDATE EVENTS SET ";
-        toReturn+=eventColumns[1]+" = '"+e.getName()+"', "+eventColumns[2]+" = '"+e.getCreator()+"', "+eventColumns[3]+" = '"+e.getDate()+"', "+eventColumns[4]+" = "+e.getWarningPeriod()+", "+eventColumns[5]+" = '"+e.getLocation()+"', "+eventColumns[6]+" = '"+e.getGoodWeather()+"', "+eventColumns[7]+" = '"+e.getDescription()+"', "+eventColumns[8]+" = '"+e.getInvited()+"', "+eventColumns[9]+" = '"+e.getAccepted()+"' ";
-        toReturn+="WHERE ID = "+e.getId()+";";
-        return toReturn;
+        StringBuilder queBuild = new StringBuilder();
+        queBuild.append("UPDATE EVENTS SET ");        
+        
+        for(int i = 1; i < eventColumns.length; ++i)
+        {
+            queBuild.append(eventColumns[i] + " = ");
+            switch(i)
+            {
+                //Event Name
+                case 1:
+                    queBuild.append("'" + e.getName() + "', ");
+                    break;
+                //Event Creator
+                case 2:
+                    queBuild.append("'" + e.getCreator() + "', ");
+                    break;
+                //Date
+                case 3:
+                    queBuild.append("'" + Factory.calendarToString(e.getDate()) + "', ");
+                    break;
+                //Warning
+                case 4:
+                    queBuild.append(e.getWarningPeriod() + ", ");
+                    break;
+                //Location
+                case 5:
+                    queBuild.append("'" + e.getLocation() + "', ");
+                    break;
+                //Bad Weathers
+                case 6:
+                    queBuild.append("'" + Factory.StringListToString(e.getGoodWeather()) + "', ");
+                    break;
+                //Description
+                case 7:
+                    queBuild.append("'" + e.getDescription() + "', ");
+                    break;
+                //Invited
+                case 8:
+                    queBuild.append("'" + Factory.StringListToString(e.getInvited()) + "', ");
+                    break;
+                //Accepted
+                case 9:
+                    queBuild.append("'" + Factory.StringListToString(e.getAccepted()) + "' ");
+                    break;
+            }
+        }
+        
+        queBuild.append("WHERE ID = "+e.getId()+";");
+        return queBuild.toString();
     }
     
     /**
@@ -110,8 +155,31 @@ public class QueryGenerator {
      * @return A SQL command in the form of a string
      */
     public static String insertQueryEvent(Event e){ //getDate needs a string conversion************** done!
-        return "INSERT INTO EVENTS (ID,EVENTNAME,EVENTCREATOR,DATE,WARNING,LOCATION,BADWEATHERS,DESCRIPTION,INVITED)"+
-               "VALUES ("+e.getId()+", '"+e.getName()+"', '"+e.getCreator()+"', '"+Factory.calendarToString(e.getDate())+"', "+e.getWarningPeriod()+", '"+e.getLocation()+"', '"+Factory.StringListToString(e.getGoodWeather())+"', '"+e.getDescription()+"', '"+Factory.StringListToString(e.getInvited())+"');";
+        StringBuilder queBuild = new StringBuilder();
+        queBuild.append("INSERT INTO EVENTS (");
+        
+        for(int i = 0; i < eventColumns.length; ++i) 
+        {
+            queBuild.append(eventColumns[i]);
+            
+            if(i < eventColumns.length - 1)
+            {
+                queBuild.append(",");
+            }
+        }
+        
+        queBuild.append(") VALUES (");
+        queBuild.append(e.getId() + ", ");
+        queBuild.append("'" + e.getName() + "', ");
+        queBuild.append("'" + e.getCreator() + "', ");
+        queBuild.append("'" + Factory.calendarToString(e.getDate()) + "', ");
+        queBuild.append(e.getWarningPeriod() + ", ");
+        queBuild.append("'" + e.getLocation() + "', ");
+        queBuild.append("'" + Factory.StringListToString(e.getGoodWeather()) + "', ");
+        queBuild.append("'" + e.getDescription() + "', ");
+        queBuild.append("'" + Factory.StringListToString(e.getInvited()) + "', ");
+        queBuild.append("'" + Factory.StringListToString(e.getAccepted()) + "');");
+        return queBuild.toString();
     }
     /**
      * Generates a query that inserts the entry of the provided user
@@ -142,7 +210,7 @@ public class QueryGenerator {
      * @return A SQL command in the form of a string
      */
     public static String deleteQueryEvent(User creator){
-        return "DELETE FROM EVENTS WHERE EVENTCREATOR = "+creator.getEmail()+" RETURNING *;";
+        return "DELETE FROM EVENTS WHERE EVENTCREATOR = "+creator.getID()+" RETURNING *;";
     }
     
     /**

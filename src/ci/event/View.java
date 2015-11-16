@@ -111,7 +111,7 @@ public class View {
             }
 
         } catch (Exception ex) {
-            System.out.println(ex.getClass().getName() + ": " + ex.getMessage());
+            ex.printStackTrace();
         }
         
         return toReturn;

@@ -118,7 +118,6 @@ public class Controller {
         //get a new id for this event from the "event" table
         try{
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(QueryGenerator.sizeQueryEvent());
         //the id should probably be the count from the eventTable
         e.setId(this.findFreeID(false));
         //set the event's (e) id using the setId method
