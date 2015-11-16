@@ -95,7 +95,7 @@ public class QueryGenerator {
             {
                 //Event Name
                 case 1:
-                    queBuild.append("'" + e.getName() + "', ");
+                    queBuild.append("'" + e.getName().replaceAll("'", "''") + "', ");
                     break;
                 //Event Creator
                 case 2:
@@ -119,7 +119,7 @@ public class QueryGenerator {
                     break;
                 //Description
                 case 7:
-                    queBuild.append("'" + e.getDescription() + "', ");
+                    queBuild.append("'" + e.getDescription().replaceAll("'", "''") + "', ");
                     break;
                 //Invited
                 case 8:
@@ -133,6 +133,7 @@ public class QueryGenerator {
         }
         
         queBuild.append("WHERE ID = "+e.getId()+";");
+        
         return queBuild.toString();
     }
     
@@ -145,7 +146,7 @@ public class QueryGenerator {
      */
     public static String updateQueryUserInbox(User user){
         String inbox=Factory.IntegerListToString(user.getInvites());
-        return "UPDATE USERS SET INBOX = "+inbox+" WHERE ID = "+user.getID()+";";
+        return "UPDATE USERS SET INBOX = '" + inbox + "' WHERE ID = "+user.getID()+";";
     }
     
     /**
@@ -170,15 +171,16 @@ public class QueryGenerator {
         
         queBuild.append(") VALUES (");
         queBuild.append(e.getId() + ", ");
-        queBuild.append("'" + e.getName() + "', ");
+        queBuild.append("'" + e.getName().replaceAll("'", "''") + "', ");
         queBuild.append("'" + e.getCreator() + "', ");
         queBuild.append("'" + Factory.calendarToString(e.getDate()) + "', ");
         queBuild.append(e.getWarningPeriod() + ", ");
         queBuild.append("'" + e.getLocation() + "', ");
         queBuild.append("'" + Factory.StringListToString(e.getGoodWeather()) + "', ");
-        queBuild.append("'" + e.getDescription() + "', ");
+        queBuild.append("'" + e.getDescription().replaceAll("'", "''") + "', ");
         queBuild.append("'" + Factory.StringListToString(e.getInvited()) + "', ");
         queBuild.append("'" + Factory.StringListToString(e.getAccepted()) + "');");
+        
         return queBuild.toString();
     }
     /**

@@ -49,19 +49,15 @@ public class Event {
     
     public void inviteeAccept(String email)
     {
-        if(this.invited.contains(email))
+        if(this.invited.remove(email))
         {
-            this.invited.remove(email);
             this.accepted.add(email);
         }
     }
     
     public void inviteeReject(String email)
     {
-        if(this.invited.contains(email))
-        {
-            this.invited.remove(email);
-        }
+        this.invited.remove(email);
     }
     
     public void setId(int id) {

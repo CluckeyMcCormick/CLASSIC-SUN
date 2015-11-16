@@ -234,7 +234,7 @@ public class ViewApplet extends javax.swing.JApplet {
 
         loginPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Login"));
 
-        loginUserLabel.setText("User Name:");
+        loginUserLabel.setText("E-Mail:");
 
         loginUserField.setText("default");
 
@@ -270,20 +270,20 @@ public class ViewApplet extends javax.swing.JApplet {
             .addGroup(loginPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(loginScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+                    .addComponent(loginScrollPane)
+                    .addGroup(loginPanelLayout.createSequentialGroup()
+                        .addComponent(loginServLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(loginPanelLayout.createSequentialGroup()
                         .addComponent(loginUserLabel)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(loginPanelLayout.createSequentialGroup()
                                 .addComponent(loginButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(loginCreateButton)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(loginUserField)))
-                    .addGroup(loginPanelLayout.createSequentialGroup()
-                        .addComponent(loginServLabel)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 318, Short.MAX_VALUE))
+                            .addComponent(loginUserField))))
                 .addContainerGap())
         );
         loginPanelLayout.setVerticalGroup(
@@ -300,7 +300,7 @@ public class ViewApplet extends javax.swing.JApplet {
                 .addGap(18, 18, 18)
                 .addComponent(loginServLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loginScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                .addComponent(loginScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1184,7 +1184,7 @@ public class ViewApplet extends javax.swing.JApplet {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cardContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 457, Short.MAX_VALUE)
+                .addComponent(cardContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -1203,23 +1203,29 @@ public class ViewApplet extends javax.swing.JApplet {
         this.loginServText.setText("Processing request...");
         this.setEnabledLoginPanel(false);
         
-        //If this user is in the database
-        serRes = this.controller.checkForUser(new User(this.loginUserField.getText()));
-        if(serRes.getSuccess())
+        if(this.loginUserField.getText().contains("'"))
         {
-            this.currentUser = this.view.getUser(this.loginUserField.getText());
-            this.resetMainPanel();
-            //Switch to main menu
-            CardLayout cl = (CardLayout)(cardContainer.getLayout());
-            cl.show(cardContainer, "main");
-            
-            this.resetLoginPanel();
+            this.loginServText.setText("Email can contain no single quotes!");
         }
         else
         {
-            this.loginServText.setText(serRes.getMessage());
+            //If this user is in the database
+            serRes = this.controller.checkForUser(new User(this.loginUserField.getText()));
+            if(serRes.getSuccess())
+            {
+                this.currentUser = this.view.getUser(this.loginUserField.getText());
+                this.resetMainPanel();
+                //Switch to main menu
+                CardLayout cl = (CardLayout)(cardContainer.getLayout());
+                cl.show(cardContainer, "main");
+            
+                this.resetLoginPanel();
+            }
+            else
+            {
+                this.loginServText.setText(serRes.getMessage());
+            }   
         }
-        
         this.setEnabledLoginPanel(true);
     }//GEN-LAST:event_loginButtonActionPerformed
 
@@ -1413,16 +1419,6 @@ public class ViewApplet extends javax.swing.JApplet {
             response.append("The warning date, ");
             response.append(Factory.calendarToString(warnDate));
             response.append(" has already passed!\n");
-        }
-        
-        if(warning != null && warning < 0)
-        {
-            if(valid)
-            {
-                valid = false;
-                response.append("Event Rejected:\n");
-            }           
-            response.append("The warning period was negative!\n");
         }
         
         //If it's all valid
@@ -1625,8 +1621,17 @@ public class ViewApplet extends javax.swing.JApplet {
             ServerResponse resp;
             
             //Create event object
-            Event e = 
-            new Event(evName, currentUser.getEmail(), date, location, warning, goodWeather, description);
+            Event e = new Event(
+                evName, 
+                currentUser.getEmail(), 
+                date, 
+                location, 
+                warning, 
+                goodWeather, 
+                description,
+                this.currentEvent.getInvited(),
+                this.currentEvent.getAccepted()
+            );
             //set the id
             e.setId(this.currentEvent.getId());
             //Add to database
@@ -1676,8 +1681,8 @@ public class ViewApplet extends javax.swing.JApplet {
                 
                 if(resp.getSuccess())
                 {
-                    this.controller.updateEvent(this.currentEvent);
                     this.currentEvent.addInvitee(invitee);
+                    this.controller.updateEvent(this.currentEvent);             
                     this.setManageFields();               
                     this.manageInvServerText.setText("Request has been sent to " + invitee);
                 }
@@ -1747,7 +1752,15 @@ public class ViewApplet extends javax.swing.JApplet {
         this.setEnabledLoginPanel(false);
         email = this.loginUserField.getText();
         
-        if(this.controller != null)
+        if(email.equals(""))
+        {
+            this.loginServText.setText("The email field is blank!");
+        }
+        else if(email.contains("'"))
+        {
+            this.loginServText.setText("Email can contain no single quotes!");
+        }
+        else if(this.controller != null)
         {
             resp = this.controller.addUser(new User(email));
             this.loginServText.setText(resp.getMessage());
@@ -2008,9 +2021,6 @@ public class ViewApplet extends javax.swing.JApplet {
     private void setManageFields()
     {       
         this.setManageWeather(this.currentEvent.getGoodWeather());
-        
-        System.out.println(this.currentEvent.getWarningPeriod());
-        System.out.println(this.currentEvent.getLocation());
         
         this.manageEvDateField.setText(Factory.calendarToString(this.currentEvent.getDate()));
         this.manageEvNameField.setText(this.currentEvent.getName());

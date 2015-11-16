@@ -36,9 +36,21 @@ public class Factory {
     }
     
     public static Event createEvent(ResultSet rs) throws SQLException{ //only to be used in createEvents()
-        Event toReturn=new Event(rs.getString(QueryGenerator.eventColumns[1]),rs.getString(QueryGenerator.eventColumns[2]), Factory.stringToCalendar(rs.getString(QueryGenerator.eventColumns[3])), rs.getString(QueryGenerator.eventColumns[5]), rs.getInt(QueryGenerator.eventColumns[4]), Factory.stringToStringList(rs.getString(QueryGenerator.eventColumns[6])), rs.getString(QueryGenerator.eventColumns[7]), Factory.stringToStringList(rs.getString(QueryGenerator.eventColumns[8])), Factory.stringToStringList(rs.getString(QueryGenerator.eventColumns[9])) );
-        toReturn.setId(rs.getInt(QueryGenerator.eventColumns[0]));
-        return toReturn;
+        Event e = new Event(
+            rs.getString(2).replaceAll("''","'"), //Event Name
+            rs.getString(3), //Event Creator
+            Factory.stringToCalendar(rs.getString(4)), //Date
+            rs.getString(6), //Location
+            rs.getInt(5), //Warning period
+            Factory.stringToStringList(rs.getString(7)), //BadWeather
+            rs.getString(8).replaceAll("''", "'"), //Description
+            Factory.stringToStringList(rs.getString(9)), //invited users
+            Factory.stringToStringList(rs.getString(10)) //accepted 
+        );
+        
+        e.setId(rs.getInt(1));
+        
+        return e;
     }
 
     public static ArrayList<User> createUsers(ResultSet rs) {

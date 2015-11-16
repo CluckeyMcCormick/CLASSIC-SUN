@@ -25,7 +25,7 @@ public class User{
     
     public void removeInvite(int inv)
     {
-        this.invites.remove(inv);
+        this.invites.remove(new Integer(inv));     
     }
     
     public boolean checkForInvite(int inv)

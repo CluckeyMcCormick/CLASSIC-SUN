@@ -39,7 +39,6 @@ public class View {
         ArrayList<Event> toReturn;
         Statement stmt;
         ResultSet rs;
-        Event e;
 
         toReturn = new ArrayList<>();
 
@@ -47,24 +46,8 @@ public class View {
             try {
                 stmt = conman.getConnection().createStatement();
                 rs = stmt.executeQuery(QueryGenerator.selectQueryEvent(i));
-
-                while (rs.next()) {
-                    e = new Event(
-                            rs.getString(2), //Event Name
-                            rs.getString(3), //Event Creator
-                            Factory.stringToCalendar(rs.getString(4)), //Date
-                            rs.getString(6), //Location
-                            rs.getInt(5), //Warning period
-                            Factory.stringToStringList(rs.getString(7)), //BadWeather
-                            rs.getString(8), //Description
-                            Factory.stringToStringList(rs.getString(9)), //invited users
-                            Factory.stringToStringList(rs.getString(10))
-                    );
-
-                    e.setId(rs.getInt(1));
-
-                    toReturn.add(e);
-                }
+                
+                toReturn = Factory.createEvents(rs);
 
             } catch (Exception ex) {
                 System.out.println(ex.getClass().getName() + ": " + ex.getMessage());
@@ -91,24 +74,8 @@ public class View {
         try {
             stmt = conman.getConnection().createStatement();
             rs = stmt.executeQuery(QueryGenerator.selectQueryEvent(u));
-
-            while (rs.next()) {
-                e = new Event(
-                        rs.getString(2), //Event Name
-                        rs.getString(3), //Event Creator
-                        Factory.stringToCalendar(rs.getString(4)), //Date
-                        rs.getString(6), //Location
-                        rs.getInt(5), //Warning period
-                        Factory.stringToStringList(rs.getString(7)), //BadWeather
-                        rs.getString(8), //Description
-                        Factory.stringToStringList(rs.getString(9)), //invited users
-                        Factory.stringToStringList(rs.getString(10)) //accepted users
-                );
-
-                e.setId(rs.getInt(1));
-
-                toReturn.add(e);
-            }
+            
+            toReturn = Factory.createEvents(rs);
 
         } catch (Exception ex) {
             ex.printStackTrace();

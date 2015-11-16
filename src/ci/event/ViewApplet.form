@@ -63,23 +63,23 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="loginScrollPane" pref="540" max="32767" attributes="0"/>
+                          <Component id="loginScrollPane" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="loginServLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="loginUserLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="loginButton" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="loginCreateButton" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <EmptySpace pref="318" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="loginUserField" max="32767" attributes="0"/>
                               </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="loginServLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -102,7 +102,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="loginServLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="loginScrollPane" pref="301" max="32767" attributes="0"/>
+                      <Component id="loginScrollPane" pref="324" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -111,7 +111,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="loginUserLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="User Name:"/>
+                <Property name="text" type="java.lang.String" value="E-Mail:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="loginUserField">

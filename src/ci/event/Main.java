@@ -22,7 +22,7 @@ public class Main {
         frame = new JFrame();
         app = new ViewApplet();
 
-        frame.setSize(600, 475);
+        frame.setSize(600, 500);
 
         frame.getContentPane().add(app);
         frame.addWindowListener(new WindowAdapter() {
@@ -35,9 +35,9 @@ public class Main {
         });
         
         try {
-            frame.setVisible(true);
             app.init();
             app.start();
+            frame.setVisible(true);
             System.out.println("We're off the ground!");
         }
         catch (Exception E)

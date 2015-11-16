@@ -73,10 +73,12 @@ public class Controller {
     public ServerResponse updateUser(User u)
     {
         ServerResponse resp;
+        String query;
         //get a new id for this event from the "event" table
         try{
             Statement stmt = con.createStatement();
-            stmt.executeUpdate(QueryGenerator.updateQueryUserInbox(u));
+            query = QueryGenerator.updateQueryUserInbox(u);
+            stmt.executeUpdate(query);
             //return a ServerResponse, with a message indicating the
             //event has been created, and the boolean true
             resp = new ServerResponse("User has been invited.", true);
