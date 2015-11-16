@@ -145,7 +145,7 @@ public class QueryGenerator {
      */
     public static String updateQueryUserInbox(User user){
         String inbox=Factory.IntegerListToString(user.getInvites());
-        return "UPDATE USERS SET INBOX = "+inbox+" WHERE EMAIL = '"+user.getEmail()+"';";
+        return "UPDATE USERS SET INBOX = "+inbox+" WHERE ID = "+user.getID()+";";
     }
     
     /**

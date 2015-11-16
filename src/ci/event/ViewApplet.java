@@ -91,6 +91,7 @@ public class ViewApplet extends javax.swing.JApplet {
         this.manageEvLocationCombo.setModel(model);
         //Set the create panel to the default
         this.resetCreatePanel();
+        this.resetLoginPanel();
         
         if(this.controller == null )
         {
@@ -1191,6 +1192,8 @@ public class ViewApplet extends javax.swing.JApplet {
     private void mainInviteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainInviteButtonActionPerformed
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "invite");
+        
+        this.setInviteFieldBlankState();
     }//GEN-LAST:event_mainInviteButtonActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
@@ -1425,20 +1428,25 @@ public class ViewApplet extends javax.swing.JApplet {
         //If it's all valid
         if(valid)
         {
+            ServerResponse resp;
+            
             //Create event object as currentEvent
             this.currentEvent = 
             new Event(evName, currentUser.getEmail(), date, location, warning, goodWeather, description);
             //Add to database
-            this.controller.addEvent(this.currentEvent);
-            //Get list of user's created events from database
-            this.relevantEvents = this.view.getEventsCreated(currentUser);
-            //Switch cards    
-            CardLayout cl = (CardLayout)(cardContainer.getLayout());
-            cl.show(cardContainer, "manage");
-            //Set the fields of update to match currentEvent
-            this.setManageFields();
-            //Reset the create screen
-            this.resetCreatePanel();
+            resp = this.controller.addEvent(this.currentEvent);
+            this.createServerText.setText(resp.getMessage());
+            if(resp.getSuccess()){
+                //Get list of user's created events from database
+                this.relevantEvents = this.view.getEventsCreated(currentUser);
+                //Switch cards    
+                CardLayout cl = (CardLayout)(cardContainer.getLayout());
+                cl.show(cardContainer, "manage");
+                //Set the fields of update to match currentEvent
+                this.setManageFields();
+                //Reset the create screen
+                this.resetCreatePanel();    
+            }     
         }
         else
         {
@@ -1614,17 +1622,23 @@ public class ViewApplet extends javax.swing.JApplet {
         //If it's all valid
         if(valid)
         {
+            ServerResponse resp;
+            
             //Create event object
             Event e = 
             new Event(evName, currentUser.getEmail(), date, location, warning, goodWeather, description);
             //set the id
             e.setId(this.currentEvent.getId());
-            //set to current event
-            this.currentEvent = e;
             //Add to database
-            this.controller.updateEvent(this.currentEvent);
-            //Set the fields of update to match currentEvent
-            this.setManageFields();
+            resp = this.controller.updateEvent(e);
+            this.manageEvServerText.setText(resp.getMessage());
+            
+            if(resp.getSuccess()){
+                //set to current event
+                this.currentEvent = e;
+                //Set the fields of update to match currentEvent
+                this.setManageFields();
+            }
         }
         else
         {
@@ -1649,17 +1663,28 @@ public class ViewApplet extends javax.swing.JApplet {
         if(resp.getSuccess())
         {
             u = this.view.getUser(invitee);
-            if(!u.checkForInvite(this.currentEvent.getId()))
+            if(u == null)
+            {
+                this.manageInvServerText.setText("Error inviting that user! "
+                        + "Either it doesn't exist, or another error was "
+                        + "encountered. Try again!");
+            }
+            else if(!u.checkForInvite(this.currentEvent.getId()))
             {             
-                u.addInvite(this.currentEvent.getId());
-                this.currentEvent.addInvitee(invitee);
-                this.controller.updateUser(u);              
-                this.controller.updateEvent(this.currentEvent);
+                u.addInvite(this.currentEvent.getId());               
+                resp = this.controller.updateUser(u); 
                 
-                this.setManageFields();
-                
-                this.manageInvServerText.setText("Request has been sent to " + invitee);
-                
+                if(resp.getSuccess())
+                {
+                    this.controller.updateEvent(this.currentEvent);
+                    this.currentEvent.addInvitee(invitee);
+                    this.setManageFields();               
+                    this.manageInvServerText.setText("Request has been sent to " + invitee);
+                }
+                else
+                {
+                    this.manageInvServerText.setText(resp.getMessage());
+                }
             }
             else
             {
@@ -2001,10 +2026,19 @@ public class ViewApplet extends javax.swing.JApplet {
     
     private void setChooseFields()
     {
+        ArrayList<String> evNames;
         //get the events created by the current user
         this.relevantEvents = this.view.getEventsCreated(this.currentUser);
+        evNames = new ArrayList<String>();
+        
+        for(Event e : this.relevantEvents)
+        {
+            evNames.add(e.getName());
+        }
+        
         //set the list of events we can choose 
-        this.chooseEvList.setListData(this.relevantEvents.toArray());
+        this.chooseEvList.setListData(evNames.toArray());
+        this.chooseEvList.setSelectedIndex(-1);
     }
     
     private void setInviteFieldBlankState()
@@ -2101,7 +2135,7 @@ public class ViewApplet extends javax.swing.JApplet {
     public void resetLoginPanel()
     {
         this.loginServText.setText("");
-        this.loginServText.setText("");
+        this.loginUserField.setText("");
     }    
             
     public void appWideMessage(String message)

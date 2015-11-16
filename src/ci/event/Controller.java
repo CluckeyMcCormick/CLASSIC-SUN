@@ -2,6 +2,7 @@ package ci.event;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import org.postgresql.util.PSQLException;
@@ -43,18 +44,20 @@ public class Controller {
         resp = this.checkForUser(u);
         //If the user isn't in here
         if( !resp.getSuccess() )
-        {
-            u.setID(this.findFreeID(true));
-            
+        {           
             try {
+                
+                u.setID(this.findFreeID(true));
+                
                 stmt = con.createStatement();
-                stmt.executeQuery(QueryGenerator.insertQueryUser(u));
+                stmt.executeUpdate(QueryGenerator.insertQueryUser(u));
             } catch( Exception e ) {
                 String message;
                 message = "Uncountered unknown error when adding user:\n" 
                     + e.getMessage() + "\nPlease try again.";
 
                 resp = new ServerResponse(message, false);
+                e.printStackTrace();
             }         
         }
         
@@ -69,7 +72,23 @@ public class Controller {
      */
     public ServerResponse updateUser(User u)
     {
-        return null;
+        ServerResponse resp;
+        //get a new id for this event from the "event" table
+        try{
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(QueryGenerator.updateQueryUserInbox(u));
+            //return a ServerResponse, with a message indicating the
+            //event has been created, and the boolean true
+            resp = new ServerResponse("User has been invited.", true);
+        } catch ( Exception ex ) {          
+            String message;
+            message = "Uncountered unknown error when creating event:\n" 
+                    + ex.getMessage() + "\nPlease try again.";
+            resp = new ServerResponse(message, false);
+            ex.printStackTrace();
+        }
+        
+        return resp;
     }
     
     /**
@@ -115,24 +134,27 @@ public class Controller {
      * @return The server's response, with a message and a success boolean
      */
     public ServerResponse addEvent(Event e) {
+        ServerResponse resp;
         //get a new id for this event from the "event" table
         try{
-        Statement stmt = con.createStatement();
-        //the id should probably be the count from the eventTable
-        e.setId(this.findFreeID(false));
-        //set the event's (e) id using the setId method
-        //Add the event to the "event" table
-        stmt.executeQuery(QueryGenerator.insertQueryEvent(e));
-        //return a ServerResponse, with a message indicating the
-        //event has been created, and the boolean true
-        ServerResponse successfulInsert= new ServerResponse("Event added to database.", true);
-        return successfulInsert;
-        } catch ( Exception ex ) {
-            System.err.println( "Exception occured in Controller.addEvent" );
-            System.err.println( ex.getClass().getName()+": "+ ex.getMessage() );
+            Statement stmt = con.createStatement();
+            //the id should probably be the count from the eventTable
+            e.setId(this.findFreeID(false));
+            //set the event's (e) id using the setId method
+            //Add the event to the "event" table
+            stmt.executeUpdate(QueryGenerator.insertQueryEvent(e));
+            //return a ServerResponse, with a message indicating the
+            //event has been created, and the boolean true
+            resp = new ServerResponse("Event added to database.", true);
+        } catch ( Exception ex ) {          
+            String message;
+            message = "Uncountered unknown error when creating event:\n" 
+                    + ex.getMessage() + "\nPlease try again.";
+            resp = new ServerResponse(message, false);
+            ex.printStackTrace();
         }
         
-        return null;
+        return resp;
     }
     /**
      * Attempts to remove the provided event from the database.
@@ -150,7 +172,7 @@ public class Controller {
             //return a ServerResponse, with a message indicating the
             //event was removed, and the boolean true
         } catch ( Exception ex ) {
-            System.err.println( "Exception occured in Controller.addEvent" );
+            System.err.println( "Exception occured in Controller.removeEvent" );
             System.err.println( ex.getClass().getName()+": "+ ex.getMessage() );
         }
         
@@ -164,25 +186,33 @@ public class Controller {
      * @return The server's response, with a message and a success boolean
      */
     public ServerResponse updateEvent(Event e) {
-
-        //If we didn't do it
-            //return a ServerResponse, with a message indicating the event
-            //could not be updated, and the boolean false
-        //If the event already exists
+        ServerResponse resp;
+        //get a new id for this event from the "event" table
+        try{
+            Statement stmt = con.createStatement();
+            //Add the event to the "event" table
+            stmt.executeUpdate(QueryGenerator.updateQueryEvent(e));
             //return a ServerResponse, with a message indicating the
-            //event was updated, and the boolean true
-        System.out.println("In Controller's updateEvent method - IMPLEMENT ME!");
-        return null;
+            //event has been created, and the boolean true
+            resp = new ServerResponse("Event has been updated.", true);
+        } catch ( Exception ex ) {          
+            String message;
+            message = "Uncountered unknown error when creating event:\n" 
+                    + ex.getMessage() + "\nPlease try again.";
+            resp = new ServerResponse(message, false);
+            ex.printStackTrace();
+        }
+        
+        return resp;
     }
     
-    private int findFreeID(boolean userTable){
+    private int findFreeID(boolean userTable) throws SQLException{
         //Query the database to see if this user exists already
         Statement stmt;
         ResultSet rs;
         
         int freeID;
         
-        try{
             ArrayList<Integer> IDS;
             stmt = con.createStatement();
             if(userTable)
@@ -202,12 +232,6 @@ public class Controller {
             }
             
             for(freeID = 0; IDS.contains(freeID); freeID++);
-            
-        } catch ( Exception ex ) {
-            System.err.println( "Exception occured in Controller.addEvent" );
-            System.err.println( ex.getClass().getName()+": "+ ex.getMessage() );
-            freeID = -1;
-        }
         
         return freeID;
     }
