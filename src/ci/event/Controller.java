@@ -237,4 +237,16 @@ public class Controller {
         
         return freeID;
     }
+    
+    public boolean sendInvites(Event e){ //use get Event
+        boolean allSent=false;
+        
+        try{
+        Mail.Send(e.getInvited(), Factory.createTitle(e), Factory.createInviteMessage(e));
+        allSent=true;
+        }catch(Exception ex){
+            allSent=false;
+        }
+        return allSent;
+    }
 }
