@@ -259,7 +259,7 @@ public class Controller {
         Calendar temp=Calendar.getInstance();
         temp.add(Calendar.DAY_OF_MONTH,e.getWarningPeriod());
         
-        if(temp.equals(e.getDate())){
+        if(temp.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR) && temp.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR)){
             boolean weatherIsGood=false;
             for(String weather : e.getGoodWeather()){
                 if(Weather.weatherForecast[e.getWarningPeriod()-1].equals(weather)){
@@ -286,7 +286,9 @@ public class Controller {
     public ServerResponse dailyWeatherCheck(){//checks all weathers for their warning time and bad weathers, returns true if it updated, returns false if waiting for next day to update.
         Calendar temp=lastCheck.getInstance();
         temp.add(Calendar.DAY_OF_MONTH, 1);
-        if(temp.equals(Calendar.getInstance())){
+        if(temp.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR) && temp.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR)){
+            lastCheck=temp;
+            
             ServerResponse resp;
             String query;
             ResultSet rs;
