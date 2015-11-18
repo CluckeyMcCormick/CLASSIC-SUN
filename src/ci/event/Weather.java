@@ -44,7 +44,7 @@ public class Weather {
     public static final int W_INDEX_HAIL =     11;
     public static final int W_INDEX_STORM =    12;
     
-    public String[] weatherForecast = new String[10];
+    public static String[] weatherForecast = new String[10];
     
     public Weather(){
         this.location = "";

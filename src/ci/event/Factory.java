@@ -178,7 +178,15 @@ public class Factory {
         return e.getCreator()+" has invited you to "+e.getName()+" on "+calendarToString(e.getDate())+". Head to the CI.Events SUN app now to rsvp.";
     }
     
+    public static String createWarningMessage(Event e){
+        return e.getCreator()+", your event: "+e.getName()+" on "+calendarToString(e.getDate())+" may have conflicting weather: "+Weather.weatherForecast[e.getWarningPeriod()]+" Head to the CI.Events SUN app now to reschedule if this is a conflict.";
+    }
+    
     public static String createTitle(Event e){
         return e.getCreator()+" has invited you to an event!";
+    }
+    
+    public static String createWarningTitle(Event e){
+        return "Your event: "+e.getName()+" may have bad weather!";
     }
 }

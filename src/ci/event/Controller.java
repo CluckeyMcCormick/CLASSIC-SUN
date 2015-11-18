@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import org.postgresql.util.PSQLException;
 /**
  * Class used to store, update, and remove information in the database.
@@ -25,9 +26,12 @@ public class Controller {
     
     // </editor-fold>
     
+    private Calendar lastCheck;
+    
     public Controller(ConnectionManager conman) {
         this.conman = conman;
         this.con=conman.getConnection();
+        this.lastCheck=Calendar.getInstance();
     }
 
     /**
@@ -246,7 +250,70 @@ public class Controller {
         allSent=true;
         }catch(Exception ex){
             allSent=false;
+            System.out.println("An email was bad.");
         }
         return allSent;
+    }
+    
+    public ServerResponse checkWarningWeather(Event e){//checks warning period, ServerResponse true means things are good, false means intervention occured
+        Calendar temp=Calendar.getInstance();
+        temp.add(Calendar.DAY_OF_MONTH,e.getWarningPeriod());
+        
+        if(temp.equals(e.getDate())){
+            boolean weatherIsGood=false;
+            for(String weather : e.getGoodWeather()){
+                if(Weather.weatherForecast[e.getWarningPeriod()-1].equals(weather)){
+                    weatherIsGood=true;
+                }
+            }
+
+            if(!weatherIsGood){
+                try{
+                Mail.Send(e.getCreator(), Factory.createWarningTitle(e), Factory.createWarningMessage(e));
+                }catch(Exception ex){
+                    System.out.println("An email was bad.");
+                }
+                return new ServerResponse(e.getName()+" checked, weather is bad, warning emails sent.", false);
+            }else{
+                return new ServerResponse(e.getName()+" checked, weather is good.", true);
+            }
+            
+        }else{
+            return new ServerResponse("Not time to check "+e.getName(), true);
+        }
+    }
+    
+    public ServerResponse dailyWeatherCheck(){//checks all weathers for their warning time and bad weathers, returns true if it updated, returns false if waiting for next day to update.
+        Calendar temp=lastCheck.getInstance();
+        temp.add(Calendar.DAY_OF_MONTH, 1);
+        if(temp.equals(Calendar.getInstance())){
+            ServerResponse resp;
+            String query;
+            ResultSet rs;
+            //get a new id for this event from the "event" table
+            try{
+                Statement stmt = con.createStatement();
+                query = QueryGenerator.allQueryEvent();
+                rs=stmt.executeQuery(query);
+                
+                ArrayList<Event> events=Factory.createEvents(rs);
+                
+                for(Event e : events){
+                   checkWarningWeather(e);
+                }
+                
+                
+            } catch ( Exception ex ) {          
+                    String message;
+                    message = "Uncountered unknown error when querying all events:\n" 
+                            + ex.getMessage() + "\nPlease try again.";
+                    resp = new ServerResponse(message, false);
+                    ex.printStackTrace();
+            }
+            return new ServerResponse("Daily check completed", true);
+        }else{
+            return new ServerResponse("", false);
+        }
+        
     }
 }

@@ -46,6 +46,9 @@ public class QueryGenerator {
         return "SELECT ID FROM EVENTS;";
     }
     
+    public static String allQueryEvent(){
+        return "SELECT * FROM EVENTS;";
+    }
     /**
      * Generates a query that selects all entries in the event table 
      * with the matching id - so, basically one entry.
