@@ -46,27 +46,18 @@ public class Weather {
     
     public static String[] weatherForecast = new String[10];
     
-    public Weather(){
-        this.location = "";
-    }
-    
-    public Weather(String place){
-        place.replace(' ','_');
-        location = place;
-    }
-    
-    public void makeForecast(){
+    public static void makeForecast(){
         //major todo check if file of the day has already downloaded else program can only be run 500 times in a day, 10 times a minute 
         get10Forecast();
         process10Forecast();
     }
     
-    public void get10Forecast(){
+    private static void get10Forecast(){
         try {
             System.out.println("Trying json grab!"); //access and download file that contains forecast data
-            URL website = new URL(this.url+this.apiKey+this.tenDayForecast+this.location+".json");
+            URL website = new URL( url + apiKey + tenDayForecast + location + ".json");
             ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-            FileOutputStream fos = new FileOutputStream(this.location+".json");
+            FileOutputStream fos = new FileOutputStream( location + ".json");
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 
             fos.close();
@@ -84,9 +75,9 @@ public class Weather {
         System.out.println("Trying json process!");
     }
     
-    public void process10Forecast(){
+    private static void process10Forecast(){
         try{
-            Scanner scan = new Scanner(new File(this.location+".json")); //load grabbed file
+            Scanner scan = new Scanner(new File(location+".json")); //load grabbed file
             String temp="";
             if(scan.hasNextLine()){ //prime scan
                 temp=scan.nextLine();
@@ -113,7 +104,7 @@ public class Weather {
         }
     }
     
-    public int checkWeather(int day, String check){//day cannot exceed 9, if index is -1, check is negative/false, if index is -2 bad input
+    public static int checkWeather(int day, String check){//day cannot exceed 9, if index is -1, check is negative/false, if index is -2 bad input
         int index=-1;
         if(day>-1&&day<10){
             if(weatherForecast[day].indexOf(check)>-1){

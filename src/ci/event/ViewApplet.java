@@ -24,6 +24,13 @@ public class ViewApplet extends javax.swing.JApplet {
         "Santa Rosa Island Research Station"
     };
     
+    private final String[] WEATHER_LOCATIONS = {
+        "Camarillo, CA",
+        "Thousand Oaks, CA",
+        "Santa Barbara, CA",
+        "Channel Islands National Park, CA"
+    };
+    
     //Objects for database interaction
     private Controller controller;
     private View view;
@@ -1421,6 +1428,26 @@ public class ViewApplet extends javax.swing.JApplet {
             response.append(" has already passed!\n");
         }
         
+        if(warning != null && warning == 0)
+        {
+            if(valid)
+            {
+                valid = false;
+                response.append("Event Rejected:\n");
+            }           
+            response.append("The warning period was zero!\n");
+        }
+        
+        if(warning != null && warning > 10)
+        {
+            if(valid)
+            {
+                valid = false;
+                response.append("Event Rejected:\n");
+            }           
+            response.append("The warning period was larger than 10!\n");
+        }
+        
         //If it's all valid
         if(valid)
         {
@@ -1615,6 +1642,26 @@ public class ViewApplet extends javax.swing.JApplet {
             response.append("The warning period was negative!\n");
         }
         
+        if(warning != null && warning == 0)
+        {
+            if(valid)
+            {
+                valid = false;
+                response.append("Event Rejected:\n");
+            }           
+            response.append("The warning period was zero!\n");
+        }
+        
+        if(warning != null && warning > 10)
+        {
+            if(valid)
+            {
+                valid = false;
+                response.append("Event Rejected:\n");
+            }           
+            response.append("The warning period was larger than 10!\n");
+        }
+        
         //If it's all valid
         if(valid)
         {
@@ -1680,10 +1727,20 @@ public class ViewApplet extends javax.swing.JApplet {
                 resp = this.controller.updateUser(u); 
                 
                 if(resp.getSuccess())
-                {
+                {                  
                     this.currentEvent.addInvitee(invitee);
                     this.controller.updateEvent(this.currentEvent);             
                     this.setManageFields();               
+                    
+                    try{
+                        Mail.Send(invitee, 
+                                Factory.createTitle(this.currentEvent), 
+                                Factory.createInviteMessage(this.currentEvent));
+                    }catch(Exception ex){
+                        ex.printStackTrace();
+                        System.out.println("An email was bad.");
+                    }
+                    
                     this.manageInvServerText.setText("Request has been sent to " + invitee);
                 }
                 else
@@ -2156,7 +2213,8 @@ public class ViewApplet extends javax.swing.JApplet {
         this.manageEvServerText.setText(message);
         this.manageInvServerText.setText(message);
     }
-
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton cWeatherChanceRadio;
     private javax.swing.JRadioButton cWeatherClearRadio;

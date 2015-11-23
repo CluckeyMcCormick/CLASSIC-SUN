@@ -71,6 +71,10 @@ public class QueryGenerator {
         return "SELECT * FROM EVENTS WHERE EVENTCREATOR = '"+creator.getEmail()+"';";
     }
     
+    public static String selectQueryEvent(String location){
+        return "SELECT * FROM EVENTS WHERE LOCATION = '"+ location +"';";
+    }
+    
     /**
      * Generates a query that retrieves the entry of the provided user
      * 
@@ -227,4 +231,12 @@ public class QueryGenerator {
     public static String deleteQueryUser(User user){
         return "DELETE FROM USERS WHERE EMAIL = "+user.getEmail()+"RETURNING *;";
     }
+    
+    public static String selectQueryLastCheck(){
+        return  "SELECT * FROM lastcheck;";
+    }
+    
+    public static String updateQueryLastCheck(Calendar cal){
+        return  "UPDATE lastcheck SET date = '"+ Factory.calendarToString(cal) + "' WHERE index=0;";
+    }   
 }

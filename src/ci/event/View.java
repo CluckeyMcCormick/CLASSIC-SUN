@@ -83,6 +83,26 @@ public class View {
         
         return toReturn;
     }
+    
+    public ArrayList<Event> getEventsLocation(String loc) {
+        ArrayList<Event> toReturn;
+        Statement stmt;
+        ResultSet rs;
+
+        toReturn = new ArrayList<>();
+
+        try {
+            stmt = conman.getConnection().createStatement();
+            rs = stmt.executeQuery(QueryGenerator.selectQueryEvent(loc));
+            
+            toReturn = Factory.createEvents(rs);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
+        return toReturn;
+    }
 
     /**
      * Retrieves a user object of the provided username

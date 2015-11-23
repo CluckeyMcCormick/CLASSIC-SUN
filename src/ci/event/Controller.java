@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
-import org.postgresql.util.PSQLException;
 /**
  * Class used to store, update, and remove information in the database.
  * 
@@ -26,12 +25,9 @@ public class Controller {
     
     // </editor-fold>
     
-    private Calendar lastCheck;
-    
     public Controller(ConnectionManager conman) {
         this.conman = conman;
         this.con=conman.getConnection();
-        this.lastCheck=Calendar.getInstance();
     }
 
     /**
@@ -169,14 +165,12 @@ public class Controller {
      * @return The server's response, with a message and a success boolean
      */
     public ServerResponse removeEvent(Event e) {
+        Statement stmt;
+        
         //Attempt to remove e from the event table
         try{
-        //If we didn't do it
-            //return a ServerResponse, with a message indicating the event
-            //doesn't exist, and the boolean false
-        //else
-            //return a ServerResponse, with a message indicating the
-            //event was removed, and the boolean true
+            stmt = con.createStatement();
+            stmt.executeUpdate(QueryGenerator.deleteQueryEvent(e.getId()));
         } catch ( Exception ex ) {
             System.err.println( "Exception occured in Controller.removeEvent" );
             System.err.println( ex.getClass().getName()+": "+ ex.getMessage() );
@@ -256,16 +250,23 @@ public class Controller {
     }
     
     public ServerResponse checkWarningWeather(Event e){//checks warning period, ServerResponse true means things are good, false means intervention occured
-        Calendar temp=Calendar.getInstance();
-        temp.add(Calendar.DAY_OF_MONTH,e.getWarningPeriod());
+        Calendar current;
+        Calendar currentPlusTen;
+        Calendar warning;
         
-        if(temp.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR) && temp.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR)){
-            boolean weatherIsGood=false;
-            for(String weather : e.getGoodWeather()){
-                if(Weather.weatherForecast[e.getWarningPeriod()-1].equals(weather)){
-                    weatherIsGood=true;
-                }
-            }
+        current = Calendar.getInstance();
+        currentPlusTen = Calendar.getInstance();
+        currentPlusTen.add(Calendar.DAY_OF_MONTH, 11);
+        
+        warning = (Calendar) e.getDate().clone();
+        warning.add(Calendar.DAY_OF_MONTH, - e.getWarningPeriod());
+        
+        if(current.before(warning) && currentPlusTen.after(e)){
+            boolean weatherIsGood;
+            
+            weatherIsGood = e.getGoodWeather().contains(
+                    Weather.weatherForecast[e.getWarningPeriod()-1]
+            );
 
             if(!weatherIsGood){
                 try{
@@ -282,40 +283,63 @@ public class Controller {
             return new ServerResponse("Not time to check "+e.getName(), true);
         }
     }
-    
-    public ServerResponse dailyWeatherCheck(){//checks all weathers for their warning time and bad weathers, returns true if it updated, returns false if waiting for next day to update.
-        Calendar temp=lastCheck.getInstance();
-        temp.add(Calendar.DAY_OF_MONTH, 1);
-        if(temp.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR) && temp.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR)){
-            lastCheck=temp;
+
+    //checks all weathers for their warning time and bad weathers, returns true if it updated, returns false if waiting for next day to update.
+    public ServerResponse dailyWeatherCheck(String[] eventLocations, String[] weatherLocations){
+        ArrayList<Event> events;
+        
+        String query;
+        ResultSet rs;    
+        Statement stmt; 
+        
+        Calendar current;
+        Calendar lastCheck;
+        
+        current = Calendar.getInstance();
+        
+        try {
+            stmt = conman.getConnection().createStatement();
+            rs = stmt.executeQuery(QueryGenerator.selectQueryLastCheck());
             
-            ServerResponse resp;
-            String query;
-            ResultSet rs;
-            //get a new id for this event from the "event" table
-            try{
-                Statement stmt = con.createStatement();
-                query = QueryGenerator.allQueryEvent();
-                rs=stmt.executeQuery(query);
-                
-                ArrayList<Event> events=Factory.createEvents(rs);
-                
-                for(Event e : events){
-                   checkWarningWeather(e);
-                }
-                
-                
-            } catch ( Exception ex ) {          
-                    String message;
-                    message = "Uncountered unknown error when querying all events:\n" 
-                            + ex.getMessage() + "\nPlease try again.";
-                    resp = new ServerResponse(message, false);
-                    ex.printStackTrace();
-            }
-            return new ServerResponse("Daily check completed", true);
-        }else{
-            return new ServerResponse("", false);
+            lastCheck = Factory.stringToCalendar(rs.getString(1));
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ServerResponse("Couldn't perform weather warning", false);
         }
         
+        if(lastCheck.before(current))
+        {
+            for(int i = 0; i < eventLocations.length; ++i)
+            {
+                //get a new id for this event from the "event" table
+                try{
+                    stmt = con.createStatement();
+                    query = QueryGenerator.selectQueryEvent(eventLocations[i]);
+                    rs = stmt.executeQuery(query);
+                
+                    events = Factory.createEvents(rs);
+                
+                    Weather.setLocation(weatherLocations[i]);
+                    Weather.makeForecast();
+                
+                    for(Event e : events){
+                        checkWarningWeather(e);
+                    }                    
+                } catch ( Exception ex ) {          
+                    ex.printStackTrace();
+                }        
+            }
+            
+            try {
+                stmt = conman.getConnection().createStatement();
+                stmt.executeUpdate(QueryGenerator.updateQueryLastCheck(current));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return new ServerResponse("Couldn't update last check date", false);
+            }
+        }
+        
+        return new ServerResponse("Daily check completed", true);
     }
 }
