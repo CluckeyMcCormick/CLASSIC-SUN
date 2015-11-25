@@ -51,6 +51,8 @@ public class Controller {
                 
                 stmt = con.createStatement();
                 stmt.executeUpdate(QueryGenerator.insertQueryUser(u));
+                
+                resp = new ServerResponse("User has been created.", true);
             } catch( Exception e ) {
                 String message;
                 message = "Uncountered unknown error when adding user:\n" 
