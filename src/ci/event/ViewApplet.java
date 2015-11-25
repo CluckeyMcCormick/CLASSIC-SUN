@@ -1244,10 +1244,10 @@ public class ViewApplet extends javax.swing.JApplet {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mainInviteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainInviteButtonActionPerformed
+        this.setInviteFieldBlankState();
+        this.currentUser = this.view.getUser(this.currentUser.getEmail());
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "invite");
-        
-        this.setInviteFieldBlankState();
     }//GEN-LAST:event_mainInviteButtonActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
@@ -1302,6 +1302,7 @@ public class ViewApplet extends javax.swing.JApplet {
 
     private void createMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createMainButtonActionPerformed
         this.resetMainPanel();
+        this.currentUser = this.view.getUser(this.currentUser.getEmail());
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_createMainButtonActionPerformed
@@ -1329,6 +1330,7 @@ public class ViewApplet extends javax.swing.JApplet {
     private void chooseMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseMainButtonActionPerformed
         this.relevantEvents = null; 
         this.resetMainPanel();
+        this.currentUser = this.view.getUser(this.currentUser.getEmail());
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_chooseMainButtonActionPerformed
@@ -1338,6 +1340,7 @@ public class ViewApplet extends javax.swing.JApplet {
         this.setInviteFieldBlankState();
         this.relevantEvents = null;
         this.resetMainPanel();
+        this.currentUser = this.view.getUser(this.currentUser.getEmail());
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_inviteMainButtonActionPerformed
@@ -1345,6 +1348,7 @@ public class ViewApplet extends javax.swing.JApplet {
     private void manageEvMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEvMainButtonActionPerformed
         this.currentEvent = null;
         this.relevantEvents = null; 
+        this.currentUser = this.view.getUser(this.currentUser.getEmail());
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_manageEvMainButtonActionPerformed
@@ -1545,6 +1549,7 @@ public class ViewApplet extends javax.swing.JApplet {
         this.currentEvent = null;
         this.relevantEvents = null; 
         this.resetMainPanel();
+        this.currentUser = this.view.getUser(this.currentUser.getEmail());
         CardLayout cl = (CardLayout)(cardContainer.getLayout());
         cl.show(cardContainer, "main");
     }//GEN-LAST:event_manageInvMainButtonActionPerformed
@@ -2151,6 +2156,7 @@ public class ViewApplet extends javax.swing.JApplet {
         this.manageInvAttendList.setListData(this.currentEvent.getAccepted().toArray());
         this.manageInvInvitedList.setListData(this.currentEvent.getInvited().toArray());
         this.manageInvInviteField.setText("");
+        this.manageInvServerText.setText("");
     }
     
     private void setChooseFields()
