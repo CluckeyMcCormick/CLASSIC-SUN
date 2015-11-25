@@ -102,7 +102,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="loginServLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="loginScrollPane" pref="324" max="32767" attributes="0"/>
+                      <Component id="loginScrollPane" pref="301" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -148,6 +148,7 @@
                     <Property name="tabSize" type="int" value="4"/>
                     <Property name="text" type="java.lang.String" value="This box provides feedback information - like &quot;username doesn&apos;t exist&quot; or &quot;incorrect password&quot;. I doubt we even need passwords. Of course, this brings up the question of how we make new users - perhaps we could have a &quot;Create User&quot; button next to the login button."/>
                     <Property name="toolTipText" type="java.lang.String" value=""/>
+                    <Property name="wrapStyleWord" type="boolean" value="true"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -213,7 +214,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="mainServLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="mainScrollPane" pref="241" max="32767" attributes="0"/>
+                      <Component id="mainScrollPane" pref="203" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -268,6 +269,7 @@
                     <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
                     <Property name="text" type="java.lang.String" value="This will display a greeting of some kind. It&apos;d also be nice to tell the user how many messages they have, or some other such information. &quot;Admin Options&quot; doesn&apos;t have to be included in the final product; that&apos;s where we&apos;d put any debugging commands, buttons, and other such nonsense. "/>
+                    <Property name="wrapStyleWord" type="boolean" value="true"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -439,6 +441,7 @@
                     <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
                     <Property name="text" type="java.lang.String" value="The above list will present the subjects of all waiting messages. We can write custom code for this by right-clicking the list, going to properties, navigating to properties&gt;model, and choose custom code.&#xa;&#xa;Notice the buttons found below. We&apos;ll need to separate the two type of messages: Invites, and Messages. Logic suggests that we&apos;ll want to have Message as a class, and Invite will inherit from it. Anyway, if the currently selected message is not an Invite type, we&apos;ll make the appropriate buttons to the lower left &quot;grey out&quot;."/>
+                    <Property name="wrapStyleWord" type="boolean" value="true"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -597,7 +600,7 @@
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="createMainButton" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="createServerScroll" pref="92" max="32767" attributes="0"/>
+                          <Component id="createServerScroll" pref="55" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -813,8 +816,11 @@
               <SubComponents>
                 <Component class="javax.swing.JTextArea" name="createServerText">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="columns" type="int" value="20"/>
+                    <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
+                    <Property name="wrapStyleWord" type="boolean" value="true"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -849,7 +855,9 @@
                 <Component class="javax.swing.JTextArea" name="createDescriptionText">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
+                    <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
+                    <Property name="wrapStyleWord" type="boolean" value="true"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -1305,8 +1313,11 @@
                   <SubComponents>
                     <Component class="javax.swing.JTextArea" name="manageEvServerText">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="columns" type="int" value="20"/>
+                        <Property name="lineWrap" type="boolean" value="true"/>
                         <Property name="rows" type="int" value="5"/>
+                        <Property name="wrapStyleWord" type="boolean" value="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -1351,7 +1362,9 @@
                     <Component class="javax.swing.JTextArea" name="manageEvDescriptionText">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
+                        <Property name="lineWrap" type="boolean" value="true"/>
                         <Property name="rows" type="int" value="5"/>
+                        <Property name="wrapStyleWord" type="boolean" value="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -1484,7 +1497,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="manageInvMainButton" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="manageInvServerScroll" pref="164" max="32767" attributes="0"/>
+                              <Component id="manageInvServerScroll" pref="126" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -1573,8 +1586,11 @@
                   <SubComponents>
                     <Component class="javax.swing.JTextArea" name="manageInvServerText">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="columns" type="int" value="20"/>
+                        <Property name="lineWrap" type="boolean" value="true"/>
                         <Property name="rows" type="int" value="5"/>
+                        <Property name="wrapStyleWord" type="boolean" value="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -1593,6 +1609,56 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageInvChooseButtonActionPerformed"/>
+                  </Events>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="manageDeletePanel">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                    <TitledBorder title="Delete Event"/>
+                  </Border>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Delete Event">
+                    <Property name="tabTitle" type="java.lang.String" value="Delete Event"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="238" max="-2" attributes="0"/>
+                          <Component id="manageDeleteButton" min="-2" pref="77" max="-2" attributes="0"/>
+                          <EmptySpace pref="241" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace pref="164" max="32767" attributes="0"/>
+                          <Component id="manageDeleteButton" min="-2" pref="77" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="152" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JButton" name="manageDeleteButton">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="3d" green="3b" red="f3" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Delete"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageDeleteButtonActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

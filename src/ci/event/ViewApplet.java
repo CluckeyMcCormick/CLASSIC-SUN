@@ -234,6 +234,8 @@ public class ViewApplet extends javax.swing.JApplet {
         manageInvServerText = new javax.swing.JTextArea();
         manageInvMainButton = new javax.swing.JButton();
         manageInvChooseButton = new javax.swing.JButton();
+        manageDeletePanel = new javax.swing.JPanel();
+        manageDeleteButton = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(600, 475));
 
@@ -261,6 +263,7 @@ public class ViewApplet extends javax.swing.JApplet {
         loginServText.setTabSize(4);
         loginServText.setText("This box provides feedback information - like \"username doesn't exist\" or \"incorrect password\". I doubt we even need passwords. Of course, this brings up the question of how we make new users - perhaps we could have a \"Create User\" button next to the login button.");
         loginServText.setToolTipText("");
+        loginServText.setWrapStyleWord(true);
         loginScrollPane.setViewportView(loginServText);
 
         loginCreateButton.setText("Create User");
@@ -307,7 +310,7 @@ public class ViewApplet extends javax.swing.JApplet {
                 .addGap(18, 18, 18)
                 .addComponent(loginServLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loginScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                .addComponent(loginScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -345,6 +348,7 @@ public class ViewApplet extends javax.swing.JApplet {
         mainServText.setLineWrap(true);
         mainServText.setRows(5);
         mainServText.setText("This will display a greeting of some kind. It'd also be nice to tell the user how many messages they have, or some other such information. \"Admin Options\" doesn't have to be included in the final product; that's where we'd put any debugging commands, buttons, and other such nonsense. ");
+        mainServText.setWrapStyleWord(true);
         mainScrollPane.setViewportView(mainServText);
 
         mainLogoutButton.setText("Logout");
@@ -388,7 +392,7 @@ public class ViewApplet extends javax.swing.JApplet {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mainServLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mainScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                .addComponent(mainScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -430,6 +434,7 @@ public class ViewApplet extends javax.swing.JApplet {
         inviteDescriptionText.setLineWrap(true);
         inviteDescriptionText.setRows(5);
         inviteDescriptionText.setText("The above list will present the subjects of all waiting messages. We can write custom code for this by right-clicking the list, going to properties, navigating to properties>model, and choose custom code.\n\nNotice the buttons found below. We'll need to separate the two type of messages: Invites, and Messages. Logic suggests that we'll want to have Message as a class, and Invite will inherit from it. Anyway, if the currently selected message is not an Invite type, we'll make the appropriate buttons to the lower left \"grey out\".");
+        inviteDescriptionText.setWrapStyleWord(true);
         inviteDescriptionScroll.setViewportView(inviteDescriptionText);
 
         inviteDateField.setEditable(false);
@@ -643,8 +648,11 @@ public class ViewApplet extends javax.swing.JApplet {
 
         createServerLabel.setText("Server Messages");
 
+        createServerText.setEditable(false);
         createServerText.setColumns(20);
+        createServerText.setLineWrap(true);
         createServerText.setRows(5);
+        createServerText.setWrapStyleWord(true);
         createServerScroll.setViewportView(createServerText);
 
         createMainButton.setText("Main Menu");
@@ -659,7 +667,9 @@ public class ViewApplet extends javax.swing.JApplet {
         createDescriptionLabel.setText("Event Description");
 
         createDescriptionText.setColumns(20);
+        createDescriptionText.setLineWrap(true);
         createDescriptionText.setRows(5);
+        createDescriptionText.setWrapStyleWord(true);
         createDescriptionPane.setViewportView(createDescriptionText);
 
         createCreateButton.setText("Create Event");
@@ -742,7 +752,7 @@ public class ViewApplet extends javax.swing.JApplet {
                     .addGroup(createEvPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(createMainButton))
-                    .addComponent(createServerScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+                    .addComponent(createServerScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -929,8 +939,11 @@ public class ViewApplet extends javax.swing.JApplet {
 
         manageEvServerLabel.setText("Server Messages");
 
+        manageEvServerText.setEditable(false);
         manageEvServerText.setColumns(20);
+        manageEvServerText.setLineWrap(true);
         manageEvServerText.setRows(5);
+        manageEvServerText.setWrapStyleWord(true);
         manageEvServerScroll.setViewportView(manageEvServerText);
 
         manageEvMainButton.setText("Main Menu");
@@ -947,7 +960,9 @@ public class ViewApplet extends javax.swing.JApplet {
         manageEvDescriptionLabel.setText("Event Description");
 
         manageEvDescriptionText.setColumns(20);
+        manageEvDescriptionText.setLineWrap(true);
         manageEvDescriptionText.setRows(5);
+        manageEvDescriptionText.setWrapStyleWord(true);
         manageEvDescriptionScroll.setViewportView(manageEvDescriptionText);
 
         manageEvUpdateButton.setText("Update Event");
@@ -1085,8 +1100,11 @@ public class ViewApplet extends javax.swing.JApplet {
 
         manageInvServerLabel.setText("Server Messages");
 
+        manageInvServerText.setEditable(false);
         manageInvServerText.setColumns(20);
+        manageInvServerText.setLineWrap(true);
         manageInvServerText.setRows(5);
+        manageInvServerText.setWrapStyleWord(true);
         manageInvServerScroll.setViewportView(manageInvServerText);
 
         manageInvMainButton.setText("Main Menu");
@@ -1170,11 +1188,40 @@ public class ViewApplet extends javax.swing.JApplet {
                         .addComponent(manageInvChooseButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(manageInvMainButton))
-                    .addComponent(manageInvServerScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
+                    .addComponent(manageInvServerScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         manageEvTab.addTab("Invitees & Attendees", manageInvitePanel);
+
+        manageDeletePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Delete Event"));
+
+        manageDeleteButton.setBackground(new java.awt.Color(243, 59, 61));
+        manageDeleteButton.setText("Delete");
+        manageDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageDeleteButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout manageDeletePanelLayout = new javax.swing.GroupLayout(manageDeletePanel);
+        manageDeletePanel.setLayout(manageDeletePanelLayout);
+        manageDeletePanelLayout.setHorizontalGroup(
+            manageDeletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(manageDeletePanelLayout.createSequentialGroup()
+                .addGap(238, 238, 238)
+                .addComponent(manageDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(241, Short.MAX_VALUE))
+        );
+        manageDeletePanelLayout.setVerticalGroup(
+            manageDeletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manageDeletePanelLayout.createSequentialGroup()
+                .addContainerGap(164, Short.MAX_VALUE)
+                .addComponent(manageDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(152, 152, 152))
+        );
+
+        manageEvTab.addTab("Delete Event", manageDeletePanel);
 
         cardContainer.add(manageEvTab, "manage");
 
@@ -1191,7 +1238,7 @@ public class ViewApplet extends javax.swing.JApplet {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cardContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+                .addComponent(cardContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 457, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -1733,9 +1780,9 @@ public class ViewApplet extends javax.swing.JApplet {
                     this.setManageFields();               
                     
                     try{
-                        Mail.Send(invitee, 
+                        Mail.sendEmail(invitee, 
                                 Factory.createTitle(this.currentEvent), 
-                                Factory.createInviteMessage(this.currentEvent));
+                                Factory.createInviteMessage(this.currentEvent));                   
                     }catch(Exception ex){
                         ex.printStackTrace();
                         System.out.println("An email was bad.");
@@ -1829,6 +1876,19 @@ public class ViewApplet extends javax.swing.JApplet {
         
         this.setEnabledLoginPanel(true);
     }//GEN-LAST:event_loginCreateButtonActionPerformed
+
+    private void manageDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageDeleteButtonActionPerformed
+        this.setEnabledManagePanel(false);
+        if(this.controller.deleteEvent(currentEvent).getSuccess())
+        {
+            this.currentEvent = null;
+            this.relevantEvents = null; 
+            this.resetMainPanel();
+            CardLayout cl = (CardLayout)(cardContainer.getLayout());
+            cl.show(cardContainer, "main"); 
+        }
+        this.setEnabledManagePanel(true);
+    }//GEN-LAST:event_manageDeleteButtonActionPerformed
    
     private ArrayList<String> getCreateWeather()
     {
@@ -2062,6 +2122,7 @@ public class ViewApplet extends javax.swing.JApplet {
         this.manageInvInviteButton.setEnabled(toSet);
         this.manageInvInviteField.setEnabled(toSet);
         this.manageInvMainButton.setEnabled(toSet);
+        this.manageDeleteButton.setEnabled(toSet);
     }
     
     private void setEnabledLoginPanel(boolean toSet)
@@ -2089,6 +2150,7 @@ public class ViewApplet extends javax.swing.JApplet {
         
         this.manageInvAttendList.setListData(this.currentEvent.getAccepted().toArray());
         this.manageInvInvitedList.setListData(this.currentEvent.getInvited().toArray());
+        this.manageInvInviteField.setText("");
     }
     
     private void setChooseFields()
@@ -2112,7 +2174,6 @@ public class ViewApplet extends javax.swing.JApplet {
     {
         ArrayList<String> evNames;
         this.relevantEvents = this.view.getEventsInvited(currentUser);
-        
         evNames = new ArrayList<String>();
         
         for(Event e : this.relevantEvents)
@@ -2303,6 +2364,8 @@ public class ViewApplet extends javax.swing.JApplet {
     private javax.swing.JLabel mainServLabel;
     private javax.swing.JTextArea mainServText;
     private javax.swing.JPanel manageCreatePanel;
+    private javax.swing.JButton manageDeleteButton;
+    private javax.swing.JPanel manageDeletePanel;
     private javax.swing.JButton manageEvChooseButton;
     private javax.swing.JTextField manageEvDateField;
     private javax.swing.JLabel manageEvDateLabel;

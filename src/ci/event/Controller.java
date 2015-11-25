@@ -206,6 +206,27 @@ public class Controller {
         return resp;
     }
     
+    public ServerResponse deleteEvent(Event e) {
+        ServerResponse resp;
+        //get a new id for this event from the "event" table
+        try{
+            Statement stmt = con.createStatement();
+            //Add the event to the "event" table
+            stmt.executeQuery(QueryGenerator.deleteQueryEvent(e.getId()));
+            //return a ServerResponse, with a message indicating the
+            //event has been created, and the boolean true
+            resp = new ServerResponse("Event has been removed.", true);
+        } catch ( Exception ex ) {          
+            String message;
+            message = "Uncountered unknown error when creating event:\n" 
+                    + ex.getMessage() + "\nPlease try again.";
+            resp = new ServerResponse(message, false);
+            ex.printStackTrace();
+        }
+        
+        return resp;
+    }
+    
     private int findFreeID(boolean userTable) throws SQLException{
         //Query the database to see if this user exists already
         Statement stmt;
@@ -240,7 +261,7 @@ public class Controller {
         boolean allSent=false;
         
         try{
-        Mail.Send(e.getInvited(), Factory.createTitle(e), Factory.createInviteMessage(e));
+        Mail.sendEmail(e.getInvited(), Factory.createTitle(e), Factory.createInviteMessage(e));
         allSent=true;
         }catch(Exception ex){
             allSent=false;
@@ -270,7 +291,7 @@ public class Controller {
 
             if(!weatherIsGood){
                 try{
-                Mail.Send(e.getCreator(), Factory.createWarningTitle(e), Factory.createWarningMessage(e));
+                Mail.sendEmail(e.getCreator(), Factory.createWarningTitle(e), Factory.createWarningMessage(e));
                 }catch(Exception ex){
                     System.out.println("An email was bad.");
                 }

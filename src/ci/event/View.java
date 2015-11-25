@@ -47,13 +47,15 @@ public class View {
                 stmt = conman.getConnection().createStatement();
                 rs = stmt.executeQuery(QueryGenerator.selectQueryEvent(i));
                 
-                toReturn = Factory.createEvents(rs);
+                toReturn.add( Factory.createEvents(rs).get(0) );
 
             } catch (Exception ex) {
                 System.out.println(ex.getClass().getName() + ": " + ex.getMessage());
             }
         }
 
+        System.out.println();
+        
         return toReturn;
     }
 

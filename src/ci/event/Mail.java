@@ -43,20 +43,20 @@ public class Mail {
      * @throws AddressException if the email address parse failed
      * @throws MessagingException if the connection is dead or not in the connected state or if the message is not a MimeMessage
      */
-    public static void Send( String recipientEmail, String title, String message) throws AddressException, MessagingException {
-        Mail.Send( recipientEmail, "sun.cievents@gmail.com", title, message);
+    public static void sendEmail( String recipientEmail, String title, String message) throws AddressException, MessagingException {
+        Mail.sendEmail( recipientEmail, "sun.cievents@gmail.com", title, message);
     }
 
     
     
-    public static void Send( ArrayList<String> recipientEmails, String title, String message) throws AddressException, MessagingException {
+    public static void sendEmail( ArrayList<String> recipientEmails, String title, String message) throws AddressException, MessagingException {
         for(String recipient : recipientEmails){
-            Mail.Send( recipient, "sun.cievents@gmail.com", title, message);
+            Mail.sendEmail( recipient, "sun.cievents@gmail.com", title, message);
         }
     }
     
-    public static void Send( Event e) throws AddressException, MessagingException {
-        Mail.Send( e.getInvited(), Factory.createTitle(e), Factory.createInviteMessage(e));
+    public static void sendEmail( Event e) throws AddressException, MessagingException {
+        Mail.sendEmail( e.getInvited(), Factory.createTitle(e), Factory.createInviteMessage(e));
     }
     
     /**
@@ -71,7 +71,7 @@ public class Mail {
      * @throws AddressException if the email address parse failed
      * @throws MessagingException if the connection is dead or not in the connected state or if the message is not a MimeMessage
      */
-    public static void Send( String recipientEmail, String ccEmail, String title, String message) throws AddressException, MessagingException {
+    public static void sendEmail( String recipientEmail, String ccEmail, String title, String message) throws AddressException, MessagingException {
         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
         final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 
