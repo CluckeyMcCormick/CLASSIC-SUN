@@ -175,7 +175,7 @@ public class Factory {
     }
     
     public static String createInviteMessage(Event e){
-        return e.getCreator()+" has invited you to "+e.getName()+" on "+calendarToString(e.getDate())+". Head to the CI.Events SUN app now to rsvp.";
+        return e.getCreator()+" has invited you to "+e.getName()+" on "+calendarToString(e.getDate())+". Head to the CI.Events SUN app now to rsvp. \n"+e.getDescription();
     }
     
     public static String createWarningMessage(Event e){
