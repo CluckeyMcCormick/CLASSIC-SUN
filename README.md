@@ -1,4 +1,10 @@
 # SUN
+For this project, we developed an event planning applet using Java. The applet communicated with a remote database so that multiple users could access the applet and change the data.
+
+This was the first time any of our group had done anything involving software engingeering, or databases. Boy, does it show. Rather than using foreign key constraints, we implemented multiple many-to-many relationships by concatinating strings together and storing them in a table. Looking back, that is almost cringeworthy. 
+
+Original Readme
+---------------
 Classic Project
 This is a group porject for COMP 350
 CIEvents, web-based application is required where users are able to create and manage eventsin 
